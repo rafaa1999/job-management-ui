@@ -11,7 +11,7 @@
     {path:"facilities/car-park/:id", component:FacilityComponent },
     {path:"counters/facility/:id", component:CounterComponent },
     {path:"contingents/counter/:id", component:ContingentComponent },
-    {path:"jobs", component:JobComponent },
+    {path:"jobs/:id", component:JobComponent },
     {path:"**", redirectTo:"carParks", pathMatch:"full"}
   ];
 

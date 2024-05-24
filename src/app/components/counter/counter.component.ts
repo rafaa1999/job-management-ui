@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CounterService } from 'src/app/services/counter.service';
+import { MenuItem,MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-counter',
@@ -11,15 +12,32 @@ export class CounterComponent implements OnInit {
 
   counters: any[] = []
 
-  constructor(private route:ActivatedRoute,private service:CounterService){}
+  items: MenuItem[] | undefined;
+
+  home: MenuItem | undefined;
+
+  id:any = ''
+
+  simulation:boolean = true
+
+  value:number = 0
+
+  constructor(private route:ActivatedRoute,
+              private service:CounterService,
+              private messageService:MessageService ){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const id = params.get("id")
-      if(id){
-          this.getAllCountersByFacilityId(id);
+      this.id = params.get("id")
+      if(this.id){
+          this.getAllCountersByFacilityId(this.id);
       }
     })    
+    this.items = [{ icon: 'pi pi-home', routerLink:"/carParks"}, 
+                  { label: 'Car-Parks', routerLink:"/carParks" }, 
+                  { label: 'Facilities', routerLink:`/facilities/car-park/${this.id}`}, 
+                  {label: this.id}
+                ];
   }
 
   getAllCountersByFacilityId(id:string){
@@ -31,4 +49,9 @@ export class CounterComponent implements OnInit {
     })
   }
 
+  handleSimulation(){
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Car Simulation Is Starting' })
+    console.log("handle simulation")
+  }
 }
+

@@ -30,6 +30,14 @@ import { TagModule } from 'primeng/tag';
 import { CardModule } from 'primeng/card';
 import { HttpClientModule } from '@angular/common/http';
 import { SchedulerComponent } from './components/scheduler/scheduler.component';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { KnobModule } from 'primeng/knob';
+import { RouterModule } from '@angular/router';
+
+import { MessageService } from 'primeng/api';  // Import MessageService
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -45,7 +53,11 @@ import { SchedulerComponent } from './components/scheduler/scheduler.component';
   ],
   imports: [
     HttpClientModule,
+    ToastModule,
+    MessagesModule,
+    MessageModule,
     BrowserModule,
+    KnobModule,
     BadgeModule,
     CardModule,
     TagModule,
@@ -57,16 +69,20 @@ import { SchedulerComponent } from './components/scheduler/scheduler.component';
     FormsModule,
     TableModule,
     FieldsetModule,
+    RouterModule,
     PanelModule,
     InputSwitchModule,
     SplitterModule,
+    BreadcrumbModule,
     RadioButtonModule,
     DropdownModule,
     SidebarModule,
     AvatarModule,
     AvatarGroupModule
   ],
-  providers: [],
+  providers: [
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
