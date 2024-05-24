@@ -1,0 +1,59 @@
+
+<div class="m-5 mt-5">
+
+    <div class="flex justify-content-between">
+        <h4>Cron Job</h4>
+        <p-button label="Submit"  (click)="handleVal()"/>
+    </div>
+
+    <div class="flex gap-4 justify-content-center p-2">
+
+        <div class="p-5" style="border: 1px solid #eee; border-radius: 6px; width: 300px; height: 250px;">
+            <p>Every 5 minutes</p>
+            <p>0 0/5 * * * ?</p>
+        </div>
+        <div class="p-5" style="border: 1px solid #eee; border-radius: 6px; width: 300px; height: 250px;">
+            <p>Every 10 minutes</p>
+            <p>0 0/10 * * * ?</p>
+        </div>
+        <div class="p-5" style="border: 1px solid #eee; border-radius: 6px; width: 300px; height: 250px;">
+            <p>Every 15 minutes</p>
+            <p>0 0/15 * * * ?</p>
+        </div>
+        <div class="p-5" style="border: 1px solid #eee; border-radius: 6px; width: 300px; height: 250px;">
+            <p>Every 30 minutes</p>
+            <p>0 0/30 * * * ?</p>
+        </div>
+                    
+    </div>
+
+    <div>
+        <h4>Last Events</h4>
+        <p-table 
+            [value]="products" 
+            styleClass="p-datatable-striped" 
+            [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{product.code}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.quantity}}</td>
+            </tr>
+        </ng-template>
+        </p-table>
+    </div>
+
+    <div>
+        <app-scheduler></app-scheduler>
+    </div>
+
+</div>

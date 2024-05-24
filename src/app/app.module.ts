@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
 import { FieldsetModule } from 'primeng/fieldset';
 import { PanelModule } from 'primeng/panel';
@@ -17,15 +18,39 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SidebarModule } from 'primeng/sidebar';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { CarParkComponent } from './components/car-park/car-park.component';
+import { FacilityComponent } from './components/facility/facility.component';
+import { CounterComponent } from './components/counter/counter.component';
+import { ContingentComponent } from './components/contingent/contingent.component';
+import { JobComponent } from './components/job/job.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { BadgeModule } from 'primeng/badge';
+import { SideBarComponent } from './shared/components/side-bar/side-bar.component';
+import { TagModule } from 'primeng/tag';
+import { CardModule } from 'primeng/card';
+import { HttpClientModule } from '@angular/common/http';
+import { SchedulerComponent } from './components/scheduler/scheduler.component';
 
 @NgModule({
   declarations: [
-    AppComponent
-
+    AppComponent,
+    CarParkComponent,
+    FacilityComponent,
+    CounterComponent,
+    ContingentComponent,
+    JobComponent,
+    HeaderComponent,
+    SideBarComponent,
+    SchedulerComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
+    BadgeModule,
+    CardModule,
+    TagModule,
     AppRoutingModule,
+    MenuModule,
     ButtonModule,
     BrowserAnimationsModule,
     InputTextModule,

@@ -1,0 +1,27 @@
+<div class="flex justify-content-between align-items-center m-2" style="width: 100wv; border-bottom: 1px solid #eee;">
+    <div>
+        <h4>Scheidt&Bachmann</h4>
+    </div>
+    <!-- <div class="flex gap-4">
+        <a routerLink="/carParks">CarPark</a>
+        <a routerLink="/facilities">Facility</a>
+        <a routerLink="/counters">Counter</a>
+        <a routerLink="/contingents">Contingent</a>
+        <a routerLink="/jobs">Job</a>
+    </div> -->
+    <div>
+        <p-dropdown 
+        [options]="cities" 
+        [(ngModel)]="selectedCity" 
+        optionLabel="name" 
+        placeholder="Select a City">
+        <ng-template let-city pTemplate="item">
+            <a [routerLink]="['/',city.name]" class="p-dropdown-item">
+                {{ city.name }}
+            </a>
+        </ng-template>
+        </p-dropdown>
+
+        <!-- <a href="">Tenant_1</a> -->
+    </div>
+</div>

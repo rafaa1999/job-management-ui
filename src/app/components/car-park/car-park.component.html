@@ -1,0 +1,29 @@
+
+<p-table 
+    [value]="carParks" 
+    styleClass="p-datatable-striped" 
+    [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-carPark>
+            <tr>
+                <td>
+                    <a [routerLink]="['/facilities/car-park', carPark.id]">{{carPark.id}}</a> 
+                </td>
+                <td>{{carPark.carParkName}}</td>
+                <td>{{carPark.carParkNumber}}</td>
+                <td>{{carPark.timezone}}</td>
+            </tr>
+        </ng-template>
+</p-table>
+
+
+
+<!-- <p>{{carParks}}</p> -->
+<!-- <p>{{tenant.tenantIdentifier}}</p> -->
