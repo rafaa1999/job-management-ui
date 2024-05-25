@@ -18,6 +18,7 @@ export class FacilityComponent implements OnInit{
 
   id:any = ""
 
+
   constructor(private router:ActivatedRoute,
               private service:FacilityService,
               private route:Router){}

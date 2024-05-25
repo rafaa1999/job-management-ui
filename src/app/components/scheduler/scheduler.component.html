@@ -1,144 +1,227 @@
-<h4>Spring Boot + Quartz + Angular 2</h4>
-<br><br>
-<form  novalidate autocomplete="off">
-    <table>
-        <tr>
-            <td>Enter Job Name:</td>
-            <td>            
-                <input type="text" 
-                    name="jobName" 
-                    id="jobName"
-                    class="form-control"
-                    style="width:100px"
-                />
-            </td>
-            <td>       
-                <a class="btn btn-primary">Check Job with Name exist</a>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>  
-                Status: <b><i>jobNameStatus</i></b>
-            </td>
-        </tr>
-    </table>
-        <br/>
-    <table>
-        <tr>
-            <td>Enter Date and Time:</td>
-            <td>
-                Year:
-                <input type="text" 
-                    name="year" 
-                    id="year"
-                    class="form-control"
-                    style="width:100px"/>
-            </td>
-            <td>
-                Month:
-                <input type="text" 
-                    name="month" 
-                    id="month"
-                    class="form-control"
-                    style="width:100px"/>
-            </td>
-            <td>
-                Day:
-                <input type="text" 
-                    name="day" 
-                    id="day"
-                    class="form-control"
-                    style="width:100px"/>
-            </td>
-            <td>
-                Hour(24-hour):
-                <input type="text" 
-                    name="hour" 
-                    id="hour"
-                    class="form-control"
-                    style="width:100px"/>
-            </td>
-            <td>
-                Minute:
-                <input type="text" 
-                    name="minute" 
-                    id="minute"
-                    class="form-control"
-                    style="width:100px"/>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="padding: 5px;" colspan="5">
-                <b>If given date/time is invalid then job will not get scheduled.
-                If given date is older than current date then job will be started immediately</b> 
-            </td>
-        </tr>
-    </table>
-    <br/><br/>
-    <table>
-        <tr>
-            <td style="padding: 5px;">
-                Enter Cron expression
-            </td>
-            <td>
-                <input type="text" 
-                    name="cronExpression" 
-                    id="cronExpression"
-                    class="form-control"
-                    style="width:200px"/>
-            </td>
-            <td>Select Sample Cron:</td>
-            <td> 
-                <select  
-                    class="form-control">
-                    <option value="0 0/1 * 1/1 * ? *">Every 1 minutes</option>
-                    <option value="0 0 10 1/1 * ? *">Every day at 10 AM</option>
-                    <option value="0 0 0/1 1/1 * ? *">Every hour starting 10 AM</option>
-                    <option value="0 0 10 ? * TUE,THU *">Every week Tue and Thur at 10 AM</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td colspan="2">
-                <b>If Cron expression is blank then it will be treated as One time job</b> 
-            </td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <td style="padding: 5px;" colspan="2">
-                
-                <!-- Used only in case of Adding New Job -->
-                <input type="button" 
-                    name="submit" 
-                    id="submit" 
-                    class="btn btn-primary" 
-                    value="Submit"/>
-                
-                <!-- Used only in case of Edit Job -->
-                <input type="button" 
-                    name="submit" 
-                    id="submit" 
-                    class="btn btn-primary" 
-                    value="Update"/>
 
-                <input type="button" 
-                    name="submit" 
-                    id="submit" 
-                    class="btn btn-primary" 
-                    value="Cancel"/>
-            </td>
-        </tr>
-    </table>
-    
-</form>
-<br/><br/>
-<div>
-    <label>Job List:</label>
-    <br/><br/>
+<div style="border: 1px solid #eee;border-radius: 6px;" class="p-4">
+
+    <!-- <form  novalidate autocomplete="off">
+        <table>
+            <tr>
+                <td>Enter Job Name:</td>
+                <td>            
+                    <input type="text" 
+                        name="jobName" 
+                        id="jobName"
+                        class="form-control"
+                        style="width:100px"
+                    />
+                </td>
+                <td>       
+                    <a class="btn btn-primary">Check Job with Name exist</a>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>  
+                    Status: <b><i>jobNameStatus</i></b>
+                </td>
+            </tr>
+            
+        </table>
+            <br/>
+        <table>
+            <tr>
+                <td>Enter Date and Time:</td>
+                <td>
+                    Year:
+                    <input type="text" 
+                        name="year" 
+                        id="year"
+                        class="form-control"
+                        style="width:100px"/>
+                </td>
+                <td>
+                    Month:
+                    <input type="text" 
+                        name="month" 
+                        id="month"
+                        class="form-control"
+                        style="width:100px"/>
+                </td>
+                <td>
+                    Day:
+                    <input type="text" 
+                        name="day" 
+                        id="day"
+                        class="form-control"
+                        style="width:100px"/>
+                </td>
+                <td>
+                    Hour(24-hour):
+                    <input type="text" 
+                        name="hour" 
+                        id="hour"
+                        class="form-control"
+                        style="width:100px"/>
+                </td>
+                <td>
+                    Minute:
+                    <input type="text" 
+                        name="minute" 
+                        id="minute"
+                        class="form-control"
+                        style="width:100px"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding: 5px;" colspan="5">
+                    <b>If given date/time is invalid then job will not get scheduled.
+                    If given date is older than current date then job will be started immediately</b> 
+                </td>
+            </tr>
+        </table>
+        <br/><br/>
+        <table>
+            <tr>
+                <td style="padding: 5px;">
+                    Enter Cron expression
+                </td>
+                <td>
+                    <input type="text" 
+                        name="cronExpression" 
+                        id="cronExpression"
+                        class="form-control"
+                        style="width:200px"/>
+                </td>
+                <td>Select Sample Cron:</td>
+                <td> 
+                    <select  
+                        class="form-control">
+                        <option value="0 0/1 * 1/1 * ? *">Every 1 minutes</option>
+                        <option value="0 0 10 1/1 * ? *">Every day at 10 AM</option>
+                        <option value="0 0 0/1 1/1 * ? *">Every hour starting 10 AM</option>
+                        <option value="0 0 10 ? * TUE,THU *">Every week Tue and Thur at 10 AM</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">
+                    <b>If Cron expression is blank then it will be treated as One time job</b> 
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td style="padding: 5px;" colspan="2">
+                    
+                    <input type="button" 
+                        name="submit" 
+                        id="submit" 
+                        class="btn btn-primary" 
+                        value="Submit"/>
+                    
+                    <input type="button" 
+                        name="submit" 
+                        id="submit" 
+                        class="btn btn-primary" 
+                        value="Update"/>
+
+                    <input type="button" 
+                        name="submit" 
+                        id="submit" 
+                        class="btn btn-primary" 
+                        value="Cancel"/>
+                </td>
+            </tr>
+        </table>
+    </form> -->
+
+    <div>
+        <form>
+            <div class="flex gap-2">
+                <p-dropdown 
+                optionLabel="name" 
+                placeholder="Select a JobName" />
+                <p-button label="Check Job with Name exist" />
+            </div>
+            <div class="flex gap-2 my-4 align-items-center">
+                <div class="flex flex-column gap-1">
+                    <label>Date:</label>
+                    <p-calendar 
+                    [showIcon]="true" 
+                    inputId="icondisplay" />
+                </div>
+                <div class="flex flex-column gap-1">
+                    <label>Hour(24-hour):</label>
+                    <p-dropdown 
+                    optionLabel="name" 
+                    placeholder="Select a JobName" /> 
+                </div>
+                <div class="flex flex-column gap-1">
+                    <label>Minute:</label>
+                    <p-dropdown 
+                    optionLabel="name" 
+                    placeholder="Select a JobName" />
+                </div>
+            </div>
+            <div>
+                <h5>If given date/time is invalid then job will not get scheduled. If date is older than current date then job will be started immediately</h5   >
+            </div>
+            <div class="flex gap-2">
+                <div class="flex flex-column gap-1">
+                    <label>Cron Expression:</label>
+                    <input type="text" pInputText/>
+                </div>
+                <div class="flex flex-column gap-1">
+                    <label>Select Simple Cron</label>
+                    <p-dropdown 
+                    optionLabel="name" 
+                    placeholder="Select a JobName" />
+                </div>
+            </div>
+            <div>
+                <h5>If Cron expression is blank then it will be treated as One time job</h5   >
+            </div>
+            <div class="flex">
+                <p-button label="Submit" />
+            </div>
+        </form>
+    </div>
+
+
+    <div class="flex align-items-center gap-2 mt-2">
+        <div class="mt-2">
+            <p-inputSwitch [(ngModel)]="checked" />
+        </div>
+        <p>Schedule expires</p>
+    </div>
+
+</div>
+
+<div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
+    <h4>Notify me when...</h4>
+    <div class="flex align-items-center gap-2">
+        <div class="mt-2">
+            <p-inputSwitch [(ngModel)]="checked" />
+        </div>
+        <p>execution of the cronjob fails</p>
+    </div>
+    <div class="flex align-items-center gap-2">
+        <div class="mt-2">
+            <p-inputSwitch [(ngModel)]="checked" />
+        </div>
+        <p>execution of the cronjob succeeds after it failed before</p>
+    </div>
+    <div class="flex align-items-center gap-2">
+        <div class="mt-2">
+            <p-inputSwitch [(ngModel)]="checked" />
+        </div>
+        <p>the cronjob will be disabled because of too many failures</p>
+    </div>
+</div>
+
+
+<div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
+    <h4>Job List:</h4>
     <label style="color: red">
         Note:<br/>
         1. Completed jobs will not be shown in listing.

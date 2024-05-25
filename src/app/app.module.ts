@@ -33,6 +33,8 @@ import { SchedulerComponent } from './components/scheduler/scheduler.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { KnobModule } from 'primeng/knob';
 import { RouterModule } from '@angular/router';
+import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 import { MessageService } from 'primeng/api';  // Import MessageService
 import { MessagesModule } from 'primeng/messages';
@@ -56,6 +58,8 @@ import { ToastModule } from 'primeng/toast';
     ToastModule,
     MessagesModule,
     MessageModule,
+    InputNumberModule,
+    CalendarModule,
     BrowserModule,
     KnobModule,
     BadgeModule,
