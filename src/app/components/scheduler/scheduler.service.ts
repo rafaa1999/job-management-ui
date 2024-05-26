@@ -82,6 +82,17 @@ export class SchedulerService {
   //     .pipe(map(resData => resData));
   // }
 
+  pauseJob(data: any){
+    let params = new HttpParams();
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        params = params.append(key, data[key]);
+      }
+    }
+    return this.http.get("http://localhost:8081/scheduler/pause?tenantId=meta", { headers: this.headers, params: params })
+      .pipe(map(resData => resData));
+  }
+
   // pauseJob(data: any): Observable<any> {
   //   let params = new HttpParams();
   //   for (let key in data) {
@@ -92,6 +103,17 @@ export class SchedulerService {
   //   return this.http.get(this.pauseJobUrl, { headers: this.headers, params: params })
   //     .pipe(map(resData => resData));
   // }
+
+  resumeJob(data: any){
+    let params = new HttpParams();
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        params = params.append(key, data[key]);
+      }
+    }
+    return this.http.get("http://localhost:8081/scheduler/resume?tenantId=meta", { headers: this.headers, params: params })
+      .pipe(map(resData => resData));
+  }
 
   // resumeJob(data: any): Observable<any> {
   //   let params = new HttpParams();
@@ -104,6 +126,17 @@ export class SchedulerService {
   //     .pipe(map(resData => resData));
   // }
 
+  deleteJob(data: any){
+    let params = new HttpParams();
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        params = params.append(key, data[key]);
+      }
+    }
+    return this.http.get("http://localhost:8081/scheduler/delete?tenantId=meta", { headers: this.headers, params: params })
+      .pipe(map(resData => resData));
+  }
+
   // deleteJob(data: any): Observable<any> {
   //   let params = new HttpParams();
   //   for (let key in data) {
@@ -114,6 +147,17 @@ export class SchedulerService {
   //   return this.http.get(this.deleteJobUrl, { headers: this.headers, params: params })
   //     .pipe(map(resData => resData));
   // }
+
+  stopJob(data: any){
+    let params = new HttpParams();
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        params = params.append(key, data[key]);
+      }
+    }
+    return this.http.get("http://localhost:8081/scheduler/stop?tenantId=meta", { headers: this.headers, params: params })
+      .pipe(map(resData => resData));
+  }
 
   // stopJob(data: any): Observable<any> {
   //   let params = new HttpParams();
@@ -126,6 +170,17 @@ export class SchedulerService {
   //     .pipe(map(resData => resData));
   // }
 
+  startJobNow(data:any){
+    let params = new HttpParams();
+      for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        params = params.append(key, data[key]);
+      }
+    }
+    return this.http.get("http://localhost:8081/scheduler/start?tenantId=meta", { headers: this.headers, params: params })
+      .pipe(map(resData => resData));
+  }
+
   // startJobNow(data: any): Observable<any> {
   //   let params = new HttpParams();
   //   for (let key in data) {
@@ -136,6 +191,17 @@ export class SchedulerService {
   //   return this.http.get(this.startJobNowUrl, { headers: this.headers, params: params })
   //     .pipe(map(resData => resData));
   // }
+
+  updateJob(data:any){
+    let params = new HttpParams();
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        params = params.append(key, data[key]);
+      }
+    }
+    return this.http.get("http://localhost:8081/scheduler/update?tenantId=meta", { headers: this.headers, params: params })
+      .pipe(map(resData => resData));
+  }
 
   // updateJob(data: any): Observable<any> {
   //   let params = new HttpParams();

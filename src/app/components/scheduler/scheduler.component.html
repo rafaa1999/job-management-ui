@@ -186,18 +186,56 @@
             <div>
                 <h5>If Cron expression is blank then it will be treated as One time job</h5   >
             </div>
-            <div class="flex">
-                <p-button label="Submit" (click)="handleBtn()" />
-            </div>
         </form>
-    </div>
 
+        <div class="flex gap-2">
+            <p-button label="Schedule Job" 
+            icon="pi pi-calendar-clock"
+            (click)="scheduleJob()"
+            />
+            <p-button label="Update Job" 
+            icon="pi pi-pen-to-square"
+            (click)="updateJob()"
+            />
+            <p-button label="Cancel Edit"
+             icon="pi pi-times"
+             (click)="cancelEdit()"
+             />
+        </div>
+    </div>
 
     <div class="flex align-items-center gap-2 mt-2">
         <div class="mt-2">
-            <p-inputSwitch [(ngModel)]="checked" />
+            <p-inputSwitch [(ngModel)]="scheduleExpiration" />
         </div>
         <p>Schedule expires</p>
+    </div>
+
+    <div *ngIf="scheduleExpiration">
+        <form>
+            <div class="flex gap-2 my-4 align-items-center">
+                <div class="flex flex-column gap-1">
+                    <label>Date:</label>
+                    <p-calendar 
+                    [showIcon]="true" 
+                    inputId="icondisplay" 
+                    (onChange)="onDateChange($event)"
+                    />
+                </div>
+                <div class="flex flex-column gap-1">
+                    <label>Hour(24-hour):</label>
+                    <p-dropdown 
+                    optionLabel="name" 
+                    placeholder="Select a JobName" /> 
+                </div>
+                <div class="flex flex-column gap-1">
+                    <label>Minute:</label>
+                    <p-dropdown 
+                    optionLabel="name" 
+                    placeholder="Select a JobName" />
+                </div>
+            </div>
+        </form>
     </div>
 
 </div>
@@ -224,6 +262,10 @@
     </div>
 </div>
 
+<div class="flex flex-row-reverse">
+    <p-button label="Submit Job"
+         icon="pi pi-calendar-clock"/>
+</div>
 
 <div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
     <h4>Job List:</h4>
