@@ -136,11 +136,15 @@
     </form> -->
 
     <div class="my-4">
-        <form>
+        <form [formGroup]="schedulerForm" novalidate autocomplete="off">
             <div class="flex gap-2">
                 <p-dropdown 
                 optionLabel="name" 
-                placeholder="Select a JobName" />
+                placeholder="Select a JobName" 
+                formControlName="jobName"
+                [options]="jobs"
+                [(ngModel)]="selectedJob" 
+                />
                 <p-button label="Check Job with Name exist" (click)="checkJobExistWith('capacity_meta')"/>
             </div>
             <div>
@@ -153,19 +157,28 @@
                     [showIcon]="true" 
                     inputId="icondisplay" 
                     (onChange)="onDateChange($event)"
+                    formControlName="date"
                     />
                 </div>
                 <div class="flex flex-column gap-1">
                     <label>Hour(24-hour):</label>
                     <p-dropdown 
                     optionLabel="name" 
-                    placeholder="Select a JobName" /> 
+                    placeholder="Select a JobName"
+                    formControlName="hour"
+                    [options]="hours"
+                    [(ngModel)]="selectedHour" 
+                     /> 
                 </div>
                 <div class="flex flex-column gap-1">
                     <label>Minute:</label>
                     <p-dropdown 
                     optionLabel="name" 
-                    placeholder="Select a JobName" />
+                    placeholder="Select a JobName" 
+                    formControlName="minute"
+                    [options]="minutes"
+                    [(ngModel)]="selectedMinute" 
+                    />
                 </div>
             </div>
             <div>
@@ -174,13 +187,15 @@
             <div class="flex gap-2">
                 <div class="flex flex-column gap-1">
                     <label>Cron Expression:</label>
-                    <input type="text" pInputText/>
+                    <input type="text" pInputText formControlName="cronExpression"/>
                 </div>
                 <div class="flex flex-column gap-1">
                     <label>Select Simple Cron</label>
                     <p-dropdown 
                     optionLabel="name" 
-                    placeholder="Select a JobName" />
+                    placeholder="Select a JobName" 
+                    (change)="cronChange($event)"
+                    />
                 </div>
             </div>
             <div>
@@ -192,14 +207,17 @@
             <p-button label="Schedule Job" 
             icon="pi pi-calendar-clock"
             (click)="scheduleJob()"
+            *ngIf="!isEditMode" 
             />
             <p-button label="Update Job" 
             icon="pi pi-pen-to-square"
             (click)="updateJob()"
+            *ngIf="isEditMode" 
             />
             <p-button label="Cancel Edit"
              icon="pi pi-times"
              (click)="cancelEdit()"
+             *ngIf="isEditMode" 
              />
         </div>
     </div>
@@ -262,10 +280,10 @@
     </div>
 </div>
 
-<div class="flex flex-row-reverse">
+<!-- <div class="flex flex-row-reverse">
     <p-button label="Submit Job"
          icon="pi pi-calendar-clock"/>
-</div>
+</div> -->
 
 <div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
     <h4>Job List:</h4>
@@ -289,9 +307,9 @@
             <ng-container *ngFor="let jobRec of jobRecords;let i=index"> 
                 <tr>
                     <td>{{jobRec.jobName}}</td>
-                    <td>{{jobRec.scheduleTime}} </td>
-                    <td>{{jobRec.lastFiredTime}} </td>
-                    <td>{{jobRec.nextFireTime}} </td>
+                    <td>{{jobRec.scheduleTime | date: 'dd/MM/yyyy HH:mm:ss' }} </td>
+                    <td>{{jobRec.lastFiredTime | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
+                    <td>{{jobRec.nextFireTime | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
                     <td>
                         <button class="btn btn-primary"
                         [disabled]="jobRec.jobStatus == 'RUNNING'"

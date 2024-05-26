@@ -35,6 +35,7 @@ import { KnobModule } from 'primeng/knob';
 import { RouterModule } from '@angular/router';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ReactiveFormsModule } from '@angular/forms';  // Import ReactiveFormsModule
 
 import { MessageService } from 'primeng/api';  // Import MessageService
 import { MessagesModule } from 'primeng/messages';
@@ -84,7 +85,9 @@ import { LoginComponent } from './components/login/login.component';
     DropdownModule,
     SidebarModule,
     AvatarModule,
-    AvatarGroupModule
+    AvatarGroupModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     MessageService
