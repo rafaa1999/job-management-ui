@@ -68,6 +68,7 @@ export class SchedulerService {
       }
     } 
     return this.http.get("http://localhost:8081/scheduler/checkJobName?tenantId=meta",{headers: this.headers, params: params})    
+            .pipe(map(resData => resData))
   }
 
   // isJobWithNamePresent(data: any): Observable<any> {

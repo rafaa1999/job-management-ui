@@ -40,6 +40,7 @@ import { MessageService } from 'primeng/api';  // Import MessageService
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ToastModule } from 'primeng/toast';
     HeaderComponent,
     SideBarComponent,
     SchedulerComponent,
+    LoginComponent,
   ],
   imports: [
     HttpClientModule,

@@ -135,20 +135,25 @@
         </table>
     </form> -->
 
-    <div>
+    <div class="my-4">
         <form>
             <div class="flex gap-2">
                 <p-dropdown 
                 optionLabel="name" 
                 placeholder="Select a JobName" />
-                <p-button label="Check Job with Name exist" />
+                <p-button label="Check Job with Name exist" (click)="checkJobExistWith('capacity_meta')"/>
+            </div>
+            <div>
+                <p>Status: <span style="color: cornflowerblue;">{{jobNameStatus}}</span></p>
             </div>
             <div class="flex gap-2 my-4 align-items-center">
                 <div class="flex flex-column gap-1">
                     <label>Date:</label>
                     <p-calendar 
                     [showIcon]="true" 
-                    inputId="icondisplay" />
+                    inputId="icondisplay" 
+                    (onChange)="onDateChange($event)"
+                    />
                 </div>
                 <div class="flex flex-column gap-1">
                     <label>Hour(24-hour):</label>
@@ -182,7 +187,7 @@
                 <h5>If Cron expression is blank then it will be treated as One time job</h5   >
             </div>
             <div class="flex">
-                <p-button label="Submit" />
+                <p-button label="Submit" (click)="handleBtn()" />
             </div>
         </form>
     </div>
@@ -239,26 +244,55 @@
             <th>Job Status</th>
         </thead>
         <tbody>
-            <ng-container> 
+            <ng-container *ngFor="let jobRec of jobRecords;let i=index"> 
                 <tr>
-                    <td>jobRec.jobName</td>
-                    <td>jobRec.scheduleTime </td>
-                    <td>jobRec.lastFiredTime </td>
-                    <td>jobRec.nextFireTime </td>
+                    <td>{{jobRec.jobName}}</td>
+                    <td>{{jobRec.scheduleTime}} </td>
+                    <td>{{jobRec.lastFiredTime}} </td>
+                    <td>{{jobRec.nextFireTime}} </td>
                     <td>
-                        <button class="btn btn-primary" >Start Job Now</button> |
+                        <button class="btn btn-primary"
+                        [disabled]="jobRec.jobStatus == 'RUNNING'"
+                        (click)='startJobNow(jobRec.jobName)'
+                        >Start Job Now</button> |
+                        <!-- <p-button label="Start Job Now"/> -->
 
-                        <button class="btn btn-primary" >Pause Job</button> |
+                        <button class="btn btn-primary" 
+                        [disabled]="jobRec.jobStatus != 'SCHEDULED'"
+                        (click)='pauseJob(jobRec.jobName)'
+                        >Pause Job</button> |
+                        <!-- <p-button label="Pause Job"/> -->
 
-                        <button class="btn btn-primary" >Resume Job</button> |
 
-                        <button class="btn btn-primary" >Delete Job</button> |
+                        <button class="btn btn-primary" 
+                        [disabled]="jobRec.jobStatus != 'PAUSED'"
+                        (click)='resumeJob(jobRec.jobName)'
+                        >Resume Job</button> |
+                        <!-- <p-button label="Resume Job"/> -->
 
-                        <button class="btn btn-primary" >Stop Job</button> |
 
-                        <button class="btn btn-primary" >Edit Job</button>
+                        <button class="btn btn-primary" 
+                        [disabled]="jobRec.jobStatus == 'RUNNING'"
+                        (click)='deleteJob(jobRec.jobName)'
+                        >Delete Job</button> |
+                        <!-- <p-button label="Delete Job"/> -->
+
+
+                        <button class="btn btn-primary" 
+                        [disabled]="jobRec.jobStatus != 'RUNNING'"
+                        (click)='stopJob(jobRec.jobName)'
+                        >Stop Job</button> |
+                        <!-- <p-button label="Stop Job"/> -->
+
+
+                        <button class="btn btn-primary" 
+                        [disabled]="jobRec.jobStatus == 'RUNNING'"
+                        (click)='editJob(jobRec)'
+                        >Edit Job</button>
+                        <!-- <p-button label="Edit Job"/> -->
+
                     </td>
-                    <td>jobRec.jobStatus</td>
+                    <td>{{jobRec.jobStatus}}</td>
                 </tr>
             </ng-container>
         </tbody>
