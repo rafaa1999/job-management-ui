@@ -57,7 +57,7 @@ export class CounterComponent implements OnInit {
   simulateAdd(id:any){
     // console.log(id)
     this.service.simulateAdd(id).subscribe((data:any) => {
-      console.log(data)
+      this.counters
     },err => {
       console.log(err)
     })
@@ -66,7 +66,7 @@ export class CounterComponent implements OnInit {
   simulateDelete(id:any){
     // console.log(id)
     this.service.simulateDelete(id).subscribe((data:any) => {
-      console.log(data)
+      this.counters
     },err => {
       console.log(err)
     })

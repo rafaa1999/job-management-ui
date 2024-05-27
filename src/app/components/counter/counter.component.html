@@ -51,8 +51,10 @@
                 <td>{{counter.category}}</td>
                 <td>{{counter.occupied}}</td>
                 <td>
-                    <button (click)="simulateAdd(counter.id)">Simulate-Enter</button> |
-                    <button (click)="simulateDelete(counter.id)">Simulate-Exit</button>
+                    <!-- <p-button class="btn-up" (click)="simulateAdd(counter.id)" icon="pi pi-sort-up-fill" /> |
+                    <p-button class="btn-down" (click)="simulateDelete(counter.id)" icon="pi pi-sort-down-fill"/> -->
+                    <button class="btn-up" (click)="simulateAdd(counter.id)">Simulate-Enter</button> |
+                    <button class="btn-down" (click)="simulateDelete(counter.id)">Simulate-Exit</button>
                 </td>
             </tr>
         </ng-template>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SchedulerService } from './scheduler.service';
 import { ServerResponseCode } from './response.code.constants';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 interface Job {
   name: string;
@@ -57,7 +58,11 @@ export class SchedulerComponent implements OnInit {
   
   checkedManyFailures?:boolean
 
-  constructor(private service: SchedulerService, private fb: FormBuilder) {}
+  facilityId?:any
+
+  constructor(private service: SchedulerService, private fb: FormBuilder,
+              private route:ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.jobNameStatus = '';
@@ -205,7 +210,13 @@ export class SchedulerComponent implements OnInit {
     let hour = this.schedulerForm?.value.hour.name;
     let minute = this.schedulerForm?.value.minute.name;
 
-    date = date.split("/")[2] + "/" + date.split("/")[1] + "/" + date.split("/")[0]
+    console.log(date)
+
+    console.log("=========")
+
+    date = date.split("/")[2] + "/" + date.split("/")[0] + "/" + date.split("/")[1]
+
+    console.log(date)
 
     let data = {
       jobName: this.schedulerForm?.value.jobName.name,
@@ -213,9 +224,19 @@ export class SchedulerComponent implements OnInit {
       cronExpression: this.schedulerForm?.value.cronExpression,
     };
 
-    console.log(data);
     
-    this.service.scheduleJob(data).subscribe(
+    console.log("************");
+    console.log(data);
+
+    this.route.paramMap.subscribe((params:any) =>{
+      this.facilityId = params.get('id')
+      // console.log(`this is the id from the URL ${this.facilityId}`)
+      // console.log(this.facilityId)
+    })
+
+    console.log(this.facilityId)
+    
+    this.service.scheduleJob(data,this.facilityId).subscribe(
       (success:any) => {
           console.log(success)
           if(success.statusCode == ServerResponseCode.SUCCESS){

@@ -37,14 +37,16 @@ export class SchedulerService {
     return this.http.get("http://localhost:8081/scheduler/jobs?tenantId=meta")
   }
 
-  scheduleJob(data:any){
+  scheduleJob(data:any,id:any){
+    console.log(id)
     let params = new HttpParams();
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
         params = params.append(key, data[key]);
       }
     }
-    return this.http.get("http://localhost:8081/scheduler/schedule?tenantId=meta",{headers: this.headers, params: params})    
+    // return this.http.get(`http://localhost:8081/scheduler/schedule/${id}?tenantId=meta`,{headers: this.headers, params: params})    
+    return this.http.get(`http://localhost:8081/scheduler/schedule/${id}?tenantId=meta`, { headers: this.headers, params: params });
   }
 
   // scheduleJob(data: any): Observable<any> {
