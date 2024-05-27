@@ -144,6 +144,7 @@
                 formControlName="jobName"
                 [options]="jobs"
                 [(ngModel)]="selectedJob" 
+                [readonly]="isEditMode"
                 />
                 <p-button label="Check Job with Name exist" (click)="checkJobExistWith(schedulerForm.value.jobName.name)"/>
             </div>
@@ -193,9 +194,11 @@
                     <label>Select Simple Cron</label>
                     <p-dropdown 
                     optionLabel="name" 
-                    placeholder="Select a JobName" 
+                    placeholder="Select a Cron Example" 
                     (change)="cronChange($event)"
                     />
+                    <!-- [(ngModel)]="selectedCron" 
+                    [options]="crons" -->
                 </div>
             </div>
             <div>

@@ -15,6 +15,10 @@ interface Minute {
   name: string;
 }
 
+interface Cron {
+  name: string
+}
+
 @Component({
   selector: 'app-scheduler',
   templateUrl: './scheduler.component.html',
@@ -44,10 +48,20 @@ export class SchedulerComponent implements OnInit {
   minutes: any[] = [];
   selectedMinute: Minute | undefined;
 
+  crons: any[] = [];
+  selectedCron: Cron | undefined;
+
   constructor(private service: SchedulerService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.jobNameStatus = '';
+
+    this.crons = [
+      {name: 'Every 1 minutes'},
+      {name: 'Every day at 10 AM'},
+      {name: 'Every hour starting 10 AM'},
+      {name: 'Every week Tue and Thur at 10 AM'},
+    ]
 
     this.jobs = [
       { name: 'resetting' },
@@ -180,7 +194,7 @@ export class SchedulerComponent implements OnInit {
   }
 
   scheduleJob() {
-    let jobName = this.schedulerForm?.value.jobName;
+    let jobName = this.schedulerForm?.value.jobName.name;
     let date = this.schedulerForm?.value.date.toLocaleDateString();
     let hour = this.schedulerForm?.value.hour.name;
     let minute = this.schedulerForm?.value.minute.name;
