@@ -481,7 +481,7 @@ export class SchedulerComponent implements OnInit {
     let hour = this.schedulerForm?.value.hour.name;
     let minute = this.schedulerForm?.value.minute.name;
 
-    date = date.split("/")[2] + "/" + date.split("/")[1] + "/" + date.split("/")[0]
+    date = date.split("/")[2] + "/" + date.split("/")[0] + "/" + date.split("/")[1]
 
     let data = {
       jobName: this.schedulerForm?.value.jobName,
