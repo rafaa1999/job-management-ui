@@ -1,0 +1,12 @@
+.select-style{
+        padding: 13px;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    gap: 10px;
+}
+
+tr:nth-child(even) {
+    background-color: #e9e9e9f1;
+}

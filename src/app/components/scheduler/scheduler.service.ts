@@ -27,7 +27,6 @@ export class SchedulerService {
   //   return this.http.get("http://localhost:8081/api/car-parks?tenantId=meta", { headers });
   // }
 
-
   constructor(private http: HttpClient) {}
 
   // getJobs(): Observable<any> {
@@ -212,4 +211,7 @@ export class SchedulerService {
   //   return this.http.get(this.updateJobUrl, { headers: this.headers, params: params })
   //     .pipe(map(resData => resData));
   // }
+
+
+
 }

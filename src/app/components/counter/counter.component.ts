@@ -53,5 +53,23 @@ export class CounterComponent implements OnInit {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Car Simulation Is Starting' })
     console.log("handle simulation")
   }
+
+  simulateAdd(id:any){
+    // console.log(id)
+    this.service.simulateAdd(id).subscribe((data:any) => {
+      console.log(data)
+    },err => {
+      console.log(err)
+    })
+  }
+
+  simulateDelete(id:any){
+    // console.log(id)
+    this.service.simulateDelete(id).subscribe((data:any) => {
+      console.log(data)
+    },err => {
+      console.log(err)
+    })
+  }
 }
 

@@ -51,6 +51,12 @@ export class SchedulerComponent implements OnInit {
   crons: any[] = [];
   selectedCron: Cron | undefined;
 
+  checkedFail?:boolean
+
+  checkedSuccedAfterFailed?:boolean
+  
+  checkedManyFailures?:boolean
+
   constructor(private service: SchedulerService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -147,12 +153,12 @@ export class SchedulerComponent implements OnInit {
     let date = new Date();
     this.schedulerForm?.patchValue({
       date:
-        date.getFullYear() + '/' + date.getMonth() + 1 + '/' + date.getDate(),
+        date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate(),
       hour: date.getHours(),
       minute: date.getMinutes(),
     });
     console.log(
-      date.getFullYear() + '/' + date.getMonth() + 1 + '/' + date.getDate()
+      date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
     );
   }
 
@@ -163,8 +169,8 @@ export class SchedulerComponent implements OnInit {
       date:
         dateNow.getFullYear() +
         '/' +
-        dateNow.getMonth() +
-        1 +
+        (dateNow.getMonth() +
+        1) +
         '/' +
         dateNow.getHours(),
       hour: dateNow.getHours(),
@@ -253,10 +259,6 @@ export class SchedulerComponent implements OnInit {
       }
     );
     this.jobNameStatus = '';
-  }
-
-  handleBtn() {
-    console.log(this.cal);
   }
 
   onDateChange(event: any): void {
@@ -435,20 +437,94 @@ export class SchedulerComponent implements OnInit {
     );
   }
 
-  editJob(jobName: any) {}
+  editJob(selectedJobRow: any) {
+    this.isEditMode = true;
+    
+    let d = Date.parse(selectedJobRow.scheduleTime);
+    let date = new Date(selectedJobRow.scheduleTime); 
+    // console.log(selectedJobRow.jobName)
+    this.schedulerForm.patchValue({
+        jobName: selectedJobRow.jobName,
+        date: date.getFullYear() + "/" + date.getMonth() + 1 + "/" + date.getDate(),
+        hour: date.getHours(),
+        minute: date.getMinutes()
+      });
+    // console.log(this.schedulerForm)
+  }
+
 
   updateJob() {
-    console.log('update job');
+
+    let jobName = this.schedulerForm?.value.jobName;
+    let date = this.schedulerForm?.value.date.toLocaleDateString();
+    let hour = this.schedulerForm?.value.hour.name;
+    let minute = this.schedulerForm?.value.minute.name;
+
+    date = date.split("/")[2] + "/" + date.split("/")[1] + "/" + date.split("/")[0]
+
+    let data = {
+      jobName: this.schedulerForm?.value.jobName,
+      jobScheduleTime: this.getFormattedDate(date, hour, minute),
+      cronExpression: this.schedulerForm?.value.cronExpression,
+    };
+
+    console.log(data)
+
+    // var jobName = this.schedulerForm.value.jobName;
+    // var year = this.schedulerForm.value.year;
+    // var month = this.schedulerForm.value.month;
+    // var day = this.schedulerForm.value.day;
+    // var hour = this.schedulerForm.value.hour;
+    // var minute = this.schedulerForm.value.minute;
+    
+    // var data = {
+    //   "jobName": this.schedulerForm.value.jobName,
+    //   "jobScheduleTime": this.getFormattedDate(year, month, day, hour, minute),
+    //   "cronExpression": this.schedulerForm.value.cronExpression
+    // }
+
+    this.service.updateJob(data).subscribe(
+      (success:any) => {
+          if(success.statusCode == ServerResponseCode.SUCCESS){
+            alert("Job updated successfully.");
+            this.resetForm();
+
+          }else if(success.statusCode == ServerResponseCode.JOB_DOESNT_EXIST){
+            alert("Job no longer exist.");
+          
+          }else if(success.statusCode == ServerResponseCode.JOB_NAME_NOT_PRESENT){
+            alert("Please provide job name.");
+          }
+          this.jobRecords = success.data;
+      },
+      err => {
+        alert("Error while updating job");
+      });
   }
 
   cancelEdit() {
-    console.log('cancel job');
+    this.resetForm();
+    this.isEditMode = false;
   }
+
+  refreshJob(){
+    //For updating fresh status of all jobs 
+    this.getJobs();   
+}
+
 
   cronChange(cronExp: any) {
     this.schedulerForm.patchValue({
       cronExpression: cronExp.target.value,
     });
   }
+
+  onDateExpireChange(event:any){
+    
+  }
+
+
+
+
 }
 

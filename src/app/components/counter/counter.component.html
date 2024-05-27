@@ -38,6 +38,7 @@
                 <th>capacity</th>
                 <th>category</th>
                 <th>occupied</th>
+                <th>action</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-counter>
@@ -49,6 +50,10 @@
                 <td>{{counter.capacity}}</td>
                 <td>{{counter.category}}</td>
                 <td>{{counter.occupied}}</td>
+                <td>
+                    <button (click)="simulateAdd(counter.id)">Simulate-Enter</button> |
+                    <button (click)="simulateDelete(counter.id)">Simulate-Exit</button>
+                </td>
             </tr>
         </ng-template>
     </p-table>

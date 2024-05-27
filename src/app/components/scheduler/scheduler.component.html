@@ -192,13 +192,20 @@
                 </div>
                 <div class="flex flex-column gap-1">
                     <label>Select Simple Cron</label>
-                    <p-dropdown 
+                    <!-- <p-dropdown 
                     optionLabel="name" 
                     placeholder="Select a Cron Example" 
                     (change)="cronChange($event)"
-                    />
+                    /> -->
                     <!-- [(ngModel)]="selectedCron" 
                     [options]="crons" -->
+                    <select (change)="cronChange($event)"  
+                        class=" select-style">
+                        <option value="0 0/1 * 1/1 * ? *">Every 1 minutes</option>
+                        <option value="0 0 10 1/1 * ? *">Every day at 10 AM</option>
+                        <option value="0 0 0/1 1/1 * ? *">Every hour starting 10 AM</option>
+                        <option value="0 0 10 ? * TUE,THU *">Every week Tue and Thur at 10 AM</option>
+                    </select>
                 </div>
             </div>
             <div>
@@ -265,19 +272,19 @@
     <h4>Notify me when...</h4>
     <div class="flex align-items-center gap-2">
         <div class="mt-2">
-            <p-inputSwitch [(ngModel)]="checked" />
+            <p-inputSwitch [(ngModel)]="checkedFail" />
         </div>
         <p>execution of the cronjob fails</p>
     </div>
     <div class="flex align-items-center gap-2">
         <div class="mt-2">
-            <p-inputSwitch [(ngModel)]="checked" />
+            <p-inputSwitch [(ngModel)]="checkedSuccedAfterFailed" />
         </div>
         <p>execution of the cronjob succeeds after it failed before</p>
     </div>
     <div class="flex align-items-center gap-2">
         <div class="mt-2">
-            <p-inputSwitch [(ngModel)]="checked" />
+            <p-inputSwitch [(ngModel)]="checkedManyFailures" />
         </div>
         <p>the cronjob will be disabled because of too many failures</p>
     </div>
