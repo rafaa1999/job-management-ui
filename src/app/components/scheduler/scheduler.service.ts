@@ -48,7 +48,6 @@ export class SchedulerService {
     return this.http.get("http://localhost:8081/scheduler/schedule?tenantId=meta",{headers: this.headers, params: params})    
   }
 
-
   // scheduleJob(data: any): Observable<any> {
   //   let params = new HttpParams();
   //   for (let key in data) {

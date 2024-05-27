@@ -50,10 +50,10 @@ export class SchedulerComponent implements OnInit {
     this.jobNameStatus = '';
 
     this.jobs = [
-      { name: 'Resetting' },
-      { name: 'Capacity' },
-      { name: 'Billing' },
-      { name: 'Saving' },
+      { name: 'resetting' },
+      { name: 'capacity' },
+      { name: 'billing' },
+      { name: 'saving' },
     ];
 
     this.hours = [
@@ -215,10 +215,11 @@ export class SchedulerComponent implements OnInit {
       });
   }
 
-  checkJobExistWith(jobName: any) {
+  checkJobExistWith(jobName: string) {
     var data = {
       jobName: jobName,
     };
+    console.log(data)
     this.service.isJobWithNamePresent(data).subscribe(
       (success: any) => {
         if (success.statusCode == ServerResponseCode.SUCCESS) {

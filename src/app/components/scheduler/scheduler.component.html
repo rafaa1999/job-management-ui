@@ -145,7 +145,7 @@
                 [options]="jobs"
                 [(ngModel)]="selectedJob" 
                 />
-                <p-button label="Check Job with Name exist" (click)="checkJobExistWith('capacity_meta')"/>
+                <p-button label="Check Job with Name exist" (click)="checkJobExistWith(schedulerForm.value.jobName.name)"/>
             </div>
             <div>
                 <p>Status: <span style="color: cornflowerblue;">{{jobNameStatus}}</span></p>
