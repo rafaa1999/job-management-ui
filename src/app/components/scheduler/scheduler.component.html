@@ -319,7 +319,7 @@
                     <td>{{jobRec.jobName}}</td>
                     <td>{{jobRec.scheduleTime | date: 'dd/MM/yyyy HH:mm:ss' }} </td>
                     <td>{{jobRec.lastFiredTime | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
-                    <td>{{jobRec.nextFireTime | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
+                    <td>{{jobRec.nextFireTime }} </td>
                     <td>
                         <button class="btn btn-primary"
                         [disabled]="jobRec.jobStatus == 'RUNNING'"

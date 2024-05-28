@@ -36,12 +36,15 @@ import { RouterModule } from '@angular/router';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ReactiveFormsModule } from '@angular/forms';  // Import ReactiveFormsModule
+import { ChartModule } from 'primeng/chart';
 
 import { MessageService } from 'primeng/api';  // Import MessageService
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
+import { StatisticsComponent } from './shared/components/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -55,11 +58,14 @@ import { LoginComponent } from './components/login/login.component';
     SideBarComponent,
     SchedulerComponent,
     LoginComponent,
+    DashboardComponent,
+    StatisticsComponent,
   ],
   imports: [
     HttpClientModule,
     ToastModule,
     MessagesModule,
+    ChartModule,
     MessageModule,
     InputNumberModule,
     CalendarModule,
