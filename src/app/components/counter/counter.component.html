@@ -1,72 +1,99 @@
 
 <div>
-    <p-breadcrumb class="max-w-full" [model]="items">
-        <ng-template pTemplate="item" let-item>
-            <ng-container *ngIf="item.route; else elseBlock">
-                <a [routerLink]="item.route" class="p-menuitem-link">
-                    <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
-                    <span class="text-primary font-semibold">{{ item.label }}</span>
-                </a>
-            </ng-container>
-            <ng-template #elseBlock>
-                <a [href]="item.url">
-                    <span class="text-color">{{ item.label }}</span>
-                </a>
+
+    <!-- <div>
+        <p-breadcrumb class="max-w-full" [model]="items">
+            <ng-template pTemplate="item" let-item>
+                <ng-container *ngIf="item.route; else elseBlock">
+                    <a [routerLink]="item.route" class="p-menuitem-link">
+                        <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
+                        <span class="text-primary font-semibold">{{ item.label }}</span>
+                    </a>
+                </ng-container>
+                <ng-template #elseBlock>
+                    <a [href]="item.url">
+                        <span class="text-color">{{ item.label }}</span>
+                    </a>
+                </ng-template>
             </ng-template>
-        </ng-template>
-    </p-breadcrumb>
+        </p-breadcrumb>
+    </div> -->
+
+    <div class="flex my-4" style="border: 1px solid #eee; border-radius: 5px;">
+        <div class="ml-3">
+            <h4 style="color: #4e4e4e;">
+                <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e"></i>
+                <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
+                CarPark
+            </h4>
+        </div>
+        <div class="ml-3">
+            <h4 style="color: #4e4e4e;">
+                <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
+                Facility
+            </h4>
+        </div>
+        <div class="ml-3">
+            <h4 style="color: #4e4e4e;">
+                <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
+                Counters
+            </h4>
+        </div>
+    </div>
+
+
+    <div class="flex flex-row-reverse my-4">
+
+        <a [routerLink]="['/jobs', id]">
+            <p-button label="Counter Manager Job" icon="pi pi-pen-to-square"/>
+        </a>
+    </div>
+
+
+    <div class="mt-5 ">
+        <p-table 
+        [value]="counters" 
+        styleClass="p-datatable-striped" 
+        [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+                <tr>
+                    <th>Id</th>
+                    <th>available</th>
+                    <th>capacity</th>
+                    <th>category</th>
+                    <th>occupied</th>
+                    <th>action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-counter>
+                <tr>
+                    <td>
+                        <a [routerLink]="['/contingents/counter', counter.id]">{{counter.id}}</a> 
+                    </td>
+                    <td>{{counter.available}}</td>
+                    <td>{{counter.capacity}}</td>
+                    <td>{{counter.category}}</td>
+                    <td>{{counter.occupied}}</td>
+                    <td>
+                        <!-- <p-button class="btn-up" (click)="simulateAdd(counter.id)" icon="pi pi-sort-up-fill" /> |
+                        <p-button class="btn-down" (click)="simulateDelete(counter.id)" icon="pi pi-sort-down-fill"/> -->
+                        <button class="btn-up" (click)="simulateAdd(counter.id)">Simulate-Enter +</button> |
+                        <button class="btn-down" (click)="simulateDelete(counter.id)">Simulate-Exit -</button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="flex my-5" *ngIf="simulation">
+        <p-toast />    
+        <p-button label="Car Enter/Exit Simulation" icon="pi pi-car" (onClick)="handleSimulation()"/>
+    </div>
+
+    <div class="flex justify-content-center" *ngIf="!simulation">
+        <p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />    
+    </div>
+
 </div>
 
-
-<div class="flex flex-row-reverse my-4">
-
-    <a [routerLink]="['/jobs', id]">
-        <p-button label="Counter Manager Job" icon="pi pi-pen-to-square"/>
-    </a>
-</div>
-
-
-<div class="mt-5 ">
-    <p-table 
-    [value]="counters" 
-    styleClass="p-datatable-striped" 
-    [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-            <tr>
-                <th>Id</th>
-                <th>available</th>
-                <th>capacity</th>
-                <th>category</th>
-                <th>occupied</th>
-                <th>action</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-counter>
-            <tr>
-                <td>
-                    <a [routerLink]="['/contingents/counter', counter.id]">{{counter.id}}</a> 
-                </td>
-                <td>{{counter.available}}</td>
-                <td>{{counter.capacity}}</td>
-                <td>{{counter.category}}</td>
-                <td>{{counter.occupied}}</td>
-                <td>
-                    <!-- <p-button class="btn-up" (click)="simulateAdd(counter.id)" icon="pi pi-sort-up-fill" /> |
-                    <p-button class="btn-down" (click)="simulateDelete(counter.id)" icon="pi pi-sort-down-fill"/> -->
-                    <button class="btn-up" (click)="simulateAdd(counter.id)">Simulate-Enter</button> |
-                    <button class="btn-down" (click)="simulateDelete(counter.id)">Simulate-Exit</button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>
-
-<div class="flex my-5" *ngIf="simulation">
-    <p-toast />    
-    <p-button label="Car Enter/Exit Simulation" icon="pi pi-car" (onClick)="handleSimulation()"/>
-</div>
-
-<div class="flex justify-content-center" *ngIf="!simulation">
-    <p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />    
-</div>
 

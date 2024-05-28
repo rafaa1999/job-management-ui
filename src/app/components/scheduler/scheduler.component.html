@@ -1,370 +1,264 @@
 
-<div style="border: 1px solid #eee;border-radius: 6px;" class="p-4">
+<div>
 
-    <!-- <form  novalidate autocomplete="off">
-        <table>
-            <tr>
-                <td>Enter Job Name:</td>
-                <td>            
-                    <input type="text" 
-                        name="jobName" 
-                        id="jobName"
-                        class="form-control"
-                        style="width:100px"
-                    />
-                </td>
-                <td>       
-                    <a class="btn btn-primary">Check Job with Name exist</a>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>  
-                    Status: <b><i>jobNameStatus</i></b>
-                </td>
-            </tr>
-            
-        </table>
-            <br/>
-        <table>
-            <tr>
-                <td>Enter Date and Time:</td>
-                <td>
-                    Year:
-                    <input type="text" 
-                        name="year" 
-                        id="year"
-                        class="form-control"
-                        style="width:100px"/>
-                </td>
-                <td>
-                    Month:
-                    <input type="text" 
-                        name="month" 
-                        id="month"
-                        class="form-control"
-                        style="width:100px"/>
-                </td>
-                <td>
-                    Day:
-                    <input type="text" 
-                        name="day" 
-                        id="day"
-                        class="form-control"
-                        style="width:100px"/>
-                </td>
-                <td>
-                    Hour(24-hour):
-                    <input type="text" 
-                        name="hour" 
-                        id="hour"
-                        class="form-control"
-                        style="width:100px"/>
-                </td>
-                <td>
-                    Minute:
-                    <input type="text" 
-                        name="minute" 
-                        id="minute"
-                        class="form-control"
-                        style="width:100px"/>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td style="padding: 5px;" colspan="5">
-                    <b>If given date/time is invalid then job will not get scheduled.
-                    If given date is older than current date then job will be started immediately</b> 
-                </td>
-            </tr>
-        </table>
-        <br/><br/>
-        <table>
-            <tr>
-                <td style="padding: 5px;">
-                    Enter Cron expression
-                </td>
-                <td>
-                    <input type="text" 
-                        name="cronExpression" 
-                        id="cronExpression"
-                        class="form-control"
-                        style="width:200px"/>
-                </td>
-                <td>Select Sample Cron:</td>
-                <td> 
-                    <select  
-                        class="form-control">
-                        <option value="0 0/1 * 1/1 * ? *">Every 1 minutes</option>
-                        <option value="0 0 10 1/1 * ? *">Every day at 10 AM</option>
-                        <option value="0 0 0/1 1/1 * ? *">Every hour starting 10 AM</option>
-                        <option value="0 0 10 ? * TUE,THU *">Every week Tue and Thur at 10 AM</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td colspan="2">
-                    <b>If Cron expression is blank then it will be treated as One time job</b> 
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td style="padding: 5px;" colspan="2">
-                    
-                    <input type="button" 
-                        name="submit" 
-                        id="submit" 
-                        class="btn btn-primary" 
-                        value="Submit"/>
-                    
-                    <input type="button" 
-                        name="submit" 
-                        id="submit" 
-                        class="btn btn-primary" 
-                        value="Update"/>
+    <div class="flex my-4" style="border: 1px solid #eee; border-radius: 5px;">
+        <div class="ml-3">
+            <h4 style="color: #4e4e4e;">
+                <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e"></i>
+                <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
+                CarPark
+            </h4>
+        </div>
+        <div class="ml-3">
+            <h4 style="color: #4e4e4e;">
+                <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
+                Facility
+            </h4>
+        </div>
+        <div class="ml-3">
+            <h4 style="color: #4e4e4e;">
+                <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
+                Job
+            </h4>
+        </div>
+    </div>
 
-                    <input type="button" 
-                        name="submit" 
-                        id="submit" 
-                        class="btn btn-primary" 
-                        value="Cancel"/>
-                </td>
-            </tr>
-        </table>
-    </form> -->
 
-    <div class="my-4">
-        <form [formGroup]="schedulerForm" novalidate autocomplete="off">
-            <div class="flex gap-2">
-                <p-dropdown 
-                optionLabel="name" 
-                placeholder="Select a JobName" 
-                formControlName="jobName"
-                [options]="jobs"
-                [(ngModel)]="selectedJob" 
-                [readonly]="isEditMode"
-                />
-                <p-button label="Check Job with Name exist" (click)="checkJobExistWith(schedulerForm.value.jobName.name)"/>
-            </div>
-            <div>
-                <p>Status: <span style="color: cornflowerblue;">{{jobNameStatus}}</span></p>
-            </div>
-            <div class="flex gap-2 my-4 align-items-center">
-                <div class="flex flex-column gap-1">
-                    <label>Date:</label>
-                    <p-calendar 
-                    [showIcon]="true" 
-                    inputId="icondisplay" 
-                    (onChange)="onDateChange($event)"
-                    formControlName="date"
-                    />
-                </div>
-                <div class="flex flex-column gap-1">
-                    <label>Hour(24-hour):</label>
-                    <p-dropdown 
-                    optionLabel="name" 
-                    placeholder="Select a JobName"
-                    formControlName="hour"
-                    [options]="hours"
-                    [(ngModel)]="selectedHour" 
-                     /> 
-                </div>
-                <div class="flex flex-column gap-1">
-                    <label>Minute:</label>
+    <div style="border: 1px solid #eee;border-radius: 6px;" class="p-4">
+
+
+        <div class="my-4">
+            <form [formGroup]="schedulerForm" novalidate autocomplete="off">
+                <div class="flex gap-2">
                     <p-dropdown 
                     optionLabel="name" 
                     placeholder="Select a JobName" 
-                    formControlName="minute"
-                    [options]="minutes"
-                    [(ngModel)]="selectedMinute" 
+                    formControlName="jobName"
+                    [options]="jobs"
+                    [(ngModel)]="selectedJob" 
+                    [readonly]="isEditMode"
                     />
+                    <p-button label="Check Job with Name exist" (click)="checkJobExistWith(schedulerForm.value.jobName.name)"/>
                 </div>
-            </div>
-            <div>
-                <h5>If given date/time is invalid then job will not get scheduled. If date is older than current date then job will be started immediately</h5   >
-            </div>
+                <div>
+                    <p>Status: <span style="color: cornflowerblue;">{{jobNameStatus}}</span></p>
+                </div>
+                <div class="flex gap-2 my-4 align-items-center">
+                    <div class="flex flex-column gap-1">
+                        <label>Date:</label>
+                        <p-calendar 
+                        [showIcon]="true" 
+                        inputId="icondisplay" 
+                        (onChange)="onDateChange($event)"
+                        formControlName="date"
+                        />
+                    </div>
+                    <div class="flex flex-column gap-1">
+                        <label>Hour(24-hour):</label>
+                        <p-dropdown 
+                        optionLabel="name" 
+                        placeholder="Select a JobName"
+                        formControlName="hour"
+                        [options]="hours"
+                        [(ngModel)]="selectedHour" 
+                        /> 
+                    </div>
+                    <div class="flex flex-column gap-1">
+                        <label>Minute:</label>
+                        <p-dropdown 
+                        optionLabel="name" 
+                        placeholder="Select a JobName" 
+                        formControlName="minute"
+                        [options]="minutes"
+                        [(ngModel)]="selectedMinute" 
+                        />
+                    </div>
+                </div>
+                <div>
+                    <h5>If given date/time is invalid then job will not get scheduled. If date is older than current date then job will be started immediately</h5   >
+                </div>
+                <div class="flex gap-2">
+                    <div class="flex flex-column gap-1">
+                        <label>Cron Expression:</label>
+                        <input type="text" pInputText formControlName="cronExpression"/>
+                    </div>
+                    <div class="flex flex-column gap-1">
+                        <label>Select Simple Cron</label>
+                        <!-- <p-dropdown 
+                        optionLabel="name" 
+                        placeholder="Select a Cron Example" 
+                        (change)="cronChange($event)"
+                        /> -->
+                        <!-- [(ngModel)]="selectedCron" 
+                        [options]="crons" -->
+                        <select (change)="cronChange($event)"  
+                            class=" select-style">
+                            <option value="0 0/1 * 1/1 * ? *">Every 1 minutes</option>
+                            <option value="0 0 10 1/1 * ? *">Every day at 10 AM</option>
+                            <option value="0 0 0/1 1/1 * ? *">Every hour starting 10 AM</option>
+                            <option value="0 0 10 ? * TUE,THU *">Every week Tue and Thur at 10 AM</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <h5>If Cron expression is blank then it will be treated as One time job</h5   >
+                </div>
+            </form>
+
             <div class="flex gap-2">
-                <div class="flex flex-column gap-1">
-                    <label>Cron Expression:</label>
-                    <input type="text" pInputText formControlName="cronExpression"/>
-                </div>
-                <div class="flex flex-column gap-1">
-                    <label>Select Simple Cron</label>
-                    <!-- <p-dropdown 
-                    optionLabel="name" 
-                    placeholder="Select a Cron Example" 
-                    (change)="cronChange($event)"
-                    /> -->
-                    <!-- [(ngModel)]="selectedCron" 
-                    [options]="crons" -->
-                    <select (change)="cronChange($event)"  
-                        class=" select-style">
-                        <option value="0 0/1 * 1/1 * ? *">Every 1 minutes</option>
-                        <option value="0 0 10 1/1 * ? *">Every day at 10 AM</option>
-                        <option value="0 0 0/1 1/1 * ? *">Every hour starting 10 AM</option>
-                        <option value="0 0 10 ? * TUE,THU *">Every week Tue and Thur at 10 AM</option>
-                    </select>
-                </div>
+                <p-button label="Schedule Job" 
+                icon="pi pi-calendar-clock"
+                (click)="scheduleJob()"
+                *ngIf="!isEditMode" 
+                />
+                <p-button label="Update Job" 
+                icon="pi pi-pen-to-square"
+                (click)="updateJob()"
+                *ngIf="isEditMode" 
+                />
+                <p-button label="Cancel Edit"
+                icon="pi pi-times"
+                (click)="cancelEdit()"
+                *ngIf="isEditMode" 
+                />
             </div>
-            <div>
-                <h5>If Cron expression is blank then it will be treated as One time job</h5   >
+        </div>
+
+        <div class="flex align-items-center gap-2 mt-2">
+            <div class="mt-2">
+                <p-inputSwitch [(ngModel)]="scheduleExpiration" />
             </div>
-        </form>
-
-        <div class="flex gap-2">
-            <p-button label="Schedule Job" 
-            icon="pi pi-calendar-clock"
-            (click)="scheduleJob()"
-            *ngIf="!isEditMode" 
-            />
-            <p-button label="Update Job" 
-            icon="pi pi-pen-to-square"
-            (click)="updateJob()"
-            *ngIf="isEditMode" 
-            />
-            <p-button label="Cancel Edit"
-             icon="pi pi-times"
-             (click)="cancelEdit()"
-             *ngIf="isEditMode" 
-             />
+            <p>Schedule expires</p>
         </div>
+
+        <div *ngIf="scheduleExpiration">
+            <form>
+                <div class="flex gap-2 my-4 align-items-center">
+                    <div class="flex flex-column gap-1">
+                        <label>Date:</label>
+                        <p-calendar 
+                        [showIcon]="true" 
+                        inputId="icondisplay" 
+                        (onChange)="onDateChange($event)"
+                        />
+                    </div>
+                    <div class="flex flex-column gap-1">
+                        <label>Hour(24-hour):</label>
+                        <p-dropdown 
+                        optionLabel="name" 
+                        placeholder="Select a JobName" /> 
+                    </div>
+                    <div class="flex flex-column gap-1">
+                        <label>Minute:</label>
+                        <p-dropdown 
+                        optionLabel="name" 
+                        placeholder="Select a JobName" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
 
-    <div class="flex align-items-center gap-2 mt-2">
-        <div class="mt-2">
-            <p-inputSwitch [(ngModel)]="scheduleExpiration" />
-        </div>
-        <p>Schedule expires</p>
-    </div>
-
-    <div *ngIf="scheduleExpiration">
-        <form>
-            <div class="flex gap-2 my-4 align-items-center">
-                <div class="flex flex-column gap-1">
-                    <label>Date:</label>
-                    <p-calendar 
-                    [showIcon]="true" 
-                    inputId="icondisplay" 
-                    (onChange)="onDateChange($event)"
-                    />
-                </div>
-                <div class="flex flex-column gap-1">
-                    <label>Hour(24-hour):</label>
-                    <p-dropdown 
-                    optionLabel="name" 
-                    placeholder="Select a JobName" /> 
-                </div>
-                <div class="flex flex-column gap-1">
-                    <label>Minute:</label>
-                    <p-dropdown 
-                    optionLabel="name" 
-                    placeholder="Select a JobName" />
-                </div>
+    <div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
+        <h4>Notify me when...</h4>
+        <div class="flex align-items-center gap-2">
+            <div class="mt-2">
+                <p-inputSwitch [(ngModel)]="checkedFail" />
             </div>
-        </form>
-    </div>
-
-</div>
-
-<div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
-    <h4>Notify me when...</h4>
-    <div class="flex align-items-center gap-2">
-        <div class="mt-2">
-            <p-inputSwitch [(ngModel)]="checkedFail" />
+            <p>execution of the cronjob fails</p>
         </div>
-        <p>execution of the cronjob fails</p>
-    </div>
-    <div class="flex align-items-center gap-2">
-        <div class="mt-2">
-            <p-inputSwitch [(ngModel)]="checkedSuccedAfterFailed" />
+        <div class="flex align-items-center gap-2">
+            <div class="mt-2">
+                <p-inputSwitch [(ngModel)]="checkedSuccedAfterFailed" />
+            </div>
+            <p>execution of the cronjob succeeds after it failed before</p>
         </div>
-        <p>execution of the cronjob succeeds after it failed before</p>
-    </div>
-    <div class="flex align-items-center gap-2">
-        <div class="mt-2">
-            <p-inputSwitch [(ngModel)]="checkedManyFailures" />
+        <div class="flex align-items-center gap-2">
+            <div class="mt-2">
+                <p-inputSwitch [(ngModel)]="checkedManyFailures" />
+            </div>
+            <p>the cronjob will be disabled because of too many failures</p>
         </div>
-        <p>the cronjob will be disabled because of too many failures</p>
     </div>
-</div>
 
-<!-- <div class="flex flex-row-reverse">
-    <p-button label="Submit Job"
-         icon="pi pi-calendar-clock"/>
-</div> -->
+    <!-- <div class="flex flex-row-reverse">
+        <p-button label="Submit Job"
+            icon="pi pi-calendar-clock"/>
+    </div> -->
 
-<div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
-    <h4>Job List:</h4>
-    <label style="color: red">
-        Note:<br/>
-        1. Completed jobs will not be shown in listing.
-        <br/> 
-        2. If job is in "RUNNING" state then no action like "Pause, Resume, Delete, Edit" is allowed. </label>
-    <br/><br/>
+    <div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
+        <h4>Job List:</h4>
+        <label style="color: red">
+            Note:<br/>
+            1. Completed jobs will not be shown in listing.
+            <br/> 
+            2. If job is in "RUNNING" state then no action like "Pause, Resume, Delete, Edit" is allowed. </label>
+        <br/><br/>
 
-    <table class="table table-responsive table-hover" style="width : 100%;">
-        <thead>
-            <th>Job Name</th>
-            <th>Job Schedule Time</th>
-            <th>Job Last Fired Time</th>
-            <th>Job Next Fire Time</th>
-            <th>Action</th>
-            <th>Job Status</th>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let jobRec of jobRecords;let i=index"> 
-                <tr>
-                    <td>{{jobRec.jobName}}</td>
-                    <td>{{jobRec.scheduleTime | date: 'dd/MM/yyyy HH:mm:ss' }} </td>
-                    <td>{{jobRec.lastFiredTime | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
-                    <td>{{jobRec.nextFireTime }} </td>
-                    <td>
-                        <button class="btn btn-primary"
-                        [disabled]="jobRec.jobStatus == 'RUNNING'"
-                        (click)='startJobNow(jobRec.jobName)'
-                        >Start Job Now</button> |
-                        <!-- <p-button label="Start Job Now"/> -->
+        <table class="table table-responsive table-hover" style="width : 100%;">
+            <thead>
+                <th>Job Name</th>
+                <th>Job Schedule Time</th>
+                <th>Job Last Fired Time</th>
+                <th>Job Next Fire Time</th>
+                <th>Action</th>
+                <th>Job Status</th>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let jobRec of jobRecords;let i=index"> 
+                    <tr>
+                        <td>{{jobRec.jobName}}</td>
+                        <td>{{jobRec.scheduleTime | date: 'dd/MM/yyyy HH:mm:ss' }} </td>
+                        <td>{{jobRec.lastFiredTime | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
+                        <td>{{jobRec.nextFireTime | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
+                        <td>
+                            <button class="btn btn-primary"
+                            [disabled]="jobRec.jobStatus == 'RUNNING'"
+                            (click)='startJobNow(jobRec.jobName)'
+                            >Start Job Now</button> |
+                            <!-- <p-button label="Start Job Now"/> -->
 
-                        <button class="btn btn-primary" 
-                        [disabled]="jobRec.jobStatus != 'SCHEDULED'"
-                        (click)='pauseJob(jobRec.jobName)'
-                        >Pause Job</button> |
-                        <!-- <p-button label="Pause Job"/> -->
-
-
-                        <button class="btn btn-primary" 
-                        [disabled]="jobRec.jobStatus != 'PAUSED'"
-                        (click)='resumeJob(jobRec.jobName)'
-                        >Resume Job</button> |
-                        <!-- <p-button label="Resume Job"/> -->
+                            <button class="btn btn-primary" 
+                            [disabled]="jobRec.jobStatus != 'SCHEDULED'"
+                            (click)='pauseJob(jobRec.jobName)'
+                            >Pause Job</button> |
+                            <!-- <p-button label="Pause Job"/> -->
 
 
-                        <button class="btn btn-primary" 
-                        [disabled]="jobRec.jobStatus == 'RUNNING'"
-                        (click)='deleteJob(jobRec.jobName)'
-                        >Delete Job</button> |
-                        <!-- <p-button label="Delete Job"/> -->
+                            <button class="btn btn-primary" 
+                            [disabled]="jobRec.jobStatus != 'PAUSED'"
+                            (click)='resumeJob(jobRec.jobName)'
+                            >Resume Job</button> |
+                            <!-- <p-button label="Resume Job"/> -->
 
 
-                        <button class="btn btn-primary" 
-                        [disabled]="jobRec.jobStatus != 'RUNNING'"
-                        (click)='stopJob(jobRec.jobName)'
-                        >Stop Job</button> |
-                        <!-- <p-button label="Stop Job"/> -->
+                            <button class="btn btn-primary" 
+                            [disabled]="jobRec.jobStatus == 'RUNNING'"
+                            (click)='deleteJob(jobRec.jobName)'
+                            >Delete Job</button> |
+                            <!-- <p-button label="Delete Job"/> -->
 
 
-                        <button class="btn btn-primary" 
-                        [disabled]="jobRec.jobStatus == 'RUNNING'"
-                        (click)='editJob(jobRec)'
-                        >Edit Job</button>
-                        <!-- <p-button label="Edit Job"/> -->
+                            <button class="btn btn-primary" 
+                            [disabled]="jobRec.jobStatus != 'RUNNING'"
+                            (click)='stopJob(jobRec.jobName)'
+                            >Stop Job</button> |
+                            <!-- <p-button label="Stop Job"/> -->
 
-                    </td>
-                    <td>{{jobRec.jobStatus}}</td>
-                </tr>
-            </ng-container>
-        </tbody>
-    </table>
+
+                            <button class="btn btn-primary" 
+                            [disabled]="jobRec.jobStatus == 'RUNNING'"
+                            (click)='editJob(jobRec)'
+                            >Edit Job</button>
+                            <!-- <p-button label="Edit Job"/> -->
+
+                        </td>
+                        <td>{{jobRec.jobStatus}}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+
 </div>

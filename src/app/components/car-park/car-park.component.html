@@ -1,14 +1,25 @@
+<div>
 
-<p-table 
+    <div class="flex my-4" style="border: 1px solid #eee; border-radius: 5px;">
+        <div class="ml-3">
+            <h4 style="color: #4e4e4e;">
+                <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e"></i>
+                <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
+                CarParks
+            </h4>
+        </div>
+    </div>
+
+    <p-table 
     [value]="carParks" 
     styleClass="p-datatable-striped" 
     [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+    <ng-template pTemplate="header">
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
+                <th>Car Park Name</th>
+                <th>Car Park Number</th>
+                <th>Timezone</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-carPark>
@@ -21,8 +32,9 @@
                 <td>{{carPark.timezone}}</td>
             </tr>
         </ng-template>
-</p-table>
-
+    </p-table>
+    
+</div>
 
 
 <!-- <p>{{carParks}}</p> -->

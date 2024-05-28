@@ -13,15 +13,17 @@ export class DashboardComponent implements OnInit {
 
   options: any;
 
+  cronExpression: string = '0 0 12 * * ?'; 
+
   constructor(){}
 
 
   ngOnInit(): void {
     this.products = [
-      {code: 1, name: "product-one", category: "phone", quantity:23},
-      {code: 1, name: "product-one", category: "phone", quantity:23},
-      {code: 1, name: "product-one", category: "phone", quantity:23},
-      {code: 1, name: "product-one", category: "phone", quantity:23},
+      {code: "Cronjob execution: Successful", name: "Today at 11:15:01 AM", category: "phone", quantity:23},
+      {code: "Cronjob execution: Successful", name: "Today at 11:15:01 AM", category: "phone", quantity:23},
+      {code: "Cronjob execution: Successful", name: "Today at 11:15:01 AM", category: "phone", quantity:23},
+      {code: "Cronjob execution: Successful", name: "Today at 11:15:01 AM", category: "phone", quantity:23},
     ]
 
     const documentStyle = getComputedStyle(document.documentElement);

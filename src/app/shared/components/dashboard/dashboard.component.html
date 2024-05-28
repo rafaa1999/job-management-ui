@@ -37,24 +37,27 @@
         </div>
 
         <div>
-            <p-table 
-                [value]="products" 
-                styleClass="p-datatable-striped" 
+            <p-table
+                [value]="products"
+                styleClass="p-datatable-striped"
                 [tableStyle]="{'min-width': '50rem'}">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Action</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-product>
                     <tr>
                         <td>{{product.code}}</td>
                         <td>{{product.name}}</td>
-                        <td>{{product.category}}</td>
-                        <td>{{product.quantity}}</td>
+                        <td>
+                            <button>
+                                <i class="pi pi-ellipsis-v" style="color: #4e4e4e"></i>
+                                Details
+                            </button>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>

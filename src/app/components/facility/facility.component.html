@@ -1,50 +1,70 @@
 <div>
-    <p-breadcrumb class="max-w-full" [model]="items">
-        <ng-template pTemplate="item" let-item>
-            <ng-container *ngIf="item.route; else elseBlock">
-                <a [routerLink]="item.route" class="p-menuitem-link">
-                    <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
-                    <span class="text-primary font-semibold">{{ item.label }}</span>
-                </a>
-            </ng-container>
-            <ng-template #elseBlock>
-                <a [href]="item.url">
-                    <span class="text-color">{{ item.label }}</span>
-                </a>
+
+    <!-- <div>
+        <p-breadcrumb class="max-w-full" [model]="items">
+            <ng-template pTemplate="item" let-item>
+                <ng-container *ngIf="item.route; else elseBlock">
+                    <a [routerLink]="item.route" class="p-menuitem-link">
+                        <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
+                        <span class="text-primary font-semibold">{{ item.label }}</span>
+                    </a>
+                </ng-container>
+                <ng-template #elseBlock>
+                    <a [href]="item.url">
+                        <span class="text-color">{{ item.label }}</span>
+                    </a>
+                </ng-template>
             </ng-template>
-        </ng-template>
-    </p-breadcrumb>
-</div>
+        </p-breadcrumb>
+    </div> -->
 
-<div class="mt-5 ">
-    <p-table 
-    [value]="facilities" 
-    styleClass="p-datatable-striped" 
-    [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-            <tr>
-                <th>Id</th>
-                <th>facilityName</th>
-                <th>facilityNumber</th>
-                <th>facilityType</th>
-                <th>locationId</th>
-                <th>description</th>
-                <th>deleted</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-facility>
-            <tr>
-                <td>
-                    <a [routerLink]="['/counters/facility', facility.id]">{{facility.id}}</a> 
-                </td>
-                <td>{{facility.facilityName}}</td>
-                <td>{{facility.facilityNumber}}</td>
-                <td>{{facility.facilityType}}</td>
-                <td>{{facility.locationId}}</td>
-                <td>{{facility.description}}</td>
-                <td>{{facility.deleted}}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>
+    <div class="flex my-4" style="border: 1px solid #eee; border-radius: 5px;">
+        <div class="ml-3">
+            <h4 style="color: #4e4e4e;">
+                <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e"></i>
+                <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
+                CarPark
+            </h4>
+        </div>
+        <div class="ml-3">
+            <h4 style="color: #4e4e4e;">
+                <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
+                Facilities
+            </h4>
+        </div>
+    </div>
 
+
+    <div class="mt-5 ">
+        <p-table 
+        [value]="facilities" 
+        styleClass="p-datatable-striped" 
+        [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+                <tr>
+                    <th>Id</th>
+                    <th>facilityName</th>
+                    <th>facilityNumber</th>
+                    <th>facilityType</th>
+                    <th>locationId</th>
+                    <th>description</th>
+                    <th>deleted</th>
+                </tr>
+        </ng-template>
+            <ng-template pTemplate="body" let-facility>
+                <tr>
+                    <td>
+                        <a [routerLink]="['/counters/facility', facility.id]">{{facility.id}}</a> 
+                    </td>
+                    <td>{{facility.facilityName}}</td>
+                    <td>{{facility.facilityNumber}}</td>
+                    <td>{{facility.facilityType}}</td>
+                    <td>{{facility.locationId}}</td>
+                    <td>{{facility.description}}</td>
+                    <td>{{facility.deleted}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</div>
