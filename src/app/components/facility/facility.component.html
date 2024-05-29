@@ -20,10 +20,11 @@
 
     <div class="flex my-4" style="border: 1px solid #eee; border-radius: 5px;">
         <div class="ml-3">
-            <h4 style="color: #4e4e4e;">
+            <h4 style="color: #4e4e4e;" [routerLink]="['/carParks']">
                 <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e"></i>
                 <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
-                CarPark
+                <a href="" [routerLink]="['/carParks']">CarParks</a>
+                <!-- CarPark -->
             </h4>
         </div>
         <div class="ml-3">
@@ -39,20 +40,24 @@
         <p-table 
         [value]="facilities" 
         styleClass="p-datatable-striped" 
+        selectionMode="single"
+        [paginator]="true"
+        [rows]="10"
+        [rowsPerPageOptions]="[5, 10, 20]"
         [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
                 <tr>
                     <th>Id</th>
-                    <th>facilityName</th>
-                    <th>facilityNumber</th>
-                    <th>facilityType</th>
-                    <th>locationId</th>
-                    <th>description</th>
-                    <th>deleted</th>
+                    <th pSortableColumn="facilityName">facilityName <p-sortIcon field="facilityName" /></th>
+                    <th pSortableColumn="facilityNumber">facilityNumber <p-sortIcon field="facilityNumber" /></th>
+                    <th pSortableColumn="facilityType">facilityType <p-sortIcon field="facilityType" /></th>
+                    <th pSortableColumn="locationId">locationId <p-sortIcon field="locationId" /></th>
+                    <th pSortableColumn="description">description <p-sortIcon field="description" /></th>
+                    <th pSortableColumn="deleted">deleted <p-sortIcon field="deleted" /></th>
                 </tr>
         </ng-template>
-            <ng-template pTemplate="body" let-facility>
-                <tr>
+            <ng-template pTemplate="body" let-facility let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="facility" [pSelectableRowIndex]="rowIndex">
                     <td>
                         <a [routerLink]="['/counters/facility', facility.id]">{{facility.id}}</a> 
                     </td>

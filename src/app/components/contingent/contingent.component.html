@@ -6,19 +6,22 @@
             <h4 style="color: #4e4e4e;">
                 <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e"></i>
                 <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
-                CarPark
+                <a href="" [routerLink]="['/carParks']">CarParks</a>
+                <!-- CarPark -->
             </h4>
         </div>
         <div class="ml-3">
             <h4 style="color: #4e4e4e;">
                 <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
-                Facility
+                <a href="" [routerLink]="['/facilities/car-park', carParkId]">Facility</a>
+                <!-- Facility -->
             </h4>
         </div>
         <div class="ml-3">
             <h4 style="color: #4e4e4e;">
                 <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
-                Counter
+                <a href="" [routerLink]="['/counters/facility', facilityId]">Counter</a>
+                <!-- Counter -->
             </h4>
         </div>
         <div class="ml-3">
@@ -33,6 +36,7 @@
         <p-table 
         [value]="contingents" 
         styleClass="p-datatable-striped" 
+        selectionMode="single"
         [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
@@ -43,8 +47,8 @@
                     <th>endDate</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-contingent>
-                <tr>
+            <ng-template pTemplate="body" let-contingent let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="contingent" [pSelectableRowIndex]="rowIndex">
                     <td>
                         <a [routerLink]="['/contingents/counter', contingent.id]">{{contingent.id}}</a> 
                     </td>

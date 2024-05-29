@@ -24,13 +24,15 @@
             <h4 style="color: #4e4e4e;">
                 <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e"></i>
                 <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
-                CarPark
+                <a href="" [routerLink]="['/carParks']">CarParks</a>
+                <!-- CarPark -->
             </h4>
         </div>
         <div class="ml-3">
             <h4 style="color: #4e4e4e;">
                 <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
-                Facility
+                <a href="" [routerLink]="['/facilities/car-park', carParkId]">Facility</a>
+                <!-- Facility -->
             </h4>
         </div>
         <div class="ml-3">
@@ -54,19 +56,23 @@
         <p-table 
         [value]="counters" 
         styleClass="p-datatable-striped" 
+        selectionMode="single"
+        [paginator]="true"
+        [rows]="10"
+        [rowsPerPageOptions]="[5, 10, 20]"
         [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
                 <tr>
                     <th>Id</th>
-                    <th>available</th>
-                    <th>capacity</th>
-                    <th>category</th>
-                    <th>occupied</th>
+                    <th pSortableColumn="available">available<p-sortIcon field="available" /></th>
+                    <th pSortableColumn="capacity">capacity<p-sortIcon field="capacity" /></th>
+                    <th pSortableColumn="category">category<p-sortIcon field="category" /></th>
+                    <th pSortableColumn="occupied">occupied<p-sortIcon field="occupied" /></th>
                     <th>action</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-counter>
-                <tr>
+            <ng-template pTemplate="body" let-counter let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="counter" [pSelectableRowIndex]="rowIndex">
                     <td>
                         <a [routerLink]="['/contingents/counter', counter.id]">{{counter.id}}</a> 
                     </td>

@@ -60,9 +60,12 @@ export class SchedulerComponent implements OnInit {
 
   facilityId?:any
 
+  carParkId:any = ''
+
   constructor(private service: SchedulerService, private fb: FormBuilder,
               private route:ActivatedRoute
   ) {}
+
 
   ngOnInit(): void {
     this.jobNameStatus = '';
@@ -140,6 +143,13 @@ export class SchedulerComponent implements OnInit {
       { name: '30' },
       { name: '31' },
       { name: '32' },
+      { name: '33' },
+      { name: '34' },
+      { name: '35' },
+      { name: '36' },
+      { name: '37' },
+      { name: '38' },
+      { name: '39' },
     ];
 
     this.schedulerForm = this.fb.group({
@@ -149,6 +159,13 @@ export class SchedulerComponent implements OnInit {
       minute: [''],
       cronExpression: ['0 0/1 * 1/1 * ? *'],
     });
+
+    this.route.paramMap.subscribe((params:any) =>{
+      this.facilityId = params.get('id')
+      // console.log(`this is the id from the URL ${this.facilityId}`)
+      console.log("======")
+      console.log(this.facilityId)
+    })
 
     this.getJobs();
     this.setDate();
@@ -231,7 +248,8 @@ export class SchedulerComponent implements OnInit {
     this.route.paramMap.subscribe((params:any) =>{
       this.facilityId = params.get('id')
       // console.log(`this is the id from the URL ${this.facilityId}`)
-      // console.log(this.facilityId)
+      console.log("======")
+      console.log(this.facilityId)
     })
 
     console.log(this.facilityId)
@@ -521,6 +539,7 @@ export class SchedulerComponent implements OnInit {
       err => {
         alert("Error while updating job");
       });
+      
   }
 
   cancelEdit() {
@@ -531,7 +550,7 @@ export class SchedulerComponent implements OnInit {
   refreshJob(){
     //For updating fresh status of all jobs 
     this.getJobs();   
-}
+  }
 
 
   cronChange(cronExp: any) {

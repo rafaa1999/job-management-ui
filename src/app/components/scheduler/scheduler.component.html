@@ -4,15 +4,17 @@
     <div class="flex my-4" style="border: 1px solid #eee; border-radius: 5px;">
         <div class="ml-3">
             <h4 style="color: #4e4e4e;">
-                <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e"></i>
-                <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
-                CarPark
+                <a href="" [routerLink]="['/carParks']">
+                    <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e"></i>
+                </a>
+                <!-- CarPark -->
             </h4>
         </div>
         <div class="ml-3">
             <h4 style="color: #4e4e4e;">
                 <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
-                Facility
+                <a href="" [routerLink]="['/counters/facility', facilityId]">Counters</a>
+                <!-- Facility -->
             </h4>
         </div>
         <div class="ml-3">
@@ -38,7 +40,9 @@
                     [(ngModel)]="selectedJob" 
                     [readonly]="isEditMode"
                     />
-                    <p-button label="Check Job with Name exist" (click)="checkJobExistWith(schedulerForm.value.jobName.name)"/>
+                    <p-button label="Check Job with Name exist" 
+                    icon="pi pi-file-check"
+                    (click)="checkJobExistWith(schedulerForm.value.jobName.name)"/>
                 </div>
                 <div>
                     <p>Status: <span style="color: cornflowerblue;">{{jobNameStatus}}</span></p>

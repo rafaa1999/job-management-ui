@@ -6,6 +6,7 @@
   import { ContingentComponent } from './components/contingent/contingent.component';
   import { JobComponent } from './components/job/job.component';
 import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
+import { StatisticsComponent } from './shared/components/statistics/statistics.component';
 
   const routes: Routes = [
     {path:"carParks", component:CarParkComponent},
@@ -14,6 +15,7 @@ import { DashboardComponent } from './shared/components/dashboard/dashboard.comp
     {path:"contingents/counter/:id", component:ContingentComponent },
     {path:"jobs/:id", component:JobComponent },
     {path:"dashboard", component:DashboardComponent },
+    {path:"statistics", component:StatisticsComponent },
     {path:"**", redirectTo:"carParks", pathMatch:"full"}
   ];
 

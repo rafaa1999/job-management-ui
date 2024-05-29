@@ -37,6 +37,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ReactiveFormsModule } from '@angular/forms';  // Import ReactiveFormsModule
 import { ChartModule } from 'primeng/chart';
+import { DialogModule } from 'primeng/dialog';
+
 
 import { MessageService } from 'primeng/api';  // Import MessageService
 import { MessagesModule } from 'primeng/messages';
@@ -71,6 +73,7 @@ import { StatisticsComponent } from './shared/components/statistics/statistics.c
     CalendarModule,
     BrowserModule,
     KnobModule,
+    DialogModule,
     BadgeModule,
     CardModule,
     TagModule,

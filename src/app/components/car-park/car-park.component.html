@@ -2,10 +2,10 @@
 
     <div class="flex my-4" style="border: 1px solid #eee; border-radius: 5px;">
         <div class="ml-3">
-            <h4 style="color: #4e4e4e;">
+            <h4 style="color: #4e4e4e;" >
                 <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e"></i>
                 <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
-                CarParks
+                <a href="" [routerLink]="['/carParks']">CarParks</a>
             </h4>
         </div>
     </div>
@@ -13,17 +13,21 @@
     <p-table 
     [value]="carParks" 
     styleClass="p-datatable-striped" 
+    selectionMode="single"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[5, 10, 20]"
     [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
             <tr>
                 <th>Id</th>
-                <th>Car Park Name</th>
-                <th>Car Park Number</th>
-                <th>Timezone</th>
+                <th pSortableColumn="carParkName" >Car Park Name <p-sortIcon field="carParkName" /></th>
+                <th pSortableColumn="carParkNumber">Car Park Number <p-sortIcon field="carParkNumber" /></th>
+                <th pSortableColumn="timezone">Timezone <p-sortIcon field="timezone" /></th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-carPark>
-            <tr>
+        <ng-template pTemplate="body" let-carPark let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="carPark" [pSelectableRowIndex]="rowIndex">
                 <td>
                     <a [routerLink]="['/facilities/car-park', carPark.id]">{{carPark.id}}</a> 
                 </td>

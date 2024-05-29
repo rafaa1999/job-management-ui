@@ -18,6 +18,8 @@ export class CounterComponent implements OnInit {
 
   id:any = ''
 
+  carParkId:any = ''
+
   simulation:boolean = true
 
   value:number = 0
@@ -43,6 +45,8 @@ export class CounterComponent implements OnInit {
   getAllCountersByFacilityId(id:string){
     this.service.getAllCountersByFacilityId(id).subscribe((data:any) => {
       console.log(data)
+      this.carParkId = data[0].facility.carPark.id
+      console.log(this.carParkId)
       this.counters = data
     },err => {
       console.log(err)

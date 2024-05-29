@@ -29,6 +29,10 @@ export class CarParkComponent implements OnInit {
       });
   }
 
-  
+  one(id:any){
+    console.log("welcome to get more information !!!")
+    console.log(id)
+  }
+
 
 }
