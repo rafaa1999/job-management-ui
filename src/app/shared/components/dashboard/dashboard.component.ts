@@ -21,11 +21,11 @@ export class DashboardComponent implements OnInit {
 
   enabledJob: number = 0 
 
-  disabledJob?: number
+  disabledJob: number = 0
 
-  successfulJob?: number
+  successfulJob: number = 0
 
-  failedJob?: number
+  failedJob: number = 0
 
   constructor(private service:SchedulerService){}
 
@@ -76,11 +76,16 @@ export class DashboardComponent implements OnInit {
           this.jobRecords = data.data;
         //   this.enabledJob = this.jobRecords.length;
         for(let i of this.jobRecords){
-            if(i.jobStatus){
+            if(i.jobStatus === 'SCHEDULED'){
                 this.enabledJob += 1;
+                // console.log(this.enabledJob)
+            }
+            if(i.jobStatus === 'PAUSED'){
+              this.disabledJob += 1;
+              // console.log(this.disabledJob)
             }
         }
-        console.log(this.enabledJob)
+        // console.log(this.enabledJob)
         } else {
           alert('Some error while fetching jobs');
         }

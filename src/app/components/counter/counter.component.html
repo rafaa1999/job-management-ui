@@ -86,10 +86,12 @@
                         <p-button class="btn-down" (click)="simulateDelete(counter.id)" icon="pi pi-sort-down-fill"/> -->
                         <div *ngIf="counter.category != 'Physic'">
                             <button class="btn-up" (click)="simulateAdd(counter.id)">
+                                <i class="pi pi-sign-in"></i>
                                 <p-toast />
                                 Simulate-Enter +
                             </button> |
                             <button class="btn-down" (click)="simulateDelete(counter.id)">
+                                <i class="pi pi-sign-out"></i>
                                 <p-toast />
                                 Simulate-Exit -
                             </button>
