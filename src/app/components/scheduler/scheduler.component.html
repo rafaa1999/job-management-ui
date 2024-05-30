@@ -40,13 +40,16 @@
                     [(ngModel)]="selectedJob" 
                     [readonly]="isEditMode"
                     />
-                    <p-button label="Check Job with Name exist" 
-                    icon="pi pi-file-check"
-                    (click)="checkJobExistWith(schedulerForm.value.jobName.name)"/>
+                    <div>
+                        <p-toast />
+                        <p-button label="Check Job with Name exist" 
+                        icon="pi pi-file-check"
+                        (click)="checkJobExistWith(schedulerForm.value.jobName.name)"/>
+                    </div>
                 </div>
-                <div>
+                <!-- <div>
                     <p>Status: <span style="color: cornflowerblue;">{{jobNameStatus}}</span></p>
-                </div>
+                </div> -->
                 <div class="flex gap-2 my-4 align-items-center">
                     <div class="flex flex-column gap-1">
                         <label>Date:</label>
@@ -110,11 +113,14 @@
             </form>
 
             <div class="flex gap-2">
-                <p-button label="Schedule Job" 
-                icon="pi pi-calendar-clock"
-                (click)="scheduleJob()"
-                *ngIf="!isEditMode" 
-                />
+                <div>
+                    <p-toast />
+                    <p-button label="Schedule Job" 
+                    icon="pi pi-calendar-clock"
+                    (click)="scheduleJob()"
+                    *ngIf="!isEditMode" 
+                    />
+                </div>
                 <p-button label="Update Job" 
                 icon="pi pi-pen-to-square"
                 (click)="updateJob()"
@@ -217,45 +223,64 @@
                         <td>{{jobRec.lastFiredTime | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
                         <td>{{jobRec.nextFireTime | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
                         <td>
-                            <button class="btn btn-primary"
-                            [disabled]="jobRec.jobStatus == 'RUNNING'"
-                            (click)='startJobNow(jobRec.jobName)'
-                            >Start Job Now</button> |
-                            <!-- <p-button label="Start Job Now"/> -->
+                            <div class="flex gap-2">
 
-                            <button class="btn btn-primary" 
-                            [disabled]="jobRec.jobStatus != 'SCHEDULED'"
-                            (click)='pauseJob(jobRec.jobName)'
-                            >Pause Job</button> |
-                            <!-- <p-button label="Pause Job"/> -->
+                                <div>
+                                    <p-toast />
+                                    <button class="btn btn-primary"
+                                    [disabled]="jobRec.jobStatus == 'RUNNING'"
+                                    (click)='startJobNow(jobRec.jobName)'
+                                    >Start Job Now</button> |
+                                </div>
+                                <!-- <p-button label="Start Job Now"/> -->
+
+                                <div>
+                                    <p-toast />
+                                    <button class="btn btn-primary" 
+                                    [disabled]="jobRec.jobStatus != 'SCHEDULED'"
+                                    (click)='pauseJob(jobRec.jobName)'
+                                    >Pause Job</button> |
+                                </div>
+                                <!-- <p-button label="Pause Job"/> -->
+
+                                <div>
+                                    <p-toast />
+                                    <button class="btn btn-primary" 
+                                    [disabled]="jobRec.jobStatus != 'PAUSED'"
+                                    (click)='resumeJob(jobRec.jobName)'
+                                    >Resume Job</button> |
+                                </div>
+                                <!-- <p-button label="Resume Job"/> -->
+
+                                <div>
+                                    <p-toast />
+                                    <button class="btn btn-primary" 
+                                    [disabled]="jobRec.jobStatus == 'RUNNING'"
+                                    (click)='deleteJob(jobRec.jobName)'
+                                    >Delete Job</button> |
+                                </div>
+                                <!-- <p-button label="Delete Job"/> -->
+
+                                <div>
+                                    <p-toast />
+                                    <button class="btn btn-primary" 
+                                    [disabled]="jobRec.jobStatus != 'RUNNING'"
+                                    (click)='stopJob(jobRec.jobName)'
+                                    >Stop Job</button> |
+                                </div>
+                                <!-- <p-button label="Stop Job"/> -->
 
 
-                            <button class="btn btn-primary" 
-                            [disabled]="jobRec.jobStatus != 'PAUSED'"
-                            (click)='resumeJob(jobRec.jobName)'
-                            >Resume Job</button> |
-                            <!-- <p-button label="Resume Job"/> -->
+                                <div>
+                                    <p-toast />
+                                    <button class="btn btn-primary" 
+                                    [disabled]="jobRec.jobStatus == 'RUNNING'"
+                                    (click)='editJob(jobRec)'
+                                    >Edit Job</button>
+                                </div>
+                                <!-- <p-button label="Edit Job"/> -->
 
-
-                            <button class="btn btn-primary" 
-                            [disabled]="jobRec.jobStatus == 'RUNNING'"
-                            (click)='deleteJob(jobRec.jobName)'
-                            >Delete Job</button> |
-                            <!-- <p-button label="Delete Job"/> -->
-
-
-                            <button class="btn btn-primary" 
-                            [disabled]="jobRec.jobStatus != 'RUNNING'"
-                            (click)='stopJob(jobRec.jobName)'
-                            >Stop Job</button> |
-                            <!-- <p-button label="Stop Job"/> -->
-
-
-                            <button class="btn btn-primary" 
-                            [disabled]="jobRec.jobStatus == 'RUNNING'"
-                            (click)='editJob(jobRec)'
-                            >Edit Job</button>
-                            <!-- <p-button label="Edit Job"/> -->
+                        </div>
 
                         </td>
                         <td>{{jobRec.jobStatus}}</td>

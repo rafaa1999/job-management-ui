@@ -3,6 +3,7 @@ import { SchedulerService } from './scheduler.service';
 import { ServerResponseCode } from './response.code.constants';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 interface Job {
   name: string;
@@ -62,8 +63,10 @@ export class SchedulerComponent implements OnInit {
 
   carParkId:any = ''
 
+  visible: boolean = false;
+
   constructor(private service: SchedulerService, private fb: FormBuilder,
-              private route:ActivatedRoute
+              private route:ActivatedRoute,private messageService:MessageService
   ) {}
 
 
@@ -256,7 +259,8 @@ export class SchedulerComponent implements OnInit {
       (success:any) => {
           console.log(success)
           if(success.statusCode == ServerResponseCode.SUCCESS){
-            alert("Job scheduled successfully.");
+            // alert("Job scheduled successfully.");
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job scheduled successfully.' })
             this.resetForm();
 
           }else if(success.statusCode == ServerResponseCode.JOB_WITH_SAME_NAME_EXIST){
@@ -282,8 +286,10 @@ export class SchedulerComponent implements OnInit {
         if (success.statusCode == ServerResponseCode.SUCCESS) {
           if (success.data == true) {
             this.jobNameStatus = 'This JobName is already exist !!!';
+            this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'This JobName is already exist !!!' })
           } else {
             this.jobNameStatus = 'This JobName is not exist !!!';
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'This JobName is not exist !!!' })
           }
         } else if (
           success.statusCode == ServerResponseCode.JOB_NAME_NOT_PRESENT
@@ -313,19 +319,23 @@ export class SchedulerComponent implements OnInit {
           success.statusCode == ServerResponseCode.SUCCESS &&
           success.data == true
         ) {
-          alert('Job started successfully.');
+          // alert('Job started successfully.');
+          this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job started successfully.' })
         } else if (success.data == false) {
           if (success.statusCode == ServerResponseCode.ERROR) {
-            alert('Server error while starting job.');
+            // alert('Server error while starting job.');
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Server error while starting job.' })
           } else if (
             success.statusCode ==
             ServerResponseCode.JOB_ALREADY_IN_RUNNING_STATE
           ) {
-            alert('Job is already started.');
+            // alert('Job is already started.');
+            this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'Job is already started.' })
           } else if (
             success.statusCode == ServerResponseCode.JOB_DOESNT_EXIST
           ) {
-            alert('Job no longer exist.');
+            // alert('Job no longer exist.');
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job no longer exist.' })
           }
         }
 
@@ -333,7 +343,8 @@ export class SchedulerComponent implements OnInit {
         this.getJobs();
       },
       (err) => {
-        alert('Error while starting job now.');
+        // alert('Error while starting job now.');
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error while starting job now.' })
       }
     );
 
@@ -351,13 +362,15 @@ export class SchedulerComponent implements OnInit {
           success.statusCode == ServerResponseCode.SUCCESS &&
           success.data == true
         ) {
-          alert('Job paused successfully.');
+          // alert('Job paused successfully.');
+          this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job paused successfully.' })
         } else if (success.data == false) {
           if (
             success.statusCode ==
             ServerResponseCode.JOB_ALREADY_IN_RUNNING_STATE
           ) {
-            alert('Job already started/completed, so cannot be paused.');
+            // alert('Job already started/completed, so cannot be paused.');
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job already started/completed, so cannot be paused.' })
           }
         }
         this.getJobs();
@@ -381,12 +394,16 @@ export class SchedulerComponent implements OnInit {
           success.statusCode == ServerResponseCode.SUCCESS &&
           success.data == true
         ) {
-          alert('Job resumed successfully.');
+          // alert('Job resumed successfully.');
+          this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job resumed successfully.' })
+
         } else if (success.data == false) {
           if (
             success.statusCode == ServerResponseCode.JOB_NOT_IN_PAUSED_STATE
           ) {
-            alert('Job is not in paused state, so cannot be resumed.');
+            // alert('Job is not in paused state, so cannot be resumed.');
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job is not in paused state, so cannot be resumed.' })
+
           }
         }
 
@@ -420,11 +437,15 @@ export class SchedulerComponent implements OnInit {
             success.statusCode ==
             ServerResponseCode.JOB_ALREADY_IN_RUNNING_STATE
           ) {
-            alert('Job is already started/completed, so cannot be deleted.');
+            // alert('Job is already started/completed, so cannot be deleted.');
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job is already started/completed, so cannot be deleted.' })
+
           } else if (
             success.statusCode == ServerResponseCode.JOB_DOESNT_EXIST
           ) {
-            alert('Job no longer exist.');
+            // alert('Job no longer exist.');
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job no longer exist.' })
+
           }
         }
 
@@ -447,21 +468,25 @@ export class SchedulerComponent implements OnInit {
           success.statusCode == ServerResponseCode.SUCCESS &&
           success.data == true
         ) {
-          alert('Job stopped successfully.');
+          // alert('Job stopped successfully.');
+          this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job stopped successfully.' })
         } else if (success.data == false) {
           if (
             success.statusCode == ServerResponseCode.JOB_NOT_IN_RUNNING_STATE
           ) {
-            alert('Job not started, so cannot be stopped.');
+            // alert('Job not started, so cannot be stopped.');
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job not started, so cannot be stopped.' })
           } else if (
             success.statusCode ==
             ServerResponseCode.JOB_ALREADY_IN_RUNNING_STATE
           ) {
-            alert('Job already started.');
+            // alert('Job already started.');
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job already started.' })
           } else if (
             success.statusCode == ServerResponseCode.JOB_DOESNT_EXIST
           ) {
-            alert('Job no longer exist.');
+            // alert('Job no longer exist.');
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job no longer exist.' })
           }
         }
 
@@ -476,7 +501,7 @@ export class SchedulerComponent implements OnInit {
 
   editJob(selectedJobRow: any) {
     this.isEditMode = true;
-    
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Now you can edit the job' })
     let d = Date.parse(selectedJobRow.scheduleTime);
     let date = new Date(selectedJobRow.scheduleTime); 
     // console.log(selectedJobRow.jobName)
@@ -550,7 +575,6 @@ export class SchedulerComponent implements OnInit {
     this.getJobs();   
   }
 
-
   cronChange(cronExp: any) {
     this.schedulerForm.patchValue({
       cronExpression: cronExp.target.value,
@@ -560,7 +584,6 @@ export class SchedulerComponent implements OnInit {
   onDateExpireChange(event:any){
     
   }
-
 
 
 

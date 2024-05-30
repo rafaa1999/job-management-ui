@@ -1,4 +1,16 @@
 a{
     text-decoration: none;
     color: #3B82F6;
+    /* color: #FFCB00; */
+}
+
+select{
+    padding: 12px;
+    border: none;
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    width: 80px;
+    /* color: #FFCB00; */
+    color: #3B82F6;
 }

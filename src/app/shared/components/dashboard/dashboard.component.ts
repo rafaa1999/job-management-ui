@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ServerResponseCode } from 'src/app/components/scheduler/response.code.constants';
+import { SchedulerService } from 'src/app/components/scheduler/scheduler.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +17,23 @@ export class DashboardComponent implements OnInit {
 
   cronExpression: string = '0 0 12 * * ?'; 
 
-  constructor(){}
+  jobRecords: any[] = [];
+
+  enabledJob: number = 0 
+
+  disabledJob?: number
+
+  successfulJob?: number
+
+  failedJob?: number
+
+  constructor(private service:SchedulerService){}
 
 
   ngOnInit(): void {
+
+    this.getJobs();
+
     this.products = [
       {code: "Cronjob execution: Successful", name: "Today at 11:15:01 AM", category: "phone", quantity:23},
       {code: "Cronjob execution: Successful", name: "Today at 11:15:01 AM", category: "phone", quantity:23},
@@ -50,6 +65,31 @@ export class DashboardComponent implements OnInit {
                 }
             }
         };
+
   }
+
+  getJobs() {
+    this.service.getJobs().subscribe(
+      (data: any) => {
+        console.log(data);
+        if (data.statusCode == ServerResponseCode.SUCCESS) {
+          this.jobRecords = data.data;
+        //   this.enabledJob = this.jobRecords.length;
+        for(let i of this.jobRecords){
+            if(i.jobStatus){
+                this.enabledJob += 1;
+            }
+        }
+        console.log(this.enabledJob)
+        } else {
+          alert('Some error while fetching jobs');
+        }
+      },
+      (err) => {
+        alert('Error while getting all jobs');
+      }
+    );
+  }
+
 
 }
