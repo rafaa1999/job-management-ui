@@ -60,8 +60,8 @@
                         <td>{{job.nextFireTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                         <td>{{job.jobStatus}}</td>
                         <td>
-                            <button class="w-10rem ">
-                                <i class="pi pi-ellipsis-v"></i>
+                            <button class="w-10rem " (click)="jobDetail('job.jobName')">
+                                <i class="pi pi-ellipsis-v" [routerLink]="['/jobDetails']"></i>
                                 Details
                             </button>
                         </td>

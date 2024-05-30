@@ -45,12 +45,15 @@ export class DashboardComponent implements OnInit {
         const textColor = documentStyle.getPropertyValue('--text-color');
 
         this.data = {
-            labels: ['A', 'B', 'C'],
+            labels: ['Enabled Job', 'Disabled Job', 'Successful Job', 'Failed Job'],
+            // labels: ['A', 'B', 'C'],
             datasets: [
                 {
-                    data: [540, 325, 702],
-                    backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-                    hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+                    // data: [540, 325, 702],
+                    data: [40, 10, 20,30],
+                    // data: [this.enabledJob, this.disabledJob, this.successfulJob],
+                    backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500'),documentStyle.getPropertyValue('--red-500')],
+                    hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400'),documentStyle.getPropertyValue('--red-400')]
                 }
             ]
         };
@@ -94,6 +97,10 @@ export class DashboardComponent implements OnInit {
         alert('Error while getting all jobs');
       }
     );
+  }
+
+  jobDetail(jobjobName:any){
+    console.log(jobjobName)
   }
 
 
