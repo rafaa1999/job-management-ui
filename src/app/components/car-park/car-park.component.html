@@ -20,17 +20,18 @@
     [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
             <tr>
-                <th>Id</th>
+                <!-- <th>Id</th> -->
                 <th pSortableColumn="carParkName" >Car Park Name <p-sortIcon field="carParkName" /></th>
                 <th pSortableColumn="carParkNumber">Car Park Number <p-sortIcon field="carParkNumber" /></th>
                 <th pSortableColumn="timezone">Timezone <p-sortIcon field="timezone" /></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-carPark let-rowIndex="rowIndex">
-            <tr [pSelectableRow]="carPark" [pSelectableRowIndex]="rowIndex">
-                <td>
+            <tr [routerLink]="['/facilities/car-park', carPark.id]"
+                [pSelectableRow]="carPark" [pSelectableRowIndex]="rowIndex">
+                <!-- <td>
                     <a [routerLink]="['/facilities/car-park', carPark.id]">{{carPark.id}}</a> 
-                </td>
+                </td> -->
                 <td>{{carPark.carParkName}}</td>
                 <td>{{carPark.carParkNumber}}</td>
                 <td>{{carPark.timezone}}</td>

@@ -80,8 +80,6 @@ export class SchedulerComponent implements OnInit {
     this.jobs = [
       { name: 'resetting' },
       { name: 'capacity' },
-      { name: 'billing' },
-      { name: 'saving' },
     ];
 
     this.hours = [

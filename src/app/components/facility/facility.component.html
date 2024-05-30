@@ -47,26 +47,27 @@
         [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
                 <tr>
-                    <th>Id</th>
+                    <!-- <th>Id</th> -->
                     <th pSortableColumn="facilityName">facilityName <p-sortIcon field="facilityName" /></th>
                     <th pSortableColumn="facilityNumber">facilityNumber <p-sortIcon field="facilityNumber" /></th>
                     <th pSortableColumn="facilityType">facilityType <p-sortIcon field="facilityType" /></th>
                     <th pSortableColumn="locationId">locationId <p-sortIcon field="locationId" /></th>
-                    <th pSortableColumn="description">description <p-sortIcon field="description" /></th>
-                    <th pSortableColumn="deleted">deleted <p-sortIcon field="deleted" /></th>
+                    <!-- <th pSortableColumn="description">description <p-sortIcon field="description" /></th> -->
+                    <!-- <th pSortableColumn="deleted">deleted <p-sortIcon field="deleted" /></th> -->
                 </tr>
         </ng-template>
             <ng-template pTemplate="body" let-facility let-rowIndex="rowIndex">
-                <tr [pSelectableRow]="facility" [pSelectableRowIndex]="rowIndex">
-                    <td>
+                <tr [routerLink]="['/counters/facility', facility.id]" 
+                    [pSelectableRow]="facility" [pSelectableRowIndex]="rowIndex">
+                    <!-- <td>
                         <a [routerLink]="['/counters/facility', facility.id]">{{facility.id}}</a> 
-                    </td>
+                    </td> -->
                     <td>{{facility.facilityName}}</td>
                     <td>{{facility.facilityNumber}}</td>
                     <td>{{facility.facilityType}}</td>
                     <td>{{facility.locationId}}</td>
-                    <td>{{facility.description}}</td>
-                    <td>{{facility.deleted}}</td>
+                    <!-- <td>{{facility.description}}</td> -->
+                    <!-- <td>{{facility.deleted}}</td> -->
                 </tr>
             </ng-template>
         </p-table>

@@ -1,15 +1,31 @@
-.btn-up{
+/* .btn-up{
     padding: 6px;
     border: none;
     border-radius: 3px;
-}
+} */
 
-.btn-down{
-    padding: 6px;
-    border: none;
-    border-radius: 3px;
-}
+    /* .btn-down{
+        padding: 6px;
+        border: none;
+        border-radius: 3px;
+    } */
 
 a{
     text-decoration: none;
+}
+
+button{
+    padding: 8px;
+    border: none;
+    font-size: 16px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-top: 2px;
+    background-color: white;
+    font-weight: 430;
+}
+
+button:hover{
+    background-color: #F3F3F3;
+    color: #3B3D4C;
 }

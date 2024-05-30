@@ -62,6 +62,7 @@ export class CounterComponent implements OnInit {
     // console.log(id)
     this.service.simulateAdd(id).subscribe((data:any) => {
       this.counters
+      this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Car Add Simulation' })
     },err => {
       console.log(err)
     })
@@ -71,6 +72,7 @@ export class CounterComponent implements OnInit {
     // console.log(id)
     this.service.simulateDelete(id).subscribe((data:any) => {
       this.counters
+      this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Car Exit Simulation' })
     },err => {
       console.log(err)
     })
