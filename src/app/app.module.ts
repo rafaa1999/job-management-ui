@@ -47,6 +47,7 @@ import { ToastModule } from 'primeng/toast';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
 import { StatisticsComponent } from './shared/components/statistics/statistics.component';
+import { JobDetailsComponent } from './components/job-details/job-details.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { StatisticsComponent } from './shared/components/statistics/statistics.c
     LoginComponent,
     DashboardComponent,
     StatisticsComponent,
+    JobDetailsComponent,
   ],
   imports: [
     HttpClientModule,
