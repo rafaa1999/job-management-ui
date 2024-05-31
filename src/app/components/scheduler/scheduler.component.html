@@ -121,16 +121,22 @@
                     *ngIf="!isEditMode" 
                     />
                 </div>
-                <p-button label="Update Job" 
-                icon="pi pi-pen-to-square"
-                (click)="updateJob()"
-                *ngIf="isEditMode" 
-                />
-                <p-button label="Cancel Edit"
-                icon="pi pi-times"
-                (click)="cancelEdit()"
-                *ngIf="isEditMode" 
-                />
+                <div>
+                    <p-toast />
+                    <p-button label="Update Job" 
+                    icon="pi pi-pen-to-square"
+                    (click)="updateJob()"
+                    *ngIf="isEditMode" 
+                    />
+                </div>
+                <div>
+                    <p-toast />
+                    <p-button label="Cancel Edit"
+                    icon="pi pi-times"
+                    (click)="cancelEdit()"
+                    *ngIf="isEditMode" 
+                    />
+                </div>
             </div>
         </div>
 

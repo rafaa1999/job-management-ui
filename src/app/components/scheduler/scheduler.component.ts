@@ -548,19 +548,27 @@ export class SchedulerComponent implements OnInit {
     this.service.updateJob(data).subscribe(
       (success:any) => {
           if(success.statusCode == ServerResponseCode.SUCCESS){
-            alert("Job updated successfully.");
+            // alert("Job updated successfully.");
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job updated successfully.' })
+
             this.resetForm();
 
           }else if(success.statusCode == ServerResponseCode.JOB_DOESNT_EXIST){
-            alert("Job no longer exist.");
+            // alert("Job no longer exist.");
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job no longer exist.' })
+
           
           }else if(success.statusCode == ServerResponseCode.JOB_NAME_NOT_PRESENT){
-            alert("Please provide job name.");
+            // alert("Please provide job name.");
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Please provide job name.' })
+
           }
           this.jobRecords = success.data;
       },
       err => {
-        alert("Error while updating job");
+        // alert("Error while updating job");
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Error while updating job' })
+
       });
       
   }
@@ -568,6 +576,7 @@ export class SchedulerComponent implements OnInit {
   cancelEdit() {
     this.resetForm();
     this.isEditMode = false;
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Exit updating job' })
   }
 
   refreshJob(){
