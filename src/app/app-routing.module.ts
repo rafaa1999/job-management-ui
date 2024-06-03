@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'statistics', component: StatisticsComponent },
   { path: 'jobDetails', component: JobDetailsComponent },
   { path: 'login', component: LoginComponent },
-  { path: '**', redirectTo: 'carParks', pathMatch: 'full' },
+  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({

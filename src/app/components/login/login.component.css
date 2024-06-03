@@ -1,0 +1,8 @@
+
+.login{
+    display: flex;
+    border: 1px solid #eee; 
+    border-radius: 5px;
+    height: 400px;
+    width: 400px;
+}

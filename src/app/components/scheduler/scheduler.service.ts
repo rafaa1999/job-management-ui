@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 })
 export class SchedulerService {
 
+  hibeSideBar:boolean = true;
+
   private getJobsUrl = "scheduler/jobs";
   private scheduleJobUrl = "scheduler/schedule";
   private pauseJobUrl = "scheduler/pause";

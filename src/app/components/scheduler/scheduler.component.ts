@@ -595,6 +595,9 @@ export class SchedulerComponent implements OnInit {
   }
 
 
+  details(){
+    console.log("welcome")
+  }
 
 }
 
