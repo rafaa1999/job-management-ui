@@ -1,0 +1,98 @@
+{
+    "common": {
+        "save": "Speichern",
+        "cancel": "Abbrechen",
+        "update": "Aktualisieren",
+        "errors": {
+            "mandatory": "Pflichtfeld",
+            "capacityExceeded": "Limit überschritten",
+            "invalidRange": "Die Werte müssen wie folgt angegeben werden: 0 < Gelb < Grün < 100",
+            "errorUpdate": "Fehler beim Aktualisieren des Zählers"
+        },
+        "success": {
+            "counterUpdated": "Der Zähler wurde aktualisiert"
+        }
+    },
+    "counters": {
+        "counterFilters": {
+            "title": "Auswählen und filtern",
+            "currentFilters": "Aktuelle Filter",
+            "deleteFilters": "Entfernen",
+            "applyFilters": "Anwenden",
+            "selectedFacility": "Ausgewählte Anlagen",
+            "selectedCounters": "Ausgewählte Zähler",
+            "facilities": "Anlagen",
+            "counters": "Zähler",
+            "capacity": "Zählung",
+            "selectFacility": "Anlagen auswählen",
+            "selectCategories": "Zähler auswählen",
+            "validation": {
+                "facility": "Pflichtfeld"
+            },
+            "selectedItems": "Ausgewählte Zähler",
+            "noResultFound": "Keine Daten gefunden",
+            "selectedFacilitiesItems": "ausgewählte Anlagen",
+            "selectedElements": "Elemente ausgewählt"
+        },
+        "reloadCounter": {
+            "title": "Aktualisierung",
+            "autoReload": "Automatisch aktualisieren",
+            "reloadNow": "Aktualisieren",
+            "never": "Nie",
+            "every5Sec": "Jede 5 Sekunden",
+            "every30Sec": "Jede 30 Sekunden",
+            "every1Min": "Jede Minute",
+            "every1Hour": "Jede Stunde"
+        },
+        "counterEdit": {
+            "free": "Frei",
+            "occupied": "Besetzt",
+            "total": "Insgesamt",
+            "counter": "Zähler",
+            "mode": "Modus"
+        },
+        "counterMode": {
+            "normal": "Normal",
+            "ignored": "Ignoriert",
+            "blocked": "Gesperrt"
+        },
+        "occupied": "Besetzt",
+        "free": "Frei",
+        "capacityEdit": {
+            "title": "Zähler bearbeiten",
+            "facilities": "Anlage",
+            "selectFacility": "Anlage auswählen",
+            "countersUpdated": "Zähler wurde(n) aktualisiert",
+            "errorUpdate": "Fehler beim Aktualisieren des Zählers"
+        },
+        "counterSettings": {
+            "title": "Einstellungen",
+            "valueTypeLabel": "Wertetyp",
+            "ranges": "Wertebereiche",
+            "values": "Freie Plätze in %",
+            "clearSettings": "Abbrechen",
+            "applySettings": "Anwenden",
+            "valueType": {
+                "percent": "Prozent (% Freie)",
+                "number": "Anzahl (besetzt)"
+            }
+        },
+        "error": {
+            "full": "Der Zähler ist auf besetzt",
+            "blocked": "Der Zähler ist gesperrt",
+            "ignored": "Der Zähler wird ignoriert"
+        },
+        "warning": {
+            "almostFull": "Der Zähler ist fast auf besetzt"
+        }
+    },
+    "unauthorized": {
+        "message": "Ihnen fehlt die Berechtigung, um auf die angeforderten Daten zuzugreifen"
+    },
+    "counter_category": {
+        "PHYSICAL": "Maximale Stellplätze",
+        "RESERVED": "Reserviert",
+        "PREBOOKED": "Gebucht",
+        "NON_RESERVED": "Nicht reserviert"
+    }
+}

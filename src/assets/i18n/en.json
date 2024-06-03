@@ -1,0 +1,98 @@
+{
+    "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "update": "Update",
+        "errors": {
+            "mandatory": "Mandatory field",
+            "capacityExceeded": "Total exceeded",
+            "invalidRange": "Value must be within the range 0 < yellow < green <100",
+            "errorUpdate": "Error while updating the counter"
+        },
+        "success": {
+            "counterUpdated": "The counter has been updated"
+        }
+    },
+    "counters": {
+        "counterFilters": {
+            "title": "Select and Filter",
+            "currentFilters": "Current filters",
+            "deleteFilters": "Clear",
+            "applyFilters": "Apply",
+            "selectedFacility": "Selected facilities",
+            "selectedCounters": "Selected counters",
+            "facilities": "Facilities",
+            "counters": "Counters",
+            "capacity": "Counting",
+            "selectFacility": "Select facilities",
+            "selectCategories": "Select counters",
+            "validation": {
+                "facility": "Mandatory field"
+            },
+            "selectedItems": "Selected counters",
+            "noResultFound": "No data found",
+            "selectedFacilitiesItems": "Selected facilities",
+            "selectedElements": "item(s) selected"
+        },
+        "reloadCounter": {
+            "title": "Refresh Options",
+            "autoReload": "Auto-refresh",
+            "reloadNow": "Refresh Now",
+            "never": "Never",
+            "every5Sec": "Every 5 seconds",
+            "every30Sec": "Every 30 seconds",
+            "every1Min": "Every 1 minute",
+            "every1Hour": "Every 1 hour"
+        },
+        "counterEdit": {
+            "free": "Free",
+            "occupied": "Occupied",
+            "total": "Total",
+            "counter": "Counter",
+            "mode": "Mode"
+        },
+        "counterMode": {
+            "normal": "Normal",
+            "ignored": "Ignored",
+            "blocked": "Blocked"
+        },
+        "occupied": "Occupied",
+        "free": "Free",
+        "capacityEdit": {
+            "title": "Edit Counters",
+            "facilities": "Facility",
+            "selectFacility": "Select facility",
+            "countersUpdated": "The counter(s) have been updated",
+            "errorUpdate": "Error while updating the counter(s)"
+        },
+        "counterSettings": {
+            "title": "Settings",
+            "valueTypeLabel": "Value type",
+            "ranges": "Value ranges",
+            "values": "% of free capacity",
+            "clearSettings": "Cancel",
+            "applySettings": "Apply",
+            "valueType": {
+                "percent": "Percent (% free)",
+                "number": "Number (occupied)"
+            }
+        },
+        "error": {
+            "full": "The counter is full",
+            "blocked": "The counter is blocked",
+            "ignored": "The counter is ignored"
+        },
+        "warning": {
+            "almostFull": "The counter is almost full"
+        }
+    },
+    "unauthorized": {
+        "message": "You do not have permission to access the requested resource"
+    },
+    "counter_category": {
+        "PHYSICAL": "Facility capacity",
+        "RESERVED": "Reserved",
+        "PREBOOKED": "Pre-booked",
+        "NON_RESERVED": "Non-reserved"
+    }
+}
