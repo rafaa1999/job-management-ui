@@ -64,7 +64,7 @@
                         <label>Hour(24-hour):</label>
                         <p-dropdown 
                         optionLabel="name" 
-                        placeholder="Select a JobName"
+                        placeholder="Select Hour"
                         formControlName="hour"
                         [options]="hours"
                         [(ngModel)]="selectedHour" 
@@ -74,7 +74,7 @@
                         <label>Minute:</label>
                         <p-dropdown 
                         optionLabel="name" 
-                        placeholder="Select a JobName" 
+                        placeholder="Select Minute" 
                         formControlName="minute"
                         [options]="minutes"
                         [(ngModel)]="selectedMinute" 
@@ -162,13 +162,13 @@
                         <label>Hour(24-hour):</label>
                         <p-dropdown 
                         optionLabel="name" 
-                        placeholder="Select a JobName" /> 
+                        placeholder="Select Hour" /> 
                     </div>
                     <div class="flex flex-column gap-1">
                         <label>Minute:</label>
                         <p-dropdown 
                         optionLabel="name" 
-                        placeholder="Select a JobName" />
+                        placeholder="Select Minute" />
                     </div>
                 </div>
             </form>
@@ -324,42 +324,42 @@
                         <div class="flex flex-column gap-1">
                             <div>
                                 <p-toast />
-                                <button class="btn btn-primary"
+                                <button class="flex align-items-center justify-content-center gap-2"
                                 [disabled]="jobRec.jobStatus == 'RUNNING'"
                                 (click)='startJobNow(jobRec.jobName)'
                                 ><i class="pi pi-play"></i>Start Job Now</button>
                             </div>
                             <div>
                                 <p-toast />
-                                    <button class="btn btn-primary" 
+                                    <button class="flex align-items-center justify-content-center gap-2" 
                                     [disabled]="jobRec.jobStatus != 'SCHEDULED'"
                                     (click)='pauseJob(jobRec.jobName)'
                                 ><i class="pi pi-power-off"></i>Pause Job</button>
                             </div>
                             <div>
                                 <p-toast />
-                                    <button class="btn btn-primary" 
+                                    <button class="flex align-items-center justify-content-center gap-2" 
                                     [disabled]="jobRec.jobStatus != 'PAUSED'"
                                     (click)='resumeJob(jobRec.jobName)'
                                 ><i class="pi pi-refresh"></i>Resume Job</button>
                             </div>
                             <div>
                                 <p-toast />
-                                    <button class="btn btn-primary" 
+                                    <button class="flex align-items-center justify-content-center gap-2" 
                                     [disabled]="jobRec.jobStatus == 'RUNNING'"
                                     (click)='deleteJob(jobRec.jobName)'
                                 ><i class="pi pi-delete-left"></i>Delete Job</button>
                             </div>
                             <div>
                                 <p-toast />
-                                    <button class="btn btn-primary" 
+                                    <button class="flex align-items-center justify-content-center gap-2" 
                                     [disabled]="jobRec.jobStatus != 'RUNNING'"
                                     (click)='stopJob(jobRec.jobName)'
                                 ><i class="pi pi-stopwatch"></i>Stop Job</button>
                             </div>
                             <div>
                                 <p-toast />
-                                    <button class="btn btn-primary" 
+                                    <button class="flex align-items-center justify-content-center gap-2" 
                                     [disabled]="jobRec.jobStatus == 'RUNNING'"
                                     (click)='editJob(jobRec)'
                                 ><i class="pi pi-pen-to-square"></i>Edit Job</button>
