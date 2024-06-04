@@ -43,6 +43,8 @@ export class SchedulerComponent implements OnInit {
 
   expirationForm!: FormGroup;
 
+  notificationForm!: FormGroup;
+
   jobs: any[] = [];
   selectedJob: Job | undefined;
 
@@ -246,6 +248,12 @@ export class SchedulerComponent implements OnInit {
       minuteEx: [''],
     })
 
+    this.notificationForm = this.fb.group({
+      cronJobFail: [''],
+      cronJobSucceedAfterFail: [''],
+      cronJobDisabledBecauseManyFailures: [''],
+    })
+
     this.route.paramMap.subscribe((params:any) =>{
       this.facilityId = params.get('id')
       // console.log(`this is the id from the URL ${this.facilityId}`)
@@ -297,6 +305,20 @@ export class SchedulerComponent implements OnInit {
       hour: dateNow.getHours(),
       minute: dateNow.getMinutes(),
     });
+
+    this.expirationForm?.patchValue({
+      dateEx:
+        dateNow.getFullYear() +
+        '/' +
+        (dateNow.getMonth() +
+        1) +
+        '/' +
+        dateNow.getHours(),
+      hourEx: dateNow.getHours(),
+      minuteEx: dateNow.getMinutes(),
+    });
+
+    this.scheduleExpiration = false
 
     this.jobNameStatus = '';
   }
@@ -361,25 +383,25 @@ export class SchedulerComponent implements OnInit {
 
     console.log(this.facilityId)
     
-    // this.service.scheduleJob(data,this.facilityId).subscribe(
-    //   (success:any) => {
-    //       console.log(success)
-    //       if(success.statusCode == ServerResponseCode.SUCCESS){
-    //         // alert("Job scheduled successfully.");
-    //         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job scheduled successfully.' })
-    //         this.resetForm();
+    this.service.scheduleJob(data,this.facilityId).subscribe(
+      (success:any) => {
+          console.log(success)
+          if(success.statusCode == ServerResponseCode.SUCCESS){
+            // alert("Job scheduled successfully.");
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job scheduled successfully.' })
+            this.resetForm();
 
-    //       }else if(success.statusCode == ServerResponseCode.JOB_WITH_SAME_NAME_EXIST){
-    //         alert("Job with same name exists, Please choose different name.");
+          }else if(success.statusCode == ServerResponseCode.JOB_WITH_SAME_NAME_EXIST){
+            alert("Job with same name exists, Please choose different name.");
 
-    //       }else if(success.statusCode == ServerResponseCode.JOB_NAME_NOT_PRESENT){
-    //         alert("Job name is mandatory.");
-    //       }
-    //       this.jobRecords = success.data;
-    //   },
-    //   err => {
-    //     alert("Error while getting all jobs");
-    //   });
+          }else if(success.statusCode == ServerResponseCode.JOB_NAME_NOT_PRESENT){
+            alert("Job name is mandatory.");
+          }
+          this.jobRecords = success.data;
+      },
+      err => {
+        alert("Error while getting all jobs");
+      });
   }
 
   checkJobExistWith(jobName: string) {

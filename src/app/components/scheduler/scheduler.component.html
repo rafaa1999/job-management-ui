@@ -189,9 +189,10 @@
 
     <div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
         <h4>Notify me when...</h4>
-        <div class="flex align-items-center gap-2">
-            <div class="mt-2">
-                <p-inputSwitch [(ngModel)]="checkedFail" />
+        <form [formGroup]="notificationForm">
+            <div class="flex align-items-center gap-2">
+                <div class="mt-2">
+                    <p-inputSwitch [(ngModel)]="checkedFail" />
             </div>
             <p>execution of the cronjob fails</p>
         </div>
@@ -207,6 +208,7 @@
             </div>
             <p>the cronjob will be disabled because of too many failures</p>
         </div>
+        </form>
     </div>
 
     <!-- <div class="flex flex-row-reverse">
