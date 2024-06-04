@@ -41,6 +41,8 @@ export class SchedulerComponent implements OnInit {
 
   schedulerForm!: FormGroup;
 
+  expirationForm!: FormGroup;
+
   jobs: any[] = [];
   selectedJob: Job | undefined;
 
@@ -64,6 +66,14 @@ export class SchedulerComponent implements OnInit {
   carParkId:any = ''
 
   visible: boolean = false;
+
+  hoursEx: any[] = [];
+  selectedHourEx: Hour | undefined;
+
+  minutesEx: any[] = []
+  selectedMinuteEx: Minute | undefined;
+
+
 
   constructor(private service: SchedulerService, private fb: FormBuilder,
               private route:ActivatedRoute,private messageService:MessageService
@@ -153,13 +163,88 @@ export class SchedulerComponent implements OnInit {
       { name: '39' },
     ];
 
+    this.hoursEx = [
+      { name: '00' },
+      { name: '01' },
+      { name: '02' },
+      { name: '03' },
+      { name: '04' },
+      { name: '05' },
+      { name: '06' },
+      { name: '07' },
+      { name: '08' },
+      { name: '09' },
+      { name: '10' },
+      { name: '12' },
+      { name: '13' },
+      { name: '14' },
+      { name: '15' },
+      { name: '16' },
+      { name: '17' },
+      { name: '18' },
+      { name: '19' },
+      { name: '20' },
+      { name: '21' },
+      { name: '22' },
+      { name: '23' },
+      { name: '24' },
+    ];
+
+    this.minutesEx = [
+      { name: '01' },
+      { name: '02' },
+      { name: '03' },
+      { name: '04' },
+      { name: '05' },
+      { name: '06' },
+      { name: '07' },
+      { name: '08' },
+      { name: '09' },
+      { name: '10' },
+      { name: '12' },
+      { name: '13' },
+      { name: '14' },
+      { name: '15' },
+      { name: '16' },
+      { name: '17' },
+      { name: '18' },
+      { name: '19' },
+      { name: '20' },
+      { name: '21' },
+      { name: '22' },
+      { name: '23' },
+      { name: '24' },
+      { name: '25' },
+      { name: '26' },
+      { name: '27' },
+      { name: '28' },
+      { name: '29' },
+      { name: '30' },
+      { name: '31' },
+      { name: '32' },
+      { name: '33' },
+      { name: '34' },
+      { name: '35' },
+      { name: '36' },
+      { name: '37' },
+      { name: '38' },
+      { name: '39' },
+    ];
+
     this.schedulerForm = this.fb.group({
       jobName: [''],
       date: [''],
       hour: [''],
       minute: [''],
-      cronExpression: ['0 0/1 * 1/1 * ? *'],
+      cronExpression: ['0 0/1 * 1/1 * ? *']
     });
+
+
+    this.expirationForm = this.fb.group({
+      dateEx: [''],
+      hourEx: [''],
+      minuteEx: [''],
+    })
 
     this.route.paramMap.subscribe((params:any) =>{
       this.facilityId = params.get('id')
@@ -174,19 +259,32 @@ export class SchedulerComponent implements OnInit {
 
   setDate(): void {
     let date = new Date();
+
     this.schedulerForm?.patchValue({
       date:
         date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate(),
       hour: date.getHours(),
       minute: date.getMinutes(),
     });
+
+    this.expirationForm?.patchValue({
+      dateEx:
+        date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate(),
+      hourEx: date.getHours(),
+      minuteEx: date.getMinutes(),
+    });
+
     console.log(
       date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
     );
+
   }
+
+  
 
   resetForm() {
     var dateNow = new Date();
+
     this.schedulerForm?.patchValue({
       jobName: '',
       date:
@@ -199,6 +297,7 @@ export class SchedulerComponent implements OnInit {
       hour: dateNow.getHours(),
       minute: dateNow.getMinutes(),
     });
+
     this.jobNameStatus = '';
   }
 
@@ -228,11 +327,17 @@ export class SchedulerComponent implements OnInit {
     let hour = this.schedulerForm?.value.hour.name;
     let minute = this.schedulerForm?.value.minute.name;
 
+    let dateEx = this.expirationForm?.value.dateEx.toLocaleDateString();
+    let hourEx = this.expirationForm?.value.hourEx.name;
+    let minuteEx = this.expirationForm?.value.minuteEx.name;
+
     console.log(date)
 
     console.log("=========")
 
     date = date.split("/")[2] + "/" + date.split("/")[0] + "/" + date.split("/")[1]
+
+    dateEx = dateEx.split("/")[2] + "/" + dateEx.split("/")[0] + "/" + dateEx.split("/")[1]
 
     console.log(date)
 
@@ -240,6 +345,7 @@ export class SchedulerComponent implements OnInit {
       jobName: this.schedulerForm?.value.jobName.name,
       jobScheduleTime: this.getFormattedDate(date, hour, minute),
       cronExpression: this.schedulerForm?.value.cronExpression,
+      expirationTime: this.getFormattedDate(dateEx, hourEx, minuteEx),
     };
 
     
@@ -255,25 +361,25 @@ export class SchedulerComponent implements OnInit {
 
     console.log(this.facilityId)
     
-    this.service.scheduleJob(data,this.facilityId).subscribe(
-      (success:any) => {
-          console.log(success)
-          if(success.statusCode == ServerResponseCode.SUCCESS){
-            // alert("Job scheduled successfully.");
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job scheduled successfully.' })
-            this.resetForm();
+    // this.service.scheduleJob(data,this.facilityId).subscribe(
+    //   (success:any) => {
+    //       console.log(success)
+    //       if(success.statusCode == ServerResponseCode.SUCCESS){
+    //         // alert("Job scheduled successfully.");
+    //         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job scheduled successfully.' })
+    //         this.resetForm();
 
-          }else if(success.statusCode == ServerResponseCode.JOB_WITH_SAME_NAME_EXIST){
-            alert("Job with same name exists, Please choose different name.");
+    //       }else if(success.statusCode == ServerResponseCode.JOB_WITH_SAME_NAME_EXIST){
+    //         alert("Job with same name exists, Please choose different name.");
 
-          }else if(success.statusCode == ServerResponseCode.JOB_NAME_NOT_PRESENT){
-            alert("Job name is mandatory.");
-          }
-          this.jobRecords = success.data;
-      },
-      err => {
-        alert("Error while getting all jobs");
-      });
+    //       }else if(success.statusCode == ServerResponseCode.JOB_NAME_NOT_PRESENT){
+    //         alert("Job name is mandatory.");
+    //       }
+    //       this.jobRecords = success.data;
+    //   },
+    //   err => {
+    //     alert("Error while getting all jobs");
+    //   });
   }
 
   checkJobExistWith(jobName: string) {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ServerResponseCode } from 'src/app/components/scheduler/response.code.constants';
 import { SchedulerService } from 'src/app/components/scheduler/scheduler.service';
 
+import {TranslateService} from "@ngx-translate/core"
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -27,7 +29,16 @@ export class DashboardComponent implements OnInit {
 
   failedJob: number = 0
 
-  constructor(private service:SchedulerService){}
+  constructor(private service:SchedulerService,
+              private translateService: TranslateService
+  ){
+    const userLang = navigator.language || 'en';
+    console.log(userLang)
+    const languageCode = userLang.split('-')[0]
+    console.log(languageCode)
+    this.translateService.setDefaultLang(languageCode);
+    this.translateService.use(languageCode);
+  }
 
 
   ngOnInit(): void {

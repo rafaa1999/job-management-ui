@@ -28,7 +28,7 @@ import { BadgeModule } from 'primeng/badge';
 import { SideBarComponent } from './shared/components/side-bar/side-bar.component';
 import { TagModule } from 'primeng/tag';
 import { CardModule } from 'primeng/card';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SchedulerComponent } from './components/scheduler/scheduler.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { KnobModule } from 'primeng/knob';
@@ -49,6 +49,14 @@ import { DashboardComponent } from './shared/components/dashboard/dashboard.comp
 import { StatisticsComponent } from './shared/components/statistics/statistics.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
 
+import {TranslateLoader,TranslateModule} from "@ngx-translate/core"
+import {TranslateHttpLoader} from "@ngx-translate/http-loader"
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http, './assets/i18n/','.json')
+}
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +75,14 @@ import { JobDetailsComponent } from './components/job-details/job-details.compon
   ],
   imports: [
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+
     ToastModule,
     MessagesModule,
     ChartModule,

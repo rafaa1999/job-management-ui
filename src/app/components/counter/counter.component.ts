@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CounterService } from 'src/app/services/counter.service';
 import { MenuItem,MessageService } from 'primeng/api';
 
@@ -26,7 +26,8 @@ export class CounterComponent implements OnInit {
 
   constructor(private route:ActivatedRoute,
               private service:CounterService,
-              private messageService:MessageService ){}
+              private messageService:MessageService,
+              private router:Router){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -52,17 +53,18 @@ export class CounterComponent implements OnInit {
       console.log(err)
     })
   }
-
+  
   handleSimulation(){
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Car Simulation Is Starting' })
     console.log("handle simulation")
   }
-
+  
   simulateAdd(id:any){
     // console.log(id)
     this.service.simulateAdd(id).subscribe((data:any) => {
       this.counters
       this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Car Enter Simulation' })
+      // this.router.navigateByUrl(this.router.url)
     },err => {
       console.log(err)
     })

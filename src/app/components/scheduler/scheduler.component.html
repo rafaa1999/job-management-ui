@@ -148,12 +148,13 @@
         </div>
 
         <div *ngIf="scheduleExpiration">
-            <form>
+            <form [formGroup]="expirationForm"> 
                 <div class="flex gap-2 my-4 align-items-center">
                     <div class="flex flex-column gap-1">
                         <label>Date:</label>
                         <p-calendar 
                         [showIcon]="true" 
+                        formControlName="dateEx"
                         inputId="icondisplay" 
                         (onChange)="onDateChange($event)"
                         />
@@ -162,16 +163,26 @@
                         <label>Hour(24-hour):</label>
                         <p-dropdown 
                         optionLabel="name" 
+                        formControlName="hourEx"
+                        [options]="hoursEx"
+                        [(ngModel)]="selectedHourEx"
                         placeholder="Select Hour" /> 
                     </div>
                     <div class="flex flex-column gap-1">
                         <label>Minute:</label>
                         <p-dropdown 
                         optionLabel="name" 
+                        formControlName="minuteEx"
+                        [options]="minutesEx"
+                        [(ngModel)]="selectedMinuteEx"
                         placeholder="Select Minute" />
                     </div>
                 </div>
             </form>
+        </div>
+
+        <div>
+            
         </div>
 
     </div>
