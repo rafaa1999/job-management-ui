@@ -36,7 +36,8 @@ export class SchedulerService {
   // }
 
   getJobs(){
-    return this.http.get("http://localhost:8081/scheduler/jobs?tenantId=meta")
+    // return this.http.get("http://localhost:8081/scheduler/jobs?tenantId=meta")
+    return this.http.get("http://localhost:8081/scheduler/jobs")
   }
 
   scheduleJob(data:any,id:any){
@@ -48,7 +49,8 @@ export class SchedulerService {
       }
     }
     // return this.http.get(`http://localhost:8081/scheduler/schedule/${id}?tenantId=meta`,{headers: this.headers, params: params})    
-    return this.http.get(`http://localhost:8081/scheduler/schedule/${id}?tenantId=meta`, { headers: this.headers, params: params });
+    // return this.http.get(`http://localhost:8081/scheduler/schedule/${id}?tenantId=meta`, { headers: this.headers, params: params });
+    return this.http.get(`http://localhost:8081/scheduler/schedule/${id}`, { headers: this.headers, params: params });
   }
 
   // scheduleJob(data: any): Observable<any> {
@@ -69,7 +71,9 @@ export class SchedulerService {
         params = params.append(key, data[key]);
       }
     } 
-    return this.http.get("http://localhost:8081/scheduler/checkJobName?tenantId=meta",{headers: this.headers, params: params})    
+    // return this.http.get("http://localhost:8081/scheduler/checkJobName?tenantId=meta",{headers: this.headers, params: params})    
+    //         .pipe(map(resData => resData))
+            return this.http.get("http://localhost:8081/scheduler/checkJobName",{headers: this.headers, params: params})    
             .pipe(map(resData => resData))
   }
 
@@ -91,7 +95,9 @@ export class SchedulerService {
         params = params.append(key, data[key]);
       }
     }
-    return this.http.get("http://localhost:8081/scheduler/pause?tenantId=meta", { headers: this.headers, params: params })
+    // return this.http.get("http://localhost:8081/scheduler/pause?tenantId=meta", { headers: this.headers, params: params })
+    //   .pipe(map(resData => resData));
+      return this.http.get("http://localhost:8081/scheduler/pause", { headers: this.headers, params: params })
       .pipe(map(resData => resData));
   }
 
@@ -113,7 +119,9 @@ export class SchedulerService {
         params = params.append(key, data[key]);
       }
     }
-    return this.http.get("http://localhost:8081/scheduler/resume?tenantId=meta", { headers: this.headers, params: params })
+    // return this.http.get("http://localhost:8081/scheduler/resume?tenantId=meta", { headers: this.headers, params: params })
+    //   .pipe(map(resData => resData));
+      return this.http.get("http://localhost:8081/scheduler/resume", { headers: this.headers, params: params })
       .pipe(map(resData => resData));
   }
 
@@ -135,7 +143,9 @@ export class SchedulerService {
         params = params.append(key, data[key]);
       }
     }
-    return this.http.get("http://localhost:8081/scheduler/delete?tenantId=meta", { headers: this.headers, params: params })
+    // return this.http.get("http://localhost:8081/scheduler/delete?tenantId=meta", { headers: this.headers, params: params })
+    //   .pipe(map(resData => resData));
+      return this.http.get("http://localhost:8081/scheduler/delete", { headers: this.headers, params: params })
       .pipe(map(resData => resData));
   }
 
@@ -157,7 +167,9 @@ export class SchedulerService {
         params = params.append(key, data[key]);
       }
     }
-    return this.http.get("http://localhost:8081/scheduler/stop?tenantId=meta", { headers: this.headers, params: params })
+    // return this.http.get("http://localhost:8081/scheduler/stop?tenantId=meta", { headers: this.headers, params: params })
+    //   .pipe(map(resData => resData));
+      return this.http.get("http://localhost:8081/scheduler/stop", { headers: this.headers, params: params })
       .pipe(map(resData => resData));
   }
 
@@ -179,7 +191,9 @@ export class SchedulerService {
         params = params.append(key, data[key]);
       }
     }
-    return this.http.get("http://localhost:8081/scheduler/start?tenantId=meta", { headers: this.headers, params: params })
+    // return this.http.get("http://localhost:8081/scheduler/start?tenantId=meta", { headers: this.headers, params: params })
+    //   .pipe(map(resData => resData));
+      return this.http.get("http://localhost:8081/scheduler/start", { headers: this.headers, params: params })
       .pipe(map(resData => resData));
   }
 
@@ -201,7 +215,9 @@ export class SchedulerService {
         params = params.append(key, data[key]);
       }
     }
-    return this.http.get("http://localhost:8081/scheduler/update?tenantId=meta", { headers: this.headers, params: params })
+    // return this.http.get("http://localhost:8081/scheduler/update?tenantId=meta", { headers: this.headers, params: params })
+    //   .pipe(map(resData => resData));
+      return this.http.get("http://localhost:8081/scheduler/update", { headers: this.headers, params: params })
       .pipe(map(resData => resData));
   }
 

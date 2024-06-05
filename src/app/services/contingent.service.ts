@@ -12,6 +12,7 @@ export class ContingentService {
     const headers = new HttpHeaders({
       'X-TenantId': "meta",
     });
-    return this.http.get(`http://localhost:8081/api/contingents/counter/${id}?tenantId=meta`, { headers });
+    // return this.http.get(`http://localhost:8081/api/contingents/counter/${id}?tenantId=meta`, { headers });
+    return this.http.get(`http://localhost:8081/api/contingents/counter/${id}`);
   }
 }

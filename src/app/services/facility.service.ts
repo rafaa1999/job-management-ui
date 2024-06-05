@@ -12,7 +12,8 @@ export class FacilityService {
     const headers = new HttpHeaders({
       'X-TenantId': "meta",
     });
-    return this.http.get(`http://localhost:8081/api/facilities/car-park/${id}?tenantId=meta`, { headers });
+    // return this.http.get(`http://localhost:8081/api/facilities/car-park/${id}?tenantId=meta`, { headers });
+    return this.http.get(`http://localhost:8081/api/facilities/car-park/${id}`);
   }
   
 }

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit{
 
   tenantForm!:FormGroup
+  tenantId!:string
 
   constructor(private fb:FormBuilder,private router:Router){}
 
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit{
   }
 
   login(){
+    localStorage.setItem('tenantId',this.tenantId)
     this.router.navigateByUrl("/carParks")
   }
 
