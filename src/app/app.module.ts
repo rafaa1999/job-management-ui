@@ -28,7 +28,7 @@ import { BadgeModule } from 'primeng/badge';
 import { SideBarComponent } from './shared/components/side-bar/side-bar.component';
 import { TagModule } from 'primeng/tag';
 import { CardModule } from 'primeng/card';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { SchedulerComponent } from './components/scheduler/scheduler.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { KnobModule } from 'primeng/knob';
@@ -51,6 +51,7 @@ import { JobDetailsComponent } from './components/job-details/job-details.compon
 
 import {TranslateLoader,TranslateModule} from "@ngx-translate/core"
 import {TranslateHttpLoader} from "@ngx-translate/http-loader"
+import { CoreModule } from './core/core.module';
 
 export function HttpLoaderFactory(http:HttpClient){
   return new TranslateHttpLoader(http, './assets/i18n/','.json')
@@ -82,8 +83,8 @@ export function HttpLoaderFactory(http:HttpClient){
         deps: [HttpClient]
       }
     }),
-
     ToastModule,
+    CoreModule,
     MessagesModule,
     ChartModule,
     MessageModule,
@@ -117,7 +118,7 @@ export function HttpLoaderFactory(http:HttpClient){
     FormsModule
   ],
   providers: [
-    MessageService
+    MessageService,
   ],
   bootstrap: [AppComponent]
 })

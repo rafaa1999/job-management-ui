@@ -320,6 +320,12 @@ export class SchedulerComponent implements OnInit {
 
     this.scheduleExpiration = false
 
+    this.checkedFail = false
+
+    this.checkedSuccedAfterFailed = false
+  
+    this.checkedManyFailures = false
+
     this.jobNameStatus = '';
   }
 
@@ -352,6 +358,8 @@ export class SchedulerComponent implements OnInit {
     let dateEx = this.expirationForm?.value.dateEx.toLocaleDateString();
     let hourEx = this.expirationForm?.value.hourEx.name;
     let minuteEx = this.expirationForm?.value.minuteEx.name;
+
+    // let notificationWhenCronFail = this.notificationForm.cronJobFail
 
     console.log(date)
 

@@ -192,19 +192,19 @@
         <form [formGroup]="notificationForm">
             <div class="flex align-items-center gap-2">
                 <div class="mt-2">
-                    <p-inputSwitch [(ngModel)]="checkedFail" />
+                    <p-inputSwitch formControlName="cronJobFail" [(ngModel)]="checkedFail" />
             </div>
             <p>execution of the cronjob fails</p>
         </div>
         <div class="flex align-items-center gap-2">
             <div class="mt-2">
-                <p-inputSwitch [(ngModel)]="checkedSuccedAfterFailed" />
+                <p-inputSwitch formControlName="cronJobSucceedAfterFail" [(ngModel)]="checkedSuccedAfterFailed" />
             </div>
             <p>execution of the cronjob succeeds after it failed before</p>
         </div>
         <div class="flex align-items-center gap-2">
             <div class="mt-2">
-                <p-inputSwitch [(ngModel)]="checkedManyFailures" />
+                <p-inputSwitch formControlName="cronJobDisabledBecauseManyFailures" [(ngModel)]="checkedManyFailures" />
             </div>
             <p>the cronjob will be disabled because of too many failures</p>
         </div>

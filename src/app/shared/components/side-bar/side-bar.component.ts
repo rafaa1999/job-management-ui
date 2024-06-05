@@ -23,6 +23,8 @@ export class SideBarComponent implements OnInit {
       // console.log('Current URL:', event.url);
       if(url === 'login'){
         this.collapse = false
+      }else{
+        this.collapse = true
       }
     });
   }
