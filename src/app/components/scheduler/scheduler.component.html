@@ -189,26 +189,30 @@
 
     <div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
         <h4>Notify me when...</h4>
-        <form [formGroup]="notificationForm">
+        <!-- <form [formGroup]="notificationForm"> -->
+            
             <div class="flex align-items-center gap-2">
                 <div class="mt-2">
-                    <p-inputSwitch formControlName="cronJobFail" [(ngModel)]="checkedFail" />
+                    <!-- <p-inputSwitch formControlName="cronJobFail" [(ngModel)]="checkedFail" /> -->
+                    <p-inputSwitch [(ngModel)]="checkedFail" (click)="handelCheckedFail()" />
             </div>
             <p>execution of the cronjob fails</p>
         </div>
         <div class="flex align-items-center gap-2">
             <div class="mt-2">
-                <p-inputSwitch formControlName="cronJobSucceedAfterFail" [(ngModel)]="checkedSuccedAfterFailed" />
+                <!-- <p-inputSwitch formControlName="cronJobSucceedAfterFail" [(ngModel)]="checkedSuccedAfterFailed" /> -->
+                <p-inputSwitch [(ngModel)]="checkedSuccedAfterFailed" (click)="handleCheckedSuccedAfterFailed()" />
             </div>
             <p>execution of the cronjob succeeds after it failed before</p>
         </div>
         <div class="flex align-items-center gap-2">
             <div class="mt-2">
-                <p-inputSwitch formControlName="cronJobDisabledBecauseManyFailures" [(ngModel)]="checkedManyFailures" />
+                <!-- <p-inputSwitch formControlName="cronJobDisabledBecauseManyFailures" [(ngModel)]="checkedManyFailures" /> -->
+                <p-inputSwitch [(ngModel)]="checkedManyFailures" (click)="handleCheckedManyFailures()" />
             </div>
             <p>the cronjob will be disabled because of too many failures</p>
         </div>
-        </form>
+        <!-- </form> -->
     </div>
 
     <!-- <div class="flex flex-row-reverse">

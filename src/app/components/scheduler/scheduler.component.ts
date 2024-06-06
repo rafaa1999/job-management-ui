@@ -43,7 +43,7 @@ export class SchedulerComponent implements OnInit {
 
   expirationForm!: FormGroup;
 
-  notificationForm!: FormGroup;
+  // notificationForm!: FormGroup;
 
   jobs: any[] = [];
   selectedJob: Job | undefined;
@@ -57,11 +57,11 @@ export class SchedulerComponent implements OnInit {
   crons: any[] = [];
   selectedCron: Cron | undefined;
 
-  checkedFail?:boolean
+  checkedFail:boolean = false
 
-  checkedSuccedAfterFailed?:boolean
+  checkedSuccedAfterFailed:boolean = false
   
-  checkedManyFailures?:boolean
+  checkedManyFailures:boolean = false
 
   facilityId?:any
 
@@ -248,11 +248,11 @@ export class SchedulerComponent implements OnInit {
       minuteEx: [''],
     })
 
-    this.notificationForm = this.fb.group({
-      cronJobFail: [''],
-      cronJobSucceedAfterFail: [''],
-      cronJobDisabledBecauseManyFailures: [''],
-    })
+    // this.notificationForm = this.fb.group({
+    //   cronJobFail: [''],
+    //   cronJobSucceedAfterFail: [''],
+    //   cronJobDisabledBecauseManyFailures: [''],
+    // })
 
     this.route.paramMap.subscribe((params:any) =>{
       this.facilityId = params.get('id')
@@ -359,7 +359,18 @@ export class SchedulerComponent implements OnInit {
     let hourEx = this.expirationForm?.value.hourEx.name;
     let minuteEx = this.expirationForm?.value.minuteEx.name;
 
-    // let notificationWhenCronFail = this.notificationForm.cronJobFail
+    let jobCheckedFail = this.checkedFail
+
+    let jobCheckedSuccedAfterFailed = this.checkedSuccedAfterFailed
+  
+    let jobCheckedManyFailures = this.checkedManyFailures
+
+    console.log("Notification")
+    console.log(jobCheckedFail)
+    console.log(jobCheckedSuccedAfterFailed)
+    console.log(jobCheckedManyFailures)
+
+    // let notificationWhenCronFail = this.notificationForm.cronJobSucceedAfterFail
 
     console.log(date)
 
@@ -376,6 +387,9 @@ export class SchedulerComponent implements OnInit {
       jobScheduleTime: this.getFormattedDate(date, hour, minute),
       cronExpression: this.schedulerForm?.value.cronExpression,
       expirationTime: this.getFormattedDate(dateEx, hourEx, minuteEx),
+      jobCheckedFail: jobCheckedFail,
+      jobCheckedSuccedAfterFailed: jobCheckedSuccedAfterFailed,
+      jobCheckedManyFailures: jobCheckedManyFailures,
     };
 
     
@@ -449,6 +463,7 @@ export class SchedulerComponent implements OnInit {
     let data = {
       jobName: jobName,
     };
+    console.log(jobName)
     this.service.startJobNow(data).subscribe(
       (success: any) => {
         if (
@@ -658,6 +673,8 @@ export class SchedulerComponent implements OnInit {
     let hour = this.schedulerForm?.value.hour.name;
     let minute = this.schedulerForm?.value.minute.name;
 
+    console.log(jobName)
+
     date = date.split("/")[2] + "/" + date.split("/")[0] + "/" + date.split("/")[1]
 
     let data = {
@@ -733,6 +750,23 @@ export class SchedulerComponent implements OnInit {
 
   details(){
     console.log("welcome")
+  }
+
+  handelCheckedFail(){
+    console.log(this.checkedFail)
+    this.checkedFail = this.checkedFail  
+    console.log(this.checkedFail)
+  }
+
+  handleCheckedSuccedAfterFailed(){
+    this.checkedSuccedAfterFailed = this.checkedSuccedAfterFailed
+    console.log(this.checkedSuccedAfterFailed)
+
+  }
+
+  handleCheckedManyFailures(){
+    this.checkedManyFailures = this.checkedManyFailures 
+    console.log(this.checkedManyFailures)
   }
 
 }
