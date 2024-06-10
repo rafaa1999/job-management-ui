@@ -112,7 +112,7 @@
                 </div>
             </form>
 
-            <div class="flex gap-2">
+            <!-- <div class="flex gap-2">
                 <div>
                     <p-toast />
                     <p-button label="Schedule Job" 
@@ -137,7 +137,8 @@
                     *ngIf="isEditMode" 
                     />
                 </div>
-            </div>
+            </div> -->
+
         </div>
 
         <div class="flex align-items-center gap-2 mt-2">
@@ -180,6 +181,35 @@
                 </div>
             </form>
         </div>
+
+
+        <div class="flex flex-row-reverse gap-2">
+            <div>
+                <p-toast />
+                <p-button label="Schedule Job" 
+                icon="pi pi-calendar-clock"
+                (click)="scheduleJob()"
+                *ngIf="!isEditMode" 
+                />
+            </div>
+            <div>
+                <p-toast />
+                <p-button label="Update Job" 
+                icon="pi pi-pen-to-square"
+                (click)="updateJob()"
+                *ngIf="isEditMode" 
+                />
+            </div>
+            <div>
+                <p-toast />
+                <p-button label="Cancel Edit"
+                icon="pi pi-times"
+                (click)="cancelEdit()"
+                *ngIf="isEditMode" 
+                />
+            </div>
+        </div>
+        
 
         <div>
             

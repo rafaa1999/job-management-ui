@@ -38,6 +38,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ReactiveFormsModule } from '@angular/forms';  // Import ReactiveFormsModule
 import { ChartModule } from 'primeng/chart';
 import { DialogModule } from 'primeng/dialog';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { AccordionModule } from 'primeng/accordion';
 
 
 import { MessageService } from 'primeng/api';  // Import MessageService
@@ -93,7 +95,9 @@ export function HttpLoaderFactory(http:HttpClient){
     BrowserModule,
     KnobModule,
     DialogModule,
+    SplitButtonModule,
     BadgeModule,
+    AccordionModule,
     CardModule,
     TagModule,
     AppRoutingModule,

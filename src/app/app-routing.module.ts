@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'jobs/:id', component: JobComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'statistics', component: StatisticsComponent },
-  { path: 'jobDetails', component: JobDetailsComponent },
+  { path: 'jobDetails/:jobName', component: JobDetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
