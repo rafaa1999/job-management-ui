@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'facilities/car-park/:id', component: FacilityComponent },
   { path: 'counters/facility/:id', component: CounterComponent },
   { path: 'contingents/counter/:id', component: ContingentComponent },
+  { path: 'contingents', component: ContingentComponent },
   { path: 'jobs/:id', component: JobComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'statistics', component: StatisticsComponent },

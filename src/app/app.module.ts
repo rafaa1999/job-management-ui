@@ -40,6 +40,7 @@ import { ChartModule } from 'primeng/chart';
 import { DialogModule } from 'primeng/dialog';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { AccordionModule } from 'primeng/accordion';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 
 import { MessageService } from 'primeng/api';  // Import MessageService
@@ -105,6 +106,7 @@ export function HttpLoaderFactory(http:HttpClient){
     ButtonModule,
     BrowserAnimationsModule,
     InputTextModule,
+    ConfirmPopupModule,
     FormsModule,
     TableModule,
     FieldsetModule,

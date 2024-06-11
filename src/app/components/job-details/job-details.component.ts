@@ -12,7 +12,7 @@ import { MenuItem,MessageService } from 'primeng/api';
 export class JobDetailsComponent implements OnInit{
 
   jobRecords: any[] = [];
-  jobDetails?: any
+  jobDetails: any[] = []
   jobName:any
   items?: MenuItem[];
 
@@ -56,7 +56,8 @@ export class JobDetailsComponent implements OnInit{
           console.log(this.jobRecords)
           for(let i of this.jobRecords){
             if(i.jobName === this.jobName){
-              this.jobDetails = i
+              // this.jobDetails = i
+              this.jobDetails?.push(i)
               console.log("#(*$$$&s")
               console.log(this.jobDetails)
             }
@@ -84,6 +85,10 @@ update() {
 
 delete() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
+}
+
+one(){
+  console.log("welcome")
 }
 
 

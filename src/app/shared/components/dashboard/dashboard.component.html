@@ -8,12 +8,12 @@
     </div>
 
     <div>
-        <h4 style="color: #4e4e4e;">Dashboard</h4>
+        <h4 style="color: #4e4e4e;opacity: 60%;">Dashboard</h4>
     </div>
 
     <div>
         <div>
-            <h1>Dashboard</h1>
+            <h1 style="opacity: 80%;">Dashboard</h1>
         </div>
     </div>
 
@@ -39,7 +39,7 @@
     <div style="border: 1px solid #eee; border-radius: 6px;" class="p-4">
 
         <div>
-            <p style="font-size: 24px;font-weight: 600;">Last Events</p>
+            <p style="font-size: 24px;font-weight: 600;opacity: 80%">Last Events</p>
         </div>
 
         <!-- Job Name	Job Schedule Time	Job Last Fired Time	Job Next Fire Time	Action	Job Status -->
@@ -81,20 +81,12 @@
     </div>
 
     <div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
-        <div class="flex justify-content-between flex-row-reverse">
+        <!-- <div class="flex justify-content-between flex-row-reverse">
             <div>
                 <p-chart type="pie" [data]="data" [options]="options" />
             </div>
-            <!-- <div>
-                <p-chart type="pie" [data]="data" [options]="options" />
-            </div>
-            <div>
-                <p-chart type="pie" [data]="data" [options]="options" />
-            </div>
-            <div>
-                <p-chart type="pie" [data]="data" [options]="options" />
-            </div> -->
-        </div>
+        </div> -->
+        <app-statistics></app-statistics>
     </div>
 
 
