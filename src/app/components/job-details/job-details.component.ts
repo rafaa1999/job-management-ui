@@ -3,6 +3,7 @@ import { SchedulerService } from '../scheduler/scheduler.service';
 import { ServerResponseCode } from '../scheduler/response.code.constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem,MessageService } from 'primeng/api';
+import { JobDetailsService } from 'src/app/services/job-details.service';
 
 @Component({
   selector: 'app-job-details',
@@ -15,9 +16,10 @@ export class JobDetailsComponent implements OnInit{
   jobDetails: any[] = []
   jobName:any
   items?: MenuItem[];
+  histories:any[] = []
 
   constructor(private service:SchedulerService,private router:ActivatedRoute,
-    private messageService:MessageService
+    private messageService:MessageService,private detailService:JobDetailsService
   ){
 
   }
@@ -26,7 +28,7 @@ export class JobDetailsComponent implements OnInit{
     this.router.paramMap.subscribe(params => {
       this.jobName = params.get("jobName")
       console.log(this.jobName)
-   })
+    })
     this.getJobs();
     this.items = [
       {
@@ -44,7 +46,9 @@ export class JobDetailsComponent implements OnInit{
       { label: 'Angular Website', url: 'http://angular.io' },
       { separator: true },
       { label: 'Upload', routerLink: ['/fileupload'] }
-  ];
+    ];
+
+    this.getAllHistories()
   }
 
   getJobs() {
@@ -77,20 +81,37 @@ export class JobDetailsComponent implements OnInit{
 
   save(severity: string) {
     this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
+  }
+
+  update() {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+  }
+
+  delete() {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
+  }
+
+  one(){
+    console.log("welcome")
+  }
+
+
+  getAllHistories(){
+    this.detailService.getAllHistories().subscribe((data:any) => {
+      console.log(data)
+      this.histories = data.reverse()
+    },err => {
+      console.log(err)
+    })
+  }
+
+  getHistoryByJobName(jobName:any){
+    this.detailService.getHistoryByJobName(jobName).subscribe((data:any) => {
+      console.log(data)
+    },err => {
+      console.log(err)
+    })
+  }
+  
 }
 
-update() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
-}
-
-delete() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
-}
-
-one(){
-  console.log("welcome")
-}
-
-
-
-}
