@@ -93,6 +93,7 @@ export function HttpLoaderFactory(http:HttpClient){
     MessageModule,
     InputNumberModule,
     CalendarModule,
+    ReactiveFormsModule,
     BrowserModule,
     KnobModule,
     DialogModule,
