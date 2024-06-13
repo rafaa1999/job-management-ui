@@ -48,7 +48,8 @@ export class JobDetailsComponent implements OnInit{
       { label: 'Upload', routerLink: ['/fileupload'] }
     ];
 
-    this.getAllHistories()
+    // this.getAllHistories()
+    this.getHistoryByJobName(this.jobName)
   }
 
   getJobs() {
@@ -108,6 +109,7 @@ export class JobDetailsComponent implements OnInit{
   getHistoryByJobName(jobName:any){
     this.detailService.getHistoryByJobName(jobName).subscribe((data:any) => {
       console.log(data)
+      this.histories = data.reverse()
     },err => {
       console.log(err)
     })

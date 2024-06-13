@@ -22,7 +22,7 @@
     <div class="flex my-4" style="border: 1px solid #eee; border-radius: 5px;">
         <div class="ml-3">
             <h4 style="color: #4e4e4e;">
-                <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e"></i>
+                <i class="pi pi-home mr-2 mt-1" style="color: #4e4e4e" [routerLink]="['/dashboard']"></i>
                 <i class="pi pi-angle-right mr-2 mt-1" style="color: #4e4e4e"></i>
                 <a href="" [routerLink]="['/carParks']">CarParks</a>
                 <!-- CarPark -->
@@ -45,7 +45,6 @@
 
 
     <div class="flex flex-row-reverse my-4">
-
         <a [routerLink]="['/jobs', id]">
             <p-button label="Counter Manager Job" icon="pi pi-pen-to-square"/>
         </a>
@@ -66,8 +65,8 @@
                     <!-- <th>Id</th> -->
                     <th pSortableColumn="category">category<p-sortIcon field="category" /></th>
                     <th pSortableColumn="available">available<p-sortIcon field="available" /></th>
-                    <th pSortableColumn="capacity">capacity<p-sortIcon field="capacity" /></th>
                     <th pSortableColumn="occupied">occupied<p-sortIcon field="occupied" /></th>
+                    <th pSortableColumn="capacity">capacity<p-sortIcon field="capacity" /></th>
                     <th>action</th>
                 </tr>
             </ng-template>
@@ -79,12 +78,12 @@
                     </td> -->
                     <td>{{counter.category}}</td>
                     <td [routerLink]="['/contingents/counter', counter.id]">{{counter.available}}</td>
-                    <td>{{counter.capacity}}</td>
                     <td>{{counter.occupied}}</td>
+                    <td>{{counter.capacity}}</td>
                     <td>
                         <!-- <p-button class="btn-up" (click)="simulateAdd(counter.id)" icon="pi pi-sort-up-fill" /> |
                         <p-button class="btn-down" (click)="simulateDelete(counter.id)" icon="pi pi-sort-down-fill"/> -->
-                        <div *ngIf="counter.category != 'Physic'">
+                        <div *ngIf="counter.category != 'Physical'">
                             <button class="btn-up" (click)="simulateAdd(counter.id)">
                                 <i class="pi pi-sign-in"></i>
                                 <p-toast />
