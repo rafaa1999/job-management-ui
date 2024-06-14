@@ -5,6 +5,7 @@ import { ContingentService } from 'src/app/services/contingent.service';
 import { MessageService } from 'primeng/api';
 import { CarParkService } from 'src/app/services/car-park.service';
 import { FacilityService } from 'src/app/services/facility.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -28,11 +29,17 @@ export class ContingentComponent implements OnInit{
 
   customers:any[] = [];
 
+  contingentName?:any
+
+  isUpdated:boolean = false
+
   constructor(private route:ActivatedRoute,
               private serviceContingent:ContingentService,
               private fb:FormBuilder,
               private serviceCarPark:CarParkService,
-              private serviceFacility:FacilityService){}
+              private serviceFacility:FacilityService,
+              private messageService:MessageService,
+              private datePipe:DatePipe){}
 
   ngOnInit(): void {
 
@@ -160,6 +167,7 @@ export class ContingentComponent implements OnInit{
     this.serviceContingent.saveContingent(model).subscribe((data:any) => {
       console.log("serviceContinget.saveContinget(model)")
       console.log(data)
+      this.messageService.add({ severity: 'info', summary: 'Warning', detail: 'Contingent was added' })
     },err => {
       console.log(err)
     })
@@ -217,10 +225,84 @@ export class ContingentComponent implements OnInit{
 
   updateContingent(id:any){
     console.log(id)
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Start updating the contingent' })
+    this.serviceContingent.getContingent(id).subscribe((data:any) => {
+      console.log(data)
+    //   const date = new Date(dateString);
+    // return this.datePipe.transform(date, 'MM/dd/yyyy');
+      let contingent = data
+
+      let dateStartDate = new Date(contingent.startDate)
+      let dateEndDate = new Date(contingent.endDate)
+
+      let dateStartDayOfWeek = new Date(contingent.startDayOfWeek)
+      let dateEndDayOfWeek = new Date(contingent.endDayOfWeek)
+
+      let formatStartDate = this.datePipe?.transform(dateStartDate,'MM/dd/yyyy')
+      let formatEndDate = this.datePipe?.transform(dateEndDate,'MM/dd/yyyy')
+
+      let formatStartDayOfWeek = this.datePipe?.transform(dateStartDayOfWeek,'MM/dd/yyyy')
+      let formatEndDayOfWeek = this.datePipe?.transform(dateEndDayOfWeek,'MM/dd/yyyy')
+
+      console.log(dateStartDayOfWeek)
+      console.log(formatStartDate)
+
+      let normalDate = formatStartDate + "-" + formatEndDate
+      let weekDate = formatStartDayOfWeek + '-' + formatEndDayOfWeek
+
+      this.contingentForm = this.fb.group({
+        name: [contingent.name, Validators.required],
+        normalDayValue: [contingent.normalValue, Validators.required],
+        normalDate: [normalDate , Validators.required],
+        weekDate: [weekDate, Validators.required],
+        weekendDayValue: [contingent.weekendValue, Validators.required],
+        carPark: [contingent.carParkId, Validators.required],
+        facility: [contingent.facilityId, Validators.required],
+      })
+    },err => {
+      console.log(err)
+    })
+    this.isUpdated = true
+  }
+
+  update(){
+
+  }
+
+  cancle(){
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Cancle updating' })
+    this.isUpdated = false
   }
 
   deleteContingent(id:any){
     console.log(id)
+    this.serviceContingent.deleteContingent(id).subscribe((data:any) => {
+      this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'Contingent was deleted' })
+    },err => {
+      console.log(err)
+    })
   }
 
+  contingentNameChange(event:any){
+    console.log(event.target.value)
+    this.contingentName = event.target.value
+  }
+
+  checkIfContingentExist(){
+    console.log(this.contingentName)
+    let model = {
+      name: this.contingentName
+    }
+    this.serviceContingent.checkIfContingentExist(model).subscribe((data:any) => {
+      console.log(data)
+      if(!data){
+        this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'This name is already exist !!!' })
+      }else{
+        this.messageService.add({ severity: 'info', summary: 'Warning', detail: 'This name is not exist !!!' })
+      }
+    },err => {
+      console.log(err)
+    })
+  }
+  
 }

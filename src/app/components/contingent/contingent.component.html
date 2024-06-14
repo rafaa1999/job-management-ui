@@ -13,7 +13,7 @@
     <h3 style="opacity: 40%;">Contingent Form</h3>
 
     <form [formGroup]="contingentForm">
-        <div class="flex gap-4">
+        <div class="flex gap-3 align-items-center">
             <div class="flex flex-column">
                 <label for="contingent" class="my-2">Contingent:</label>
                 <input 
@@ -21,7 +21,12 @@
                     id="contingent" 
                     formControlName="name"
                     aria-describedby="Contingent" 
+                    (change)="contingentNameChange($event)"
                 />
+            </div>
+            <div style="margin-top:36px ;">
+                <p-toast />
+                <p-button label="Check Contingent with Name exist" icon="pi pi-file-check" iconPos="left" (click)="checkIfContingentExist()"/>
             </div>
         </div>
 
@@ -38,12 +43,6 @@
             </div>
             <div class="flex flex-column">
                 <label for="normalDayValue" class="my-2">Capacity value for normal days:</label>
-                <!-- <input 
-                    pInputText 
-                    id="normalDayValue" 
-                    formControlName="normalDayValue"
-                    aria-describedby="NormalDayValue"
-                    /> -->
                     <p-inputNumber 
                     mode="decimal" 
                     inputId="withoutgrouping" 
@@ -102,9 +101,11 @@
             </div>
         </div>
 
-        <div class="flex flex-row-reverse">
+        <div class="flex flex-row-reverse gap-1">
             <!-- <button class="btn-b"  [disabled]="contingentForm.invalid" (click)="submit()">Submit <i class="pi pi-check"></i></button> -->
-            <p-button label="Submit" icon="pi pi-check" iconPos="right" (click)="submit()"/>
+            <p-button *ngIf="!isUpdated" label="Submit" icon="pi pi-calendar" [disabled]="contingentForm.invalid" iconPos="left" (click)="submit()"/>
+            <p-button *ngIf="isUpdated" label="Update" icon="pi pi-pencil" [disabled]="contingentForm.invalid" iconPos="left" (click)="update()"/>
+            <p-button *ngIf="isUpdated" label="Cancel" icon="pi pi-times" iconPos="left" (click)="cancle()"/>
         </div>
     </form>
 </div>
@@ -144,9 +145,11 @@
                 <td>
                     <div class="flex flex-column gap-2">
                         <div>
+                            <p-toast />
                             <button class="btn" (click)="updateContingent(contingent.id)">Update</button>
                         </div>
                         <div>
+                            <p-toast />
                             <button class="btn" (click)="deleteContingent(contingent.id)">Delete</button>
                         </div>
                     </div>

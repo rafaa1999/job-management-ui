@@ -31,4 +31,27 @@ export class ContingentService {
       }
       return this.http.get(`http://localhost:8081/api/contingents/add`, { params: params });
   }
+
+  checkIfContingentExist(data:any){
+    let params = new HttpParams();
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        params = params.append(key, data[key]);
+      }
+    }
+    return this.http.get(`http://localhost:8081/api/contingents/check`, { params: params });
+  }
+
+  deleteContingent(id:any){
+    return this.http.get(`http://localhost:8081/api/contingents/delete/${id}`);
+  }
+
+  updateContingent(){
+
+  }
+
+  getContingent(id:any){
+    return this.http.get(`http://localhost:8081/api/contingents/contingent/${id}`);
+  }
+
 }
