@@ -38,12 +38,17 @@
             </div>
             <div class="flex flex-column">
                 <label for="normalDayValue" class="my-2">Capacity value for normal days:</label>
-                <input 
+                <!-- <input 
                     pInputText 
                     id="normalDayValue" 
                     formControlName="normalDayValue"
                     aria-describedby="NormalDayValue"
-                />
+                    /> -->
+                    <p-inputNumber 
+                    mode="decimal" 
+                    inputId="withoutgrouping" 
+                    formControlName="normalDayValue"
+                    [useGrouping]="false" />
             </div>
         </div>
 
@@ -62,12 +67,17 @@
             </div>
             <div class="flex flex-column">
                 <label for="weekendDayValue" class="my-2">Capacity value for weekends:</label>
-                <input 
+                <!-- <input 
                     pInputText 
                     id="weekendDayValue" 
                     formControlName="weekendDayValue"
                     aria-describedby="WeekendDayValue"
-                />
+                /> -->
+                <p-inputNumber 
+                    mode="decimal" 
+                    inputId="withoutgrouping" 
+                    formControlName="weekendDayValue"
+                    [useGrouping]="false" />
             </div>
         </div>
 
@@ -78,30 +88,31 @@
                 <label for="carPark" class="my-2">CarPark:</label>
                 <select (change)="carParkChange($event)"  
                         class=" select-style">
-                        <option value="0 0/1 * 1/1 * ? *">Every 1 minutes</option>
-                        <option value="0 0 10 1/1 * ? *">Every day at 10 AM</option>
-                        <option value="0 0 0/1 1/1 * ? *">Every hour starting 10 AM</option>
-                        <option value="0 0 10 ? * TUE,THU *">Every week Tue and Thur at 10 AM</option>
+                        <option *ngFor="let carPark of carParks" [ngValue]="carPark.id">{{carPark.id}}</option>
                 </select>
             </div>
             <div class="flex flex-column">
                 <label for="facility" class="my-2">Facility:</label>
                 <select (change)="facilityChange($event)"  
                     class=" select-style">
-                    <option value="0 0/1 * 1/1 * ? *">Every 1 minutes</option>
-                    <option value="0 0 10 1/1 * ? *">Every day at 10 AM</option>
-                    <option value="0 0 0/1 1/1 * ? *">Every hour starting 10 AM</option>
-                    <option value="0 0 10 ? * TUE,THU *">Every week Tue and Thur at 10 AM</option>
+                    <option *ngFor="let facility of facilities" [ngValue]="facility">{{facility.id}}</option>
                  </select>
             </div>
         </div>
 
         <div class="flex flex-row-reverse">
-            <button class="btn-b"  [disabled]="contingentForm.invalid" (click)="submit()">Submit <i class="pi pi-check"></i></button>
+            <!-- <button class="btn-b"  [disabled]="contingentForm.invalid" (click)="submit()">Submit <i class="pi pi-check"></i></button> -->
+            <p-button label="Submit" [disabled]="contingentForm.invalid" icon="pi pi-check" iconPos="right" (click)="submit()"/>
         </div>
     </form>
 </div>
 
 <div class="my-4 p-4" style="border: 1px solid #eee; border-radius: 5px;">
     <h3 style="opacity: 40%;">Contingents List</h3>
+
+    <div>
+
+    </div>
+
+
 </div>

@@ -3,14 +3,8 @@ import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular
 import { ActivatedRoute } from '@angular/router';
 import { ContingentService } from 'src/app/services/contingent.service';
 import { MessageService } from 'primeng/api';
-
-interface CarPark {
-  name: string;
-}
-
-interface Facility {
-  name: string;
-}
+import { CarParkService } from 'src/app/services/car-park.service';
+import { FacilityService } from 'src/app/services/facility.service';
 
 
 @Component({
@@ -29,14 +23,15 @@ export class ContingentComponent implements OnInit{
   contingentForm!:FormGroup
 
   carParks: any[] = [];
-  selectedCarPark!: CarPark;
 
   facilities: any[] = [];
-  selectedFacility!: Facility ;
+
 
   constructor(private route:ActivatedRoute,
               private service:ContingentService,
-              private fb:FormBuilder){}
+              private fb:FormBuilder,
+              private serviceCarPark:CarParkService,
+              private serviceFacility:FacilityService){}
 
   ngOnInit(): void {
     // this.route.paramMap.subscribe(params => {
@@ -46,15 +41,9 @@ export class ContingentComponent implements OnInit{
     //   }
     // }) 
 
-    this.carParks = [
-      {name:"one"}
-    ]
-
-    this.facilities = [
-      {name:"one"}
-    ]
-
     this.createForm()
+
+    this.getAllCarParks()
 
   }
 
@@ -70,26 +59,7 @@ export class ContingentComponent implements OnInit{
     })
   }
 
-  // private UUID id;
-  // private String name;
-  // private Integer value;
-  // @Column(name = "start_date")
-  // private String startDate;
-  // @Column(name = "end_date")
-  // private String endDate;
-  // @Column(name = "day_of_week")
-  // private String dayOfWeek;
-
   createForm(){
-    // this.contingentForm = this.fb.group({
-    //   name:['',Validators.required],
-    //   normalDayValue:['',Validators.required],
-    //   NormalDate:['',Validators.required],
-    //   WeekDate:['',Validators.required],
-    //   WeekendDayValue:['',Validators.required],
-    //   carPark:['',Validators.required],
-    //   facility:['',Validators.required],
-    // })
     this.contingentForm = this.fb.group({
       name: ['', Validators.required],
       normalDayValue: ['', Validators.required],
@@ -98,6 +68,18 @@ export class ContingentComponent implements OnInit{
       weekendDayValue: ['', Validators.required],
       carPark: ['', Validators.required],
       facility: ['', Validators.required],
+    });
+  }
+
+  resetForm(){
+    this.contingentForm = this.fb.group({
+      name: ['', Validators.required],
+      normalDayValue: ['', Validators.required],
+      normalDate: ['', Validators.required],
+      weekDate: ['', Validators.required],
+      weekendDayValue: ['', Validators.required],
+      carPark: ['Select CarPark', Validators.required],
+      facility: ['Select Facility', Validators.required],
     });
   }
 
@@ -110,15 +92,38 @@ export class ContingentComponent implements OnInit{
     this.contingentForm.patchValue({
       carPark: event.target.value,
     });
-    console.log(this.contingentForm.value)
+    console.log("one")
+    console.log(
+      this.contingentForm.value.carPark
+    )
+    this.getFacilitiesByCarPakId(event.target.value)
   }
 
   facilityChange(event:any){
     this.contingentForm.patchValue({
       facility: event.target.value,
     });
-    console.log(this.contingentForm.value)
+  }
+
+  getAllCarParks(){
+    this.serviceCarPark.getAllCarParks().subscribe((data:any) => {
+      console.log("Get All CarParks")
+      let id = data[0].id
+      this.carParks = data
+      this.getFacilitiesByCarPakId(id)
+    },err => {
+      console.log(err)
+    })
+  }
+
+  getFacilitiesByCarPakId(id:any){
+    this.serviceFacility.getAllFacilitiesByCarParkId(id).subscribe((data:any) => {
+      console.log("Get All Facilities")
+      console.log(data)
+      this.facilities = data
+    },err => {
+      console.log(err)
+    })
   }
 
 }
-
