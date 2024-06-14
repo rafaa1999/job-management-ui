@@ -29,7 +29,7 @@ export class ContingentComponent implements OnInit{
   customers:any[] = [];
 
   constructor(private route:ActivatedRoute,
-              private service:ContingentService,
+              private serviceContingent:ContingentService,
               private fb:FormBuilder,
               private serviceCarPark:CarParkService,
               private serviceFacility:FacilityService){}
@@ -62,19 +62,21 @@ export class ContingentComponent implements OnInit{
       {name:"customers"},
     ]
 
+    this.getAllContingents()
+
   }
 
-  getAllContingentsByCounterId(id:string){
-    this.service.getAllContingentsByCounterId(id).subscribe((data:any) => {
-      console.log(data)
-      this.facilityId = data[0].counter.facility.id
-      this.carParkId = data[0].counter.facility.carPark.id
-      console.log(this.facilityId)
-      this.contingents = data
-    },err => {
-      console.log(err)
-    })
-  }
+  // getAllContingentsByCounterId(id:string){
+  //   this.service.getAllContingentsByCounterId(id).subscribe((data:any) => {
+  //     console.log(data)
+  //     this.facilityId = data[0].counter.facility.id
+  //     this.carParkId = data[0].counter.facility.carPark.id
+  //     console.log(this.facilityId)
+  //     this.contingents = data
+  //   },err => {
+  //     console.log(err)
+  //   })
+  // }
 
   createForm(){
     this.contingentForm = this.fb.group({
@@ -152,8 +154,16 @@ export class ContingentComponent implements OnInit{
       carParkId: this.contingentForm.value.carPark,
       facilityId: this.contingentForm.value.facility
     }
-    console.log("nothing")
+
     console.log(model)
+
+    this.serviceContingent.saveContingent(model).subscribe((data:any) => {
+      console.log("serviceContinget.saveContinget(model)")
+      console.log(data)
+    },err => {
+      console.log(err)
+    })
+
     this.resetForm()
   }
 
@@ -196,7 +206,21 @@ export class ContingentComponent implements OnInit{
   }
 
   getAllContingents(){
-    
+      this.serviceContingent.getAllContingents().subscribe((data:any) => {
+        console.log("Get All Contingents")
+        console.log(data)
+        this.contingents = data
+      },err => {
+        console.log(err)
+      })
+  }
+
+  updateContingent(id:any){
+    console.log(id)
+  }
+
+  deleteContingent(id:any){
+    console.log(id)
   }
 
 }

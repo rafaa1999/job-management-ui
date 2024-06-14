@@ -114,7 +114,7 @@
 
     <div>
     <p-table
-        [value]="customers"
+        [value]="contingents"
         [paginator]="true"
         [rows]="5"
         [tableStyle]="{ 'min-width': '50rem' }"
@@ -123,17 +123,34 @@
         <ng-template pTemplate="header">
             <tr>
                 <th style="width:25%">Name</th>
-                <th style="width:25%">Country</th>
-                <th style="width:25%">Company</th>
-                <th style="width:25%">Representative</th>
+                <th style="width:25%">Normal Days</th>
+                <th style="width:25%">N.Capcity</th>
+                <th style="width:25%">Weekend Days</th>
+                <th style="width:25%">W.Capcity</th>
+                <th style="width:25%">CarPark</th>
+                <th style="width:25%">Facility</th>
+                <th style="width:25%">Action</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template pTemplate="body" let-contingent>
             <tr>
-                <td>{{ customer.name }}</td>
-                <td>customer.country.name </td>
-                <td>customer.company</td>
-                <td> customer.representative.name </td>
+                <td>{{ contingent.name }}</td>
+                <td>{{ contingent.startDate | date: 'dd/MM/yyyy'}} - {{ contingent.endDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ contingent.normalValue }}</td>
+                <td>{{ contingent.startDayOfWeek | date: 'dd/MM/yyyy'}} - {{ contingent.endDayOfWeek | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ contingent.weekendValue }}</td>
+                <td>{{ contingent.carParkId }}</td>
+                <td>{{ contingent.facilityId }}</td>
+                <td>
+                    <div class="flex flex-column gap-2">
+                        <div>
+                            <button class="btn" (click)="updateContingent(contingent.id)">Update</button>
+                        </div>
+                        <div>
+                            <button class="btn" (click)="deleteContingent(contingent.id)">Delete</button>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </ng-template>
     </p-table>
