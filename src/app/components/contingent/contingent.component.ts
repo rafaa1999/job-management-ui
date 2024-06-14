@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ApplicationInitStatus, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ContingentService } from 'src/app/services/contingent.service';
@@ -26,6 +26,7 @@ export class ContingentComponent implements OnInit{
 
   facilities: any[] = [];
 
+  customers:any[] = [];
 
   constructor(private route:ActivatedRoute,
               private service:ContingentService,
@@ -34,16 +35,32 @@ export class ContingentComponent implements OnInit{
               private serviceFacility:FacilityService){}
 
   ngOnInit(): void {
-    // this.route.paramMap.subscribe(params => {
-    //   const id = params.get("id")
-    //   if(id){
-    //       this.getAllContingentsByCounterId(id);
-    //   }
-    // }) 
 
     this.createForm()
 
     this.getAllCarParks()
+
+    this.customers = [
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+      {name:"customers"},
+    ]
 
   }
 
@@ -78,14 +95,66 @@ export class ContingentComponent implements OnInit{
       normalDate: ['', Validators.required],
       weekDate: ['', Validators.required],
       weekendDayValue: ['', Validators.required],
-      carPark: ['Select CarPark', Validators.required],
-      facility: ['Select Facility', Validators.required],
+      carPark: ['', Validators.required],
+      facility: ['', Validators.required],
     });
   }
 
   submit(){
-    console.log("welcome")
-    console.log(this.contingentForm.value)
+    // console.log("welcome")
+    // console.log(this.contingentForm.value)
+
+    let startDateForNormalDate = new Date(this.contingentForm.value.normalDate[0]);
+    let endDateForNormalDate = new Date(this.contingentForm.value.normalDate[1]);
+
+    let startDateForWeekendDate = new Date(this.contingentForm.value.weekDate[0]);
+    let endDateForWeekendDate = new Date(this.contingentForm.value.weekDate[1]);
+
+    let options:any = { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit' 
+    };
+
+    let formattedStartDateForNormalDate = startDateForNormalDate.toLocaleDateString('en-US', options);
+    let formattedEndDateForNormalDate = endDateForNormalDate.toLocaleDateString('en-US', options);
+
+    let formattedStartDateForWeekendDate = startDateForWeekendDate.toLocaleDateString('en-US', options);
+    let formattedendDateForWeekendDate = endDateForWeekendDate.toLocaleDateString('en-US', options);
+
+    let toStringStartDateForNormalDate = formattedStartDateForNormalDate.toString()
+    let toStringEndDateForNormalDate = formattedEndDateForNormalDate.toString()
+
+    let toStringStartDateForWeekendDate = formattedStartDateForWeekendDate.toString()
+    let toStringEndDateForWeekendDate = formattedendDateForWeekendDate.toString()
+
+    let finalStartDateForNormalDate = toStringStartDateForNormalDate.split("/")[2] + "/" + toStringStartDateForNormalDate.split("/")[0] + "/" + toStringStartDateForNormalDate.split("/")[1]
+    let finalEndDateForNormalDate = toStringEndDateForNormalDate.split("/")[2] + "/" + toStringEndDateForNormalDate.split("/")[0] + "/" + toStringEndDateForNormalDate.split("/")[1]
+
+    let finalStartDateForWeekendDate = toStringStartDateForWeekendDate.split("/")[2] + "/" + toStringStartDateForWeekendDate.split("/")[0] + "/" + toStringStartDateForWeekendDate.split("/")[1]
+    let finalEndDateForWeekendDate = toStringEndDateForWeekendDate.split("/")[2] + "/" + toStringEndDateForWeekendDate.split("/")[0] + "/" + toStringEndDateForWeekendDate.split("/")[1]
+
+    // console.log(finalStartDateForNormalDate)
+    // console.log(finalEndDateForNormalDate)
+
+    // console.log(finalStartDateForWeekendDate)
+    // console.log(finalEndDateForWeekendDate)
+
+    // console.log(this.contingentForm.value.normalDayValue)
+    // console.log(this.contingentForm.value.weekendDayValue)
+    
+    let model = {
+      name: this.contingentForm.value.name,
+      normalValue: this.contingentForm.value.normalDayValue,
+      weekendValue: this.contingentForm.value.weekendDayValue,
+      normalDate: finalStartDateForNormalDate + "-" + finalEndDateForNormalDate,
+      weekendDate: finalStartDateForWeekendDate + "-" + finalEndDateForWeekendDate,
+      carParkId: this.contingentForm.value.carPark,
+      facilityId: this.contingentForm.value.facility
+    }
+    console.log("nothing")
+    console.log(model)
+    this.resetForm()
   }
 
   carParkChange(event:any){
@@ -124,6 +193,10 @@ export class ContingentComponent implements OnInit{
     },err => {
       console.log(err)
     })
+  }
+
+  getAllContingents(){
+    
   }
 
 }
