@@ -52,20 +52,50 @@
                     <th pSortableColumn="facilityNumber">facilityNumber <p-sortIcon field="facilityNumber" /></th>
                     <th pSortableColumn="facilityType">facilityType <p-sortIcon field="facilityType" /></th>
                     <th pSortableColumn="locationId">locationId <p-sortIcon field="locationId" /></th>
+                    <th pSortableColumn="locationId">Action <p-sortIcon field="locationId" /></th>
                     <!-- <th pSortableColumn="description">description <p-sortIcon field="description" /></th> -->
                     <!-- <th pSortableColumn="deleted">deleted <p-sortIcon field="deleted" /></th> -->
                 </tr>
         </ng-template>
             <ng-template pTemplate="body" let-facility let-rowIndex="rowIndex">
-                <tr [routerLink]="['/counters/facility', facility.id]" 
+                <tr  
                     [pSelectableRow]="facility" [pSelectableRowIndex]="rowIndex">
                     <!-- <td>
                         <a [routerLink]="['/counters/facility', facility.id]">{{facility.id}}</a> 
                     </td> -->
-                    <td>{{facility.facilityName}}</td>
+                    <td [routerLink]="['/counters/facility', facility.id]">{{facility.facilityName}}</td>
                     <td>{{facility.facilityNumber}}</td>
                     <td>{{facility.facilityType}}</td>
                     <td>{{facility.locationId}}</td>
+                    <td>
+                        <div>
+                            <!-- <p-button (click)="updateFacility(facility.id)" label="Show" /> -->
+                            <button class="btn" (click)="showUpdate()">Update</button>
+                            <p-dialog header="Edit Facility" [modal]="true" [(visible)]="visible" [style]="{ width: '35rem' }">
+                                <span class="p-text-secondary block mb-5">Update your information.</span>
+                                <div class="flex align-items-center gap-3 mb-3">
+                                    <label for="username" class="font-semibold w-6rem">Facility name</label>
+                                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                                </div>
+                                <div class="flex align-items-center gap-3 mb-5">
+                                    <label for="email" class="font-semibold w-6rem">Facility number</label>
+                                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                                </div>
+                                <div class="flex align-items-center gap-3 mb-5">
+                                    <label for="email" class="font-semibold w-6rem">Facility type</label>
+                                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                                </div>
+                                <div class="flex align-items-center gap-3 mb-5">
+                                    <label for="email" class="font-semibold w-6rem">Facility locationId</label>
+                                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                                </div>
+                                <div class="flex justify-content-end gap-2">
+                                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+                                    <p-button label="Update" (click)="updateFacility(facility.id)" />
+                                </div>
+                            </p-dialog>
+                        </div>
+                    </td>
                     <!-- <td>{{facility.description}}</td> -->
                     <!-- <td>{{facility.deleted}}</td> -->
                 </tr>

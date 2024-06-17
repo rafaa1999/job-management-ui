@@ -25,7 +25,20 @@ button{
     font-weight: 400;
 }
 
-button:hover{
+/* button:hover{
     background-color: #3B59F6;
     color: white;
+} */
+
+.btn{
+    color: red;
+    border: 1px solid #eee; 
+    padding: 11px;
+    border-radius: 6px;
+    color: #3B82F6;
+    background-color: white;
+}
+
+.btn:hover{
+    background-color: #f5f5f5;
 }
