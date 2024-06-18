@@ -42,7 +42,8 @@ import { DialogModule } from 'primeng/dialog';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { AccordionModule } from 'primeng/accordion';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
-
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 
 import { MessageService } from 'primeng/api';  // Import MessageService
@@ -93,10 +94,12 @@ export function HttpLoaderFactory(http:HttpClient){
     MessagesModule,
     ChartModule,
     MessageModule,
+    CheckboxModule,
     InputNumberModule,
     CalendarModule,
     ReactiveFormsModule,
     BrowserModule,
+    InputTextareaModule,
     KnobModule,
     DialogModule,
     SplitButtonModule,

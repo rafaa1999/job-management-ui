@@ -33,6 +33,8 @@ export class ContingentComponent implements OnInit{
 
   isUpdated:boolean = false
 
+  visible: boolean = false
+
   constructor(private route:ActivatedRoute,
               private serviceContingent:ContingentService,
               private fb:FormBuilder,
@@ -277,10 +279,16 @@ export class ContingentComponent implements OnInit{
   deleteContingent(id:any){
     console.log(id)
     this.serviceContingent.deleteContingent(id).subscribe((data:any) => {
-      this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'Contingent was deleted' })
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Contingent was deleted' })
     },err => {
       console.log(err)
     })
+    this.visible = false
+  }
+  
+  delete(){
+    this.visible = true
+
   }
 
   contingentNameChange(event:any){
