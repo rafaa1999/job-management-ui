@@ -46,8 +46,14 @@ export class ContingentService {
     return this.http.get(`http://localhost:8081/api/contingents/delete/${id}`);
   }
 
-  updateContingent(){
-
+  updateContingent(id:any,data:any){
+    let params = new HttpParams();
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        params = params.append(key, data[key]);
+      }
+    }
+    return this.http.get(`http://localhost:8081/api/contingents/check`, { params: params });
   }
 
   getContingent(id:any){

@@ -35,6 +35,8 @@ export class ContingentComponent implements OnInit{
 
   visible: boolean = false
 
+  contingentId:any
+
   constructor(private route:ActivatedRoute,
               private serviceContingent:ContingentService,
               private fb:FormBuilder,
@@ -236,6 +238,7 @@ export class ContingentComponent implements OnInit{
   }
 
   updateContingent(id:any){
+    this.contingentId = id
     console.log(id)
     this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Start updating the contingent' })
     this.serviceContingent.getContingent(id).subscribe((data:any) => {
@@ -271,6 +274,8 @@ export class ContingentComponent implements OnInit{
         carPark: [contingent.carParkId, Validators.required],
         facility: [contingent.facilityId, Validators.required],
       })
+
+      console.log(this.contingentForm.value)
     },err => {
       console.log(err)
     })
@@ -278,11 +283,82 @@ export class ContingentComponent implements OnInit{
   }
 
   update(){
+    console.log(this.contingentId)
+    let startDateForNormalDate = new Date(this.contingentForm.value.normalDate[0]);
+    let endDateForNormalDate = new Date(this.contingentForm.value.normalDate[1]);
 
+    let startDateForWeekendDate = new Date(this.contingentForm.value.weekDate[0]);
+    let endDateForWeekendDate = new Date(this.contingentForm.value.weekDate[1]);
+
+    let options:any = { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit' 
+    };
+
+    let formattedStartDateForNormalDate = startDateForNormalDate.toLocaleDateString('en-US', options);
+    let formattedEndDateForNormalDate = endDateForNormalDate.toLocaleDateString('en-US', options);
+
+    let formattedStartDateForWeekendDate = startDateForWeekendDate.toLocaleDateString('en-US', options);
+    let formattedendDateForWeekendDate = endDateForWeekendDate.toLocaleDateString('en-US', options);
+
+    let toStringStartDateForNormalDate = formattedStartDateForNormalDate.toString()
+    let toStringEndDateForNormalDate = formattedEndDateForNormalDate.toString()
+
+    let toStringStartDateForWeekendDate = formattedStartDateForWeekendDate.toString()
+    let toStringEndDateForWeekendDate = formattedendDateForWeekendDate.toString()
+
+    let finalStartDateForNormalDate = toStringStartDateForNormalDate.split("/")[2] + "/" + toStringStartDateForNormalDate.split("/")[0] + "/" + toStringStartDateForNormalDate.split("/")[1]
+    let finalEndDateForNormalDate = toStringEndDateForNormalDate.split("/")[2] + "/" + toStringEndDateForNormalDate.split("/")[0] + "/" + toStringEndDateForNormalDate.split("/")[1]
+
+    let finalStartDateForWeekendDate = toStringStartDateForWeekendDate.split("/")[2] + "/" + toStringStartDateForWeekendDate.split("/")[0] + "/" + toStringStartDateForWeekendDate.split("/")[1]
+    let finalEndDateForWeekendDate = toStringEndDateForWeekendDate.split("/")[2] + "/" + toStringEndDateForWeekendDate.split("/")[0] + "/" + toStringEndDateForWeekendDate.split("/")[1]
+
+    // console.log(finalStartDateForNormalDate)
+    // console.log(finalEndDateForNormalDate)
+
+    // console.log(finalStartDateForWeekendDate)
+    // console.log(finalEndDateForWeekendDate)
+
+    // console.log(this.contingentForm.value.normalDayValue)
+    // console.log(this.contingentForm.value.weekendDayValue)
+    
+    let model = {
+      name: this.contingentForm.value.name,
+      normalValue: this.contingentForm.value.normalDayValue,
+      weekendValue: this.contingentForm.value.weekendDayValue,
+      normalDate: finalStartDateForNormalDate + "-" + finalEndDateForNormalDate,
+      weekendDate: finalStartDateForWeekendDate + "-" + finalEndDateForWeekendDate,
+      carParkId: this.contingentForm.value.carPark,
+      facilityId: this.contingentForm.value.facility
+    }
+
+    console.log(model)
+
+    if(model.normalValue < 0 || model.weekendValue < 0 ){
+      this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'Value should be positive !' })
+      return
+    }
+
+    this.serviceContingent.updateContingent(this.contingentId,model).subscribe((data:any) => {
+      console.log("serviceContinget.updateContingent(model)")
+      console.log(data)
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Contingent was updated' })
+      this.serviceContingent.getAllContingents().subscribe((data:any) => {
+          this.contingents = data
+      },err => {
+        console.log(err)
+      })
+    },err => {
+      console.log(err)
+    })
+
+    this.resetForm()
   }
 
   cancle(){
     this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Cancle updating' })
+    this.contingentForm.reset()
     this.isUpdated = false
   }
 
