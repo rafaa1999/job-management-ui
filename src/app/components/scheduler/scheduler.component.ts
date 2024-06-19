@@ -5,21 +5,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
-interface Job {
-  name: string;
-}
+interface Job { name: string; }
 
-interface Hour {
-  name: string;
-}
+interface Hour { name: string; }
 
-interface Minute {
-  name: string;
-}
+interface Minute { name: string; }
 
-interface Cron {
-  name: string
-}
+interface Cron { name: string }
 
 @Component({
   selector: 'app-scheduler',
@@ -27,60 +19,41 @@ interface Cron {
   styleUrls: ['./scheduler.component.css'],
 })
 export class SchedulerComponent implements OnInit {
+
   checked: boolean = false;
-
   jobNameStatus?: String;
-
   jobRecords: any[] = [];
-
   cal: any;
-
   scheduleExpiration: boolean = false;
-
   isEditMode: boolean = false;
-
   schedulerForm!: FormGroup;
-
   expirationForm!: FormGroup;
-
   // notificationForm!: FormGroup;
-
   jobs: any[] = [];
   selectedJob: Job | undefined;
-
   hours: any[] = [];
   selectedHour: Hour | undefined;
-
   minutes: any[] = [];
   selectedMinute: Minute | undefined;
-
   crons: any[] = [];
   selectedCron: Cron | undefined;
-
   checkedFail:boolean = false
-
   checkedSuccedAfterFailed:boolean = false
-  
   checkedManyFailures:boolean = false
-
   facilityId?:any
-
   carParkId:any = ''
-
   visible: boolean = false;
-
   hoursEx: any[] = [];
   selectedHourEx: Hour | undefined;
-
   minutesEx: any[] = []
   selectedMinuteEx: Minute | undefined;
-
-
+  visibleStart:boolean = false
+  visiblePause:boolean = false
+  visibleStop:boolean = false
 
   constructor(private service: SchedulerService, private fb: FormBuilder,
               private route:ActivatedRoute,private messageService:MessageService
   ) {}
-
 
   ngOnInit(): void {
     this.jobNameStatus = '';
@@ -98,183 +71,49 @@ export class SchedulerComponent implements OnInit {
     ];
 
     this.hours = [
-      { name: '00' },
-      { name: '01' },
-      { name: '02' },
-      { name: '03' },
-      { name: '04' },
-      { name: '05' },
-      { name: '06' },
-      { name: '07' },
-      { name: '08' },
-      { name: '09' },
-      { name: '10' },
-      { name: '12' },
-      { name: '11' },
-      { name: '13' },
-      { name: '14' },
-      { name: '15' },
-      { name: '16' },
-      { name: '17' },
-      { name: '18' },
-      { name: '19' },
-      { name: '20' },
-      { name: '21' },
-      { name: '22' },
-      { name: '23' },
-      { name: '24' },
+      { name: '00' },{ name: '01' },{ name: '02' },{ name: '03' },{ name: '04' },
+      { name: '05' },{ name: '06' },{ name: '07' },{ name: '08' },{ name: '09' },
+      { name: '10' },{ name: '12' },{ name: '13' },{ name: '14' },{ name: '15' },
+      { name: '16' },{ name: '17' },{ name: '18' },{ name: '19' },{ name: '20' },
+      { name: '21' },{ name: '22' },{ name: '23' },{ name: '24' },
     ];
 
     this.minutes = [
-      { name: '01' },
-      { name: '02' },
-      { name: '03' },
-      { name: '04' },
-      { name: '05' },
-      { name: '06' },
-      { name: '07' },
-      { name: '08' },
-      { name: '09' },
-      { name: '10' },
-      { name: '11' },
-      { name: '12' },
-      { name: '13' },
-      { name: '14' },
-      { name: '15' },
-      { name: '16' },
-      { name: '17' },
-      { name: '18' },
-      { name: '19' },
-      { name: '20' },
-      { name: '21' },
-      { name: '22' },
-      { name: '23' },
-      { name: '24' },
-      { name: '25' },
-      { name: '26' },
-      { name: '27' },
-      { name: '28' },
-      { name: '29' },
-      { name: '30' },
-      { name: '31' },
-      { name: '32' },
-      { name: '33' },
-      { name: '34' },
-      { name: '35' },
-      { name: '36' },
-      { name: '37' },
-      { name: '38' },
-      { name: '39' },
-      { name: '40' },
-      { name: '41' },
-      { name: '42' },
-      { name: '43' },
-      { name: '44' },
-      { name: '45' },
-      { name: '46' },
-      { name: '47' },
-      { name: '48' },
-      { name: '49' },
-      { name: '50' },
-      { name: '51' },
-      { name: '52' },
-      { name: '53' },
-      { name: '54' },
-      { name: '55' },
-      { name: '56' },
-      { name: '57' },
-      { name: '58' },
-      { name: '59' },
-      { name: '60' },
+      { name: '01' },{ name: '02' },{ name: '03' },{ name: '04' },{ name: '05' },
+      { name: '06' },{ name: '07' },{ name: '08' },{ name: '09' },{ name: '10' },
+      { name: '11' },{ name: '12' },{ name: '13' },{ name: '14' },{ name: '15' },
+      { name: '16' },{ name: '17' },{ name: '18' },{ name: '19' },{ name: '20' },
+      { name: '21' },{ name: '22' },{ name: '23' },{ name: '24' },{ name: '25' },
+      { name: '26' }, { name: '27' }, { name: '28' }, { name: '29' }, { name: '30' },
+      { name: '31' }, { name: '32' }, { name: '33' }, { name: '34' }, { name: '35' },
+      { name: '36' }, { name: '37' }, { name: '38' }, { name: '39' }, { name: '40' },
+      { name: '41' }, { name: '42' }, { name: '43' }, { name: '44' }, { name: '45' },
+      { name: '46' }, { name: '47' }, { name: '48' }, { name: '49' }, { name: '50' },
+      { name: '51' }, { name: '52' }, { name: '53' }, { name: '54' }, { name: '55' },
+      { name: '56' }, { name: '57' }, { name: '58' }, { name: '59' }, { name: '60' },
     ];
 
     this.hoursEx = [
-      { name: '00' },
-      { name: '01' },
-      { name: '02' },
-      { name: '03' },
-      { name: '04' },
-      { name: '05' },
-      { name: '06' },
-      { name: '07' },
-      { name: '08' },
-      { name: '09' },
-      { name: '10' },
-      { name: '12' },
-      { name: '13' },
-      { name: '14' },
-      { name: '15' },
-      { name: '16' },
-      { name: '17' },
-      { name: '18' },
-      { name: '19' },
-      { name: '20' },
-      { name: '21' },
-      { name: '22' },
-      { name: '23' },
-      { name: '24' },
+      { name: '00' },{ name: '01' },{ name: '02' },{ name: '03' },{ name: '04' },
+      { name: '05' },{ name: '06' },{ name: '07' },{ name: '08' },{ name: '09' },
+      { name: '10' },{ name: '12' },{ name: '13' },{ name: '14' },{ name: '15' },
+      { name: '16' },{ name: '17' },{ name: '18' },{ name: '19' },{ name: '20' },
+      { name: '21' },{ name: '22' },{ name: '23' },{ name: '24' },
     ];
 
     this.minutesEx = [
-      { name: '01' },
-      { name: '02' },
-      { name: '03' },
-      { name: '04' },
-      { name: '05' },
-      { name: '06' },
-      { name: '07' },
-      { name: '08' },
-      { name: '09' },
-      { name: '10' },
-      { name: '12' },
-      { name: '13' },
-      { name: '14' },
-      { name: '15' },
-      { name: '16' },
-      { name: '17' },
-      { name: '18' },
-      { name: '19' },
-      { name: '20' },
-      { name: '21' },
-      { name: '22' },
-      { name: '23' },
-      { name: '24' },
-      { name: '25' },
-      { name: '26' },
-      { name: '27' },
-      { name: '28' },
-      { name: '29' },
-      { name: '30' },
-      { name: '31' },
-      { name: '32' },
-      { name: '33' },
-      { name: '34' },
-      { name: '35' },
-      { name: '36' },
-      { name: '37' },
-      { name: '38' },
-      { name: '39' },
-      { name: '40' },
-      { name: '41' },
-      { name: '42' },
-      { name: '43' },
-      { name: '44' },
-      { name: '45' },
-      { name: '46' },
-      { name: '47' },
-      { name: '48' },
-      { name: '49' },
-      { name: '50' },
-      { name: '51' },
-      { name: '52' },
-      { name: '53' },
-      { name: '54' },
-      { name: '55' },
-      { name: '56' },
-      { name: '57' },
-      { name: '58' },
-      { name: '59' },
-    ];
+      { name: '01' }, { name: '02' }, { name: '03' }, { name: '04' }, { name: '05' },
+      { name: '06' }, { name: '07' }, { name: '08' }, { name: '09' }, { name: '10' },
+      { name: '12' }, { name: '13' }, { name: '14' }, { name: '15' }, { name: '16' },
+      { name: '17' }, { name: '18' }, { name: '19' }, { name: '20' }, { name: '21' },
+      { name: '22' }, { name: '23' }, { name: '24' }, { name: '25' }, { name: '26' },
+      { name: '27' }, { name: '28' }, { name: '29' }, { name: '30' }, { name: '31' },
+      { name: '32' }, { name: '33' }, { name: '34' }, { name: '35' }, { name: '36' },
+      { name: '37' }, { name: '38' }, { name: '39' }, { name: '40' }, { name: '41' },
+      { name: '42' }, { name: '43' }, { name: '44' }, { name: '45' }, { name: '46' },
+      { name: '47' }, { name: '48' }, { name: '49' }, { name: '50' }, { name: '51' },
+      { name: '52' }, { name: '53' }, { name: '54' }, { name: '55' }, { name: '56' },
+      { name: '57' }, { name: '58' }, { name: '59' }, ];
 
     this.schedulerForm = this.fb.group({
       jobName: [''],
@@ -283,7 +122,6 @@ export class SchedulerComponent implements OnInit {
       minute: [''],
       cronExpression: ['0 0/1 * 1/1 * ? *']
     });
-
 
     this.expirationForm = this.fb.group({
       dateEx: [''],
@@ -330,8 +168,6 @@ export class SchedulerComponent implements OnInit {
     );
 
   }
-
-  
 
   resetForm() {
     var dateNow = new Date();
@@ -435,7 +271,6 @@ export class SchedulerComponent implements OnInit {
       jobCheckedManyFailures: jobCheckedManyFailures,
     };
 
-    
     console.log("************");
     console.log(data);
 
@@ -455,7 +290,6 @@ export class SchedulerComponent implements OnInit {
             // alert("Job scheduled successfully.");
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job scheduled successfully.' })
             this.resetForm();
-
           }else if(success.statusCode == ServerResponseCode.JOB_WITH_SAME_NAME_EXIST){
             alert("Job with same name exists, Please choose different name.");
 
@@ -502,6 +336,10 @@ export class SchedulerComponent implements OnInit {
     console.log('Selected date:', this.cal);
   }
 
+  startJob(){
+    this.visibleStart = true
+  }
+
   startJobNow(jobName: any) {
     let data = {
       jobName: jobName,
@@ -514,7 +352,8 @@ export class SchedulerComponent implements OnInit {
           success.data == true
         ) {
           // alert('Job started successfully.');
-          this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job started successfully.' })
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job started successfully.' })
+          this.visibleStart = false
         } else if (success.data == false) {
           if (success.statusCode == ServerResponseCode.ERROR) {
             // alert('Server error while starting job.');
@@ -532,7 +371,6 @@ export class SchedulerComponent implements OnInit {
             this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job no longer exist.' })
           }
         }
-
         //For updating fresh status of all jobs
         this.getJobs();
       },
@@ -541,9 +379,12 @@ export class SchedulerComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error while starting job now.' })
       }
     );
-
     //For updating fresh status of all jobs
     this.getJobs();
+  }
+
+  pause(){
+    this.visiblePause = true
   }
 
   pauseJob(jobName: any) {
@@ -557,7 +398,8 @@ export class SchedulerComponent implements OnInit {
           success.data == true
         ) {
           // alert('Job paused successfully.');
-          this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job paused successfully.' })
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job paused successfully.' })
+          this.visiblePause = false
         } else if (success.data == false) {
           if (
             success.statusCode ==
@@ -573,7 +415,6 @@ export class SchedulerComponent implements OnInit {
         alert('Error while pausing job');
       }
     );
-
     //For updating fresh status of all jobs
     this.getJobs();
   }
@@ -590,7 +431,6 @@ export class SchedulerComponent implements OnInit {
         ) {
           // alert('Job resumed successfully.');
           this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job resumed successfully.' })
-
         } else if (success.data == false) {
           if (
             success.statusCode == ServerResponseCode.JOB_NOT_IN_PAUSED_STATE
@@ -600,7 +440,6 @@ export class SchedulerComponent implements OnInit {
 
           }
         }
-
         //For updating fresh status of all jobs
         this.getJobs();
       },
@@ -608,9 +447,12 @@ export class SchedulerComponent implements OnInit {
         alert('Error while resuming job');
       }
     );
-
     //For updating fresh status of all jobs
     this.getJobs();
+  }
+
+  delete(){
+    this.visible = true
   }
 
   deleteJob(jobName: any) {
@@ -625,7 +467,9 @@ export class SchedulerComponent implements OnInit {
           success.statusCode == ServerResponseCode.SUCCESS &&
           success.data == true
         ) {
-          alert('Job deleted successfully.');
+          // alert('Job deleted successfully.');
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job is deleted.' })
+          this.visible = false
         } else if (success.data == false) {
           if (
             success.statusCode ==
@@ -633,13 +477,11 @@ export class SchedulerComponent implements OnInit {
           ) {
             // alert('Job is already started/completed, so cannot be deleted.');
             this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job is already started/completed, so cannot be deleted.' })
-
           } else if (
             success.statusCode == ServerResponseCode.JOB_DOESNT_EXIST
           ) {
             // alert('Job no longer exist.');
             this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job no longer exist.' })
-
           }
         }
 
@@ -650,6 +492,10 @@ export class SchedulerComponent implements OnInit {
         alert('Error while deleting job');
       }
     );
+  }
+
+  stop(){
+    this.visibleStop = true
   }
 
   stopJob(jobName: any) {
@@ -663,7 +509,8 @@ export class SchedulerComponent implements OnInit {
           success.data == true
         ) {
           // alert('Job stopped successfully.');
-          this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job stopped successfully.' })
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job stopped successfully.' })
+          this.visibleStop = false
         } else if (success.data == false) {
           if (
             success.statusCode == ServerResponseCode.JOB_NOT_IN_RUNNING_STATE
@@ -683,7 +530,6 @@ export class SchedulerComponent implements OnInit {
             this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job no longer exist.' })
           }
         }
-
         //For updating fresh status of all jobs
         this.getJobs();
       },
@@ -707,7 +553,6 @@ export class SchedulerComponent implements OnInit {
       });
     // console.log(this.schedulerForm)
   }
-
 
   updateJob() {
 
@@ -752,12 +597,9 @@ export class SchedulerComponent implements OnInit {
           }else if(success.statusCode == ServerResponseCode.JOB_DOESNT_EXIST){
             // alert("Job no longer exist.");
             this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job no longer exist.' })
-
-          
           }else if(success.statusCode == ServerResponseCode.JOB_NAME_NOT_PRESENT){
             // alert("Please provide job name.");
             this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Please provide job name.' })
-
           }
           this.jobRecords = success.data;
       },
@@ -766,7 +608,6 @@ export class SchedulerComponent implements OnInit {
         this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Error while updating job' })
 
       });
-      
   }
 
   cancelEdit() {
@@ -776,7 +617,6 @@ export class SchedulerComponent implements OnInit {
   }
 
   refreshJob(){
-    //For updating fresh status of all jobs 
     this.getJobs();   
   }
 
@@ -789,7 +629,6 @@ export class SchedulerComponent implements OnInit {
   onDateExpireChange(event:any){
     
   }
-
 
   details(){
     console.log("welcome")
@@ -804,7 +643,6 @@ export class SchedulerComponent implements OnInit {
   handleCheckedSuccedAfterFailed(){
     this.checkedSuccedAfterFailed = this.checkedSuccedAfterFailed
     console.log(this.checkedSuccedAfterFailed)
-
   }
 
   handleCheckedManyFailures(){
@@ -813,4 +651,3 @@ export class SchedulerComponent implements OnInit {
   }
 
 }
-

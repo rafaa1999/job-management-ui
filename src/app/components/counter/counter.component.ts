@@ -63,8 +63,15 @@ export class CounterComponent implements OnInit {
     // console.log(id)
     this.service.simulateAdd(id).subscribe((data:any) => {
       this.counters
-      this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Car Enter Simulation' })
       // this.router.navigateByUrl(this.router.url)
+      this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Car Enter Simulation' })
+      setTimeout(() => {
+        this.service.getAllCountersByFacilityId(this.id).subscribe((data:any) => {
+          this.counters = data
+        }, err => {
+          console.log(err)
+        })
+      }, 300);
     },err => {
       console.log(err)
     })
@@ -75,6 +82,13 @@ export class CounterComponent implements OnInit {
     this.service.simulateDelete(id).subscribe((data:any) => {
       this.counters
       this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Car Exit Simulation' })
+      setTimeout(() => {
+        this.service.getAllCountersByFacilityId(this.id).subscribe((data:any) => {
+          this.counters = data
+        }, err => {
+          console.log(err)
+        })
+      }, 300);
     },err => {
       console.log(err)
     })
