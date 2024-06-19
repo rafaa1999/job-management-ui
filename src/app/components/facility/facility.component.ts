@@ -25,6 +25,10 @@ export class FacilityComponent implements OnInit{
 
   isDeleted?:boolean
 
+  desctiption:any;
+
+  disabled:boolean = false
+
   facilityTypes:any[] = ["PARKING_LOTS","PARKING_GARAGES","PARK_AND_RIDE",
     "VALET_PARKING","SMART_PARKING"
   ]
@@ -64,8 +68,6 @@ export class FacilityComponent implements OnInit{
       facilityType: ['',Validators.required],
       facilityNumber: ['',Validators.required],
       facilityName: ['',Validators.required],
-      // description: [''],
-      // isDeleted: [''],
     })
   }
 
@@ -74,16 +76,44 @@ export class FacilityComponent implements OnInit{
   }
   
   updateFacility(id:any){
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Facility was Updated' })
+
+    console.log(this.isDeleted)
 
     let model = {
       locationId: this.facilityForm.value.locationId,
       facilityType: this.facilityForm.value.facilityType,
       facilityNumber: this.facilityForm.value.facilityNumber,
       facilityName: this.facilityForm.value.facilityName,
+      isDeleted: this.isDeleted,
+      description: this.desctiption
+    }
+    console.log(model.locationId )
+    
+    if(model.locationId === ""  ||
+      model.facilityType === "" ||
+      model.facilityName  === "" ||
+      model.facilityNumber === "" ||
+      model.facilityType === ""
+     ){
+      this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'You Should fill the required input !' })
+      return;
     }
     
-    this.facilityForm.reset()
+    this.service.updateFacility(id,model).subscribe((res:any) => {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Facility was Updated' })
+      this.facilityForm.reset()
+      this.desctiption = ""
+      this.isDeleted = false
+    },error => {
+      console.log(error)
+    })
+
+    this.service.getAllFacilitiesByCarParkId(this.id).subscribe((data:any) => {
+        this.facilities = data
+    },err => {
+      console.log(err)
+    })
+
     console.log(model)
     console.log(id)
     this.visible = false;
@@ -92,6 +122,14 @@ export class FacilityComponent implements OnInit{
   cancleUpdate(){
     this.visible = false;
     this.messageService.add({ severity: 'error', summary: 'Cancle', detail: 'Update Facility was Cancled' })
+  }
+
+  onchangeDesctiption(event:any){
+    this.desctiption = event.target.value
+  }
+ 
+  onchangeIsDisabled(event: any) {
+    const isDisabled = event.checked;
   }
   
 }

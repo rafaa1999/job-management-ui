@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,14 @@ export class FacilityService {
     return this.http.get(`http://localhost:8081/api/facilities/car-park/${id}`);
   }
 
-  updateFacility(id:any){
-    return this.http.get(`http://localhost:8081/api/facilities/update/${id}`);
+  updateFacility(id:any,data:any){
+    let params = new HttpParams();
+      for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        params = params.append(key, data[key]);
+      }
+    }
+    return this.http.get(`http://localhost:8081/api/facilities/update/${id}`,{ params: params });
   }
   
 }

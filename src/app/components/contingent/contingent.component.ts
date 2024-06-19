@@ -166,10 +166,20 @@ export class ContingentComponent implements OnInit{
 
     console.log(model)
 
+    if(model.normalValue < 0 || model.weekendValue < 0 ){
+      this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'Value should be positive !' })
+      return
+    }
+
     this.serviceContingent.saveContingent(model).subscribe((data:any) => {
       console.log("serviceContinget.saveContinget(model)")
       console.log(data)
-      this.messageService.add({ severity: 'info', summary: 'Warning', detail: 'Contingent was added' })
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Contingent was added' })
+      this.serviceContingent.getAllContingents().subscribe((data:any) => {
+          this.contingents = data
+      },err => {
+        console.log(err)
+      })
     },err => {
       console.log(err)
     })
