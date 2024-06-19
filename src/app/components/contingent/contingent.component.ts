@@ -290,6 +290,11 @@ export class ContingentComponent implements OnInit{
     console.log(id)
     this.serviceContingent.deleteContingent(id).subscribe((data:any) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Contingent was deleted' })
+      this.serviceContingent.getAllContingents().subscribe((data:any) => {
+        this.contingents = data
+    },err => {
+      console.log(err)
+    })
     },err => {
       console.log(err)
     })
@@ -298,7 +303,6 @@ export class ContingentComponent implements OnInit{
   
   delete(){
     this.visible = true
-
   }
 
   contingentNameChange(event:any){
