@@ -17,6 +17,10 @@ export class JobDetailsComponent implements OnInit{
   jobName:any
   items?: MenuItem[];
   histories:any[] = []
+  visibleDelete: boolean = false
+  visiblePause: boolean = false
+  visibleResume: boolean = false
+  jobState?:String
 
   constructor(private service:SchedulerService,private router:ActivatedRoute,
     private messageService:MessageService,private detailService:JobDetailsService
@@ -115,5 +119,80 @@ export class JobDetailsComponent implements OnInit{
     })
   }
   
-}
+  deleteJ(){
+    this.visibleDelete = true
+  }
 
+  pauseJ(){
+    this.visiblePause = true
+  }
+
+  deleteJob(){
+    console.log("delete job")
+    let data = {
+      jobName: this.jobName,
+    };
+    this.service.deleteJob(data).subscribe(
+      (success: any) => {
+        if (
+          success.statusCode == ServerResponseCode.SUCCESS &&
+          success.data == true
+        ) {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job is deleted.' })
+          this.visibleDelete = false
+        } else if (success.data == false) {
+          if (
+            success.statusCode ==
+            ServerResponseCode.JOB_ALREADY_IN_RUNNING_STATE
+          ) {
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job is already started/completed, so cannot be deleted.' })
+          } else if (
+            success.statusCode == ServerResponseCode.JOB_DOESNT_EXIST
+          ) {
+            this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job no longer exist.' })
+          }
+        }
+        this.getJobs();
+      },
+      (err) => {
+        alert('Error while deleting job');
+      }
+    );
+  }
+
+  pauseJob(){
+    console.log("pause job")
+    let data = {
+      jobName: this.jobName,
+    };
+    this.service.pauseJob(data).subscribe(
+        (success: any) => {
+          if (
+            success.statusCode == ServerResponseCode.SUCCESS &&
+            success.data == true
+          ) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job paused successfully.' })
+            this.visiblePause = false
+          } else if (success.data == false) {
+            if (
+              success.statusCode ==
+              ServerResponseCode.JOB_ALREADY_IN_RUNNING_STATE
+            ) {
+              this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Job already started/completed, so cannot be paused.' })
+            }
+          }
+          this.getJobs();
+        },
+        (err) => {
+          alert('Error while pausing job');
+        }
+      );
+  }
+
+  getJobState(){
+    let data = {
+      jobName: this.jobName,
+    }
+  }
+
+}
