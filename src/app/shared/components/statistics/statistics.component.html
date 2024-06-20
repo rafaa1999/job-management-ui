@@ -1,3 +1,29 @@
-<div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4" >
-    <p-chart type="bar" [data]="data" [options]="options" />
+
+<div>
+
+    <div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4" >
+        <p-chart type="bar" [data]="data" [options]="options" />
+    </div>
+
+    <div style="border: 1px solid #eee; border-radius: 6px;" class="p-4 my-4">
+        <p-table [value]="jobHistories" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>jobName</th>
+                    <th>previousFireTime</th>
+                    <th>scheduledFireTime</th>
+                    <th>nextFireTime</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-history>
+                <tr>
+                    <td>{{ history.jobName }}</td>
+                    <td>{{ history.previousFireTime }}</td>
+                    <td>{{ history.scheduledFireTime }}</td>
+                    <td>{{ history.nextFireTime }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
 </div>

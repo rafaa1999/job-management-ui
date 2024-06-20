@@ -28,6 +28,9 @@ export class DashboardComponent implements OnInit {
   successfulJob: number = 0
 
   failedJob: number = 0
+  
+  carParkId:any
+
 
   constructor(private service:SchedulerService,
               private translateService: TranslateService
@@ -53,32 +56,32 @@ export class DashboardComponent implements OnInit {
     ]
 
     const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColor = documentStyle.getPropertyValue('--text-color');
 
-        this.data = {
-            labels: ['Enabled Job', 'Disabled Job', 'Successful Job', 'Failed Job'],
-            // labels: ['A', 'B', 'C'],
-            datasets: [
-                {
-                    // data: [540, 325, 702],
-                    data: [40, 10, 20,30],
-                    // data: [this.enabledJob, this.disabledJob, this.successfulJob],
-                    backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500'),documentStyle.getPropertyValue('--red-500')],
-                    hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400'),documentStyle.getPropertyValue('--red-400')]
-                }
-            ]
-        };
+    this.data = {
+        labels: ['Enabled Job', 'Disabled Job', 'Successful Job', 'Failed Job'],
+        // labels: ['A', 'B', 'C'],
+        datasets: [
+            {
+                // data: [540, 325, 702],
+                data: [40, 10, 20,30],
+                // data: [this.enabledJob, this.disabledJob, this.successfulJob],
+                backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500'),documentStyle.getPropertyValue('--red-500')],
+                hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400'),documentStyle.getPropertyValue('--red-400')]
+            }
+        ]
+    };
 
-        this.options = {
-            plugins: {
-                legend: {
-                    labels: {
-                        usePointStyle: true,
-                        color: textColor
-                    }
+    this.options = {
+        plugins: {
+            legend: {
+                labels: {
+                    usePointStyle: true,
+                    color: textColor
                 }
             }
-        };
+        }
+    };
 
   }
 

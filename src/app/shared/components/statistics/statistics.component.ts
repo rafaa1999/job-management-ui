@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JobDetailsService } from 'src/app/services/job-details.service';
 
 @Component({
   selector: 'app-statistics',
@@ -9,9 +10,16 @@ export class StatisticsComponent implements OnInit{
 
   data: any;
 
-    options: any;
+  options: any;
 
-    ngOnInit() {
+  jobHistories:any[] = []
+
+  constructor(private jobHistoryService:JobDetailsService){}
+
+  ngOnInit() {
+
+        this.getJobHisotry()
+
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
@@ -78,6 +86,15 @@ export class StatisticsComponent implements OnInit{
                 }
             }
         };
+    }
+
+    getJobHisotry(){
+        this.jobHistoryService.getAllHistories().subscribe((data:any) => {
+            this.jobHistories = data
+            console.log(data)
+        },err => {
+            console.log(err)
+        })
     }
 
 }
