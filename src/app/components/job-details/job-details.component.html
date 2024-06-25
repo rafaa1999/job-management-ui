@@ -135,7 +135,13 @@
 </div>
 
 <div class="my-4 p-4 m-4" style="border: 1px solid #eee; border-radius: 5px;">
-    <p-table [value]="histories" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="histories" 
+    styleClass="p-datatable-striped"    
+    selectionMode="single"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th>jobName</th>

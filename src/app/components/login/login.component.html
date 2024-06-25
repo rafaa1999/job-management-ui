@@ -6,10 +6,13 @@
     </div> -->
 
             <form class="flex flex-column gap-3" [formGroup]="tenantForm">
+                <p-toast />
                 <h2 class="text-center">Sheidt & Bachmann</h2>
                 <label style="font-size: 14px;">Tenant :</label>
                 <input type="text" formControlName="tenantId" pInputText [(ngModel)]="tenantId"/>
-                <p-button class="ml-1" label="Submit" (click)="login()" icon="pi pi-key"/>
+                <div>
+                    <p-button class="ml-1" label="Submit" (click)="login()" icon="pi pi-key"/>
+                </div>
             </form>
 
 </div>

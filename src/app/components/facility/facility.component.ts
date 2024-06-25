@@ -29,6 +29,8 @@ export class FacilityComponent implements OnInit{
 
   disabled:boolean = false
 
+  visibleAdd:boolean = false
+
   facilityTypes:any[] = ["PARKING_LOTS","PARKING_GARAGES","PARK_AND_RIDE",
     "VALET_PARKING","SMART_PARKING"
   ]
@@ -131,5 +133,12 @@ export class FacilityComponent implements OnInit{
   onchangeIsDisabled(event: any) {
     const isDisabled = event.checked;
   }
+
+  add(){
+    this.visibleAdd = true
+  }
   
+  addFacility(){
+    
+  }
 }

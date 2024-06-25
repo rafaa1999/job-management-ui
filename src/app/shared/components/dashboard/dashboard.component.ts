@@ -3,6 +3,7 @@ import { ServerResponseCode } from 'src/app/components/scheduler/response.code.c
 import { SchedulerService } from 'src/app/components/scheduler/scheduler.service';
 
 import {TranslateService} from "@ngx-translate/core"
+import { JobDetailsService } from 'src/app/services/job-details.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,9 +32,11 @@ export class DashboardComponent implements OnInit {
   
   carParkId:any
 
+  jobHistories:any[] = []
 
   constructor(private service:SchedulerService,
-              private translateService: TranslateService
+              private translateService: TranslateService,
+              private jobHistoryService:JobDetailsService
   ){
     const userLang = navigator.language || 'en';
     console.log(userLang)
@@ -47,6 +50,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
 
     this.getJobs();
+
+    this.getJobHisotry()
 
     this.products = [
       {code: "Cronjob execution: Successful", name: "Today at 11:15:01 AM", category: "phone", quantity:23},
@@ -116,6 +121,21 @@ export class DashboardComponent implements OnInit {
   jobDetail(jobjobName:any){
     console.log(jobjobName)
   }
+
+  getJobHisotry(){
+    this.jobHistoryService.getAllHistories().subscribe((data:any) => {
+        this.jobHistories = data
+        // console.log(data)
+        this.jobHistories.map(job => {
+          if(!job.jobName.includes("expiration")){
+            this.successfulJob+=1
+          }
+        })
+    },err => {
+        console.log(err)
+    })
+}
+
 
 
 }
