@@ -119,15 +119,16 @@ export class FacilityComponent implements OnInit{
       this.facilityForm.reset()
       this.desctiption = ""
       this.isDeleted = false
+      this.service.getAllFacilitiesByCarParkId(this.id).subscribe((data:any) => {
+        this.facilities = data
+      },err => {
+        console.log(err)
+      })
     },error => {
       console.log(error)
     })
 
-    this.service.getAllFacilitiesByCarParkId(this.id).subscribe((data:any) => {
-        this.facilities = data
-    },err => {
-      console.log(err)
-    })
+    
 
     console.log(model)
     console.log(id)
@@ -181,13 +182,13 @@ export class FacilityComponent implements OnInit{
     // })
     console.log(this.id)
     this.service.addFacility(this.id,model).subscribe((data:any) => {
-      console.log("welcome")
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Facility was added' })
     },err => {
       console.log(err)
     })
 
     console.log(model)
-    // this.visibleAdd = false;
+    this.visibleAdd = false;
   }
 
   showDelete(){
@@ -196,15 +197,25 @@ export class FacilityComponent implements OnInit{
 
   cancleDelete(){
     this.deletebtn = false
+    this.messageService.add({ severity: 'error', summary: 'Cancle', detail: 'Delete Facility was Cancled' })
   }
 
   deleteFacility(id:any){
     console.log("welcome to get more")
-    // this.service.deleteFacility(id).subscribe((data:any) => {
-    //   console.log("deleted")
-    // },err => {
-    //   console.log(err)
-    // })
+    this.service.deleteFacility(id).subscribe((data:any) => {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Facility was Deleted' })
+    this.deletebtn = false
+    this.service.getAllFacilitiesByCarParkId(this.id).subscribe((data:any) => {
+      this.facilities = data
+    },err => {
+      console.log(err)
+    })
+    },err => {
+      console.log(err)
+    })
+
+   
+    
   }
 
 }
