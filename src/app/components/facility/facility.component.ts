@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FacilityService } from 'src/app/services/facility.service';
 import { MenuItem, MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-facility',
@@ -23,13 +23,17 @@ export class FacilityComponent implements OnInit{
 
   visible: boolean = false;
 
-  isDeleted?:boolean
+  isDeleted?:boolean = false
 
-  desctiption:any;
+  desctiption:any = '';
 
   disabled:boolean = false
 
   visibleAdd:boolean = false
+
+  facilityAddForm!: FormGroup
+
+  deletebtn:boolean = false
 
   facilityTypes:any[] = ["PARKING_LOTS","PARKING_GARAGES","PARK_AND_RIDE",
     "VALET_PARKING","SMART_PARKING"
@@ -70,6 +74,15 @@ export class FacilityComponent implements OnInit{
       facilityType: ['',Validators.required],
       facilityNumber: ['',Validators.required],
       facilityName: ['',Validators.required],
+    })
+    this.facilityAddForm = this.fb.group({
+      locationId: ['',Validators.required],
+      facilityType: ['',Validators.required],
+      facilityNumber: ['',Validators.required],
+      facilityName: ['',Validators.required],
+      reservedCapacity: ['',Validators.required],
+      nonReservedCapacity: ['',Validators.required],
+      preBooked: ['',Validators.required]
     })
   }
 
@@ -140,5 +153,58 @@ export class FacilityComponent implements OnInit{
   
   addFacility(){
     
+    let model = {
+      locationId: this.facilityAddForm.value.locationId,
+      facilityType: this.facilityAddForm.value.facilityType,
+      facilityNumber: this.facilityAddForm.value.facilityNumber,
+      facilityName: this.facilityAddForm.value.facilityName,
+      reservedCapacity:this.facilityAddForm.value.reservedCapacity,
+      nonReservedCapacity:this.facilityAddForm.value.nonReservedCapacity,
+      preBooked:this.facilityAddForm.value.preBooked
+    }
+    // console.log(model.locationId )
+    
+    // if(model.locationId === ""  ||
+    //   model.facilityType === "" ||
+    //   model.facilityName  === "" ||
+    //   model.facilityNumber === "" ||
+    //   model.facilityType === ""
+    //  ){
+    //   this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'You Should fill the required input !' })
+    //   return;
+    // }
+    
+    // this.service.getAllFacilitiesByCarParkId(this.id).subscribe((data:any) => {
+    //     this.facilities = data
+    // },err => {
+    //   console.log(err)
+    // })
+    console.log(this.id)
+    this.service.addFacility(this.id,model).subscribe((data:any) => {
+      console.log("welcome")
+    },err => {
+      console.log(err)
+    })
+
+    console.log(model)
+    // this.visibleAdd = false;
   }
+
+  showDelete(){
+    this.deletebtn = true
+  }
+
+  cancleDelete(){
+    this.deletebtn = false
+  }
+
+  deleteFacility(id:any){
+    console.log("welcome to get more")
+    // this.service.deleteFacility(id).subscribe((data:any) => {
+    //   console.log("deleted")
+    // },err => {
+    //   console.log(err)
+    // })
+  }
+
 }

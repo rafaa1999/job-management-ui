@@ -39,26 +39,63 @@
         <div>
             <button pButton type="button" label="Add Facility" (click)="add()"></button>
             <p-dialog header="Add New Facility" [modal]="true" [(visible)]="visibleAdd" [style]="{ width: '35rem' }">
-                <span class="p-text-secondary block mb-5">add new facility.</span>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <label for="username" class="font-semibold w-6rem">facilityName</label>
-                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
-                </div>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <label for="username" class="font-semibold w-6rem">facilityNumber</label>
-                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
-                </div>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <label for="username" class="font-semibold w-6rem">locationId</label>
-                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
-                </div>
-                <div class="flex align-items-center gap-3 mb-5">
-                    <label for="email" class="font-semibold w-6rem">facilityType    </label>
-                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
-                </div>
-                <div class="flex justify-content-end gap-2">
-                    <p-button label="Cancel" severity="secondary" (click)="addFacility()" />
-                    <p-button label="Save" (click)="visibleAdd = false" />
+                <!-- <span class="p-text-secondary block mb-5" style="opacity: 0.6;">Facility.</span> -->
+                <h4 style="opacity: 0.6;">Facility</h4>
+                <form [formGroup]="facilityAddForm">
+                    <div class="flex align-items-center gap-4 mb-3">
+                        <label for="username" class="font-semibold w-6rem">facilityName</label>
+                        <input pInputText id="username" formControlName="facilityName" class="flex-auto" autocomplete="off" />
+                    </div>
+                    <div class="flex align-items-center gap-4 mb-3">
+                        <label for="username" class="font-semibold w-6rem">facilityNumber</label>
+                        <input pInputText id="username" formControlName="facilityNumber" class="flex-auto" autocomplete="off" />
+                    </div>
+                    <div class="flex align-items-center gap-4 mb-3">
+                        <label for="username" class="font-semibold w-6rem">locationId</label>
+                        <input pInputText id="username" formControlName="locationId" class="flex-auto" autocomplete="off" />
+                    </div>
+                    <div class="flex align-items-center gap-4 mb-5">
+                        <label for="email" class="font-semibold w-6rem">facilityType</label>
+                        <!-- <input pInputText id="email" formControlName="facilityType" class="flex-auto" autocomplete="off" /> -->
+                        <select formControlName="facilityType"><option *ngFor="let type of facilityTypes">{{type}}</option></select>
+                    </div>
+                    <hr/>
+                    <div class="flex flex-column  gap-2">
+                        <div>
+                            <h4 style="opacity: 0.6;">Counters</h4>
+                        </div>
+                        <div class="flex align-items-center gap-2 mb-5">
+                            <label for="email" class="font-semibold w-6rem">Reserved-Capacity</label>
+                            <!-- <input pInputText id="email" formControlName="facilityType" class="flex-auto" autocomplete="off" /> -->
+                            <p-inputNumber 
+                                formControlName="reservedCapacity"
+                                mode="decimal" 
+                                inputId="withoutgrouping" 
+                                [useGrouping]="false" /> 
+                        </div>
+                        <div class="flex align-items-center gap-2 mb-5">
+                            <label for="email" class="font-semibold w-6rem">Non-Reserved-Capacity</label>
+                            <!-- <input pInputText id="email" formControlName="facilityType" class="flex-auto" autocomplete="off" /> -->
+                            <p-inputNumber 
+                                formControlName="nonReservedCapacity"
+                                mode="decimal" 
+                                inputId="withoutgrouping" 
+                                [useGrouping]="false" /> 
+                        </div>
+                        <div class="flex align-items-center gap-2 mb-5">
+                            <label for="email" class="font-semibold w-6rem">Pre-Booked-Capacity</label>
+                            <!-- <input pInputText id="email" formControlName="facilityType" class="flex-auto" autocomplete="off" /> -->
+                            <p-inputNumber 
+                                formControlName="preBooked"
+                                mode="decimal" 
+                                inputId="withoutgrouping" 
+                                [useGrouping]="false" /> 
+                        </div>
+                    </div>
+            </form>
+                <div class="flex justify-content-end gap-2 mt-3">
+                    <p-button label="Cancel" severity="secondary" (click)="visibleAdd = false" />
+                    <p-button label="Save" (click)="addFacility()" />
                 </div>
             </p-dialog>
         </div>
@@ -96,7 +133,8 @@
                     <td>{{facility.facilityType}}</td>
                     <td>{{facility.locationId}}</td>
                     <td>
-                        <div>
+                        <div class="flex gap-2">
+                            <div>
                             <p-toast />
                             <!-- <p-button (click)="updateFacility(facility.id)" label="Show" /> -->
                             <button class="btn" (click)="showUpdate()">Update</button>
@@ -151,9 +189,20 @@
                                     <p-button label="Cancel" severity="secondary" (click)="cancleUpdate()"  />
                                     <p-button label="Update" (click)="updateFacility(facility.id)"/>
                                 </div>
-                                
                             </p-dialog>
                         </div>
+                        <div>
+                            <p-toast />
+                            <button class="btn" (click)="showDelete()">Delete</button>
+                            <p-dialog header="Delete Facility" [modal]="true" [(visible)]="deletebtn" [style]="{ width: '35rem' }">
+                                <div class="flex justify-content-end gap-2">
+                                    <p-button label="Cancel" severity="secondary" (click)="cancleDelete()"  />
+                                    <p-button label="Delete" (click)="deleteFacility(facility.id)"/>
+                                </div>
+                            </p-dialog>
+                        </div>
+                        </div>
+
                     </td>
                     <!-- <td>{{facility.description}}</td> -->
                     <!-- <td>{{facility.deleted}}</td> -->

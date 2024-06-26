@@ -26,5 +26,21 @@ export class FacilityService {
     return this.http.get(`http://localhost:8081/api/facilities/update/${id}`,{ params: params });
   }
   
+  addFacility(id:any,data:any){
+    let params = new HttpParams();
+      for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        params = params.append(key, data[key]);
+      }
+    }
+    return this.http.get(`http://localhost:8081/api/facilities/add/${id}`,{ params: params });
+  }
+
+  deleteFacility(id:any){
+    return this.http.get(`http://localhost:8081/api/facilities/delete/${id}`);
+  }
+
+
+
 }
 
